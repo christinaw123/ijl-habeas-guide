@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/Proxima-Nova-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/Proxima-Nova-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/Proxima-Nova-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* ===== Design tokens from Figma ===== */
+:root {
+  /* keep app fixed light mode to match Figma exactly */
+  --background: #ffffff;
+  --foreground: #2F2E2E;
+
+  /* brand + UI tokens from your Figma CSS */
+  --ijl-navy: #002E5D;
+  --ijl-title: #001F3C;
+  --ijl-accent: #5A5A8A;
+  --ijl-muted: #9292B1;
+  --ijl-border: #E6E7E8;
+  --ijl-cta-bg: #F2F4FA;
+
+  /* font tokens */
+  --font-proxima: "Proxima Nova", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  /* Oswald variable is set by next/font (layout.tsx) as --font-oswald */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Override Tailwind v4 font tokens to match Figma */
+  --font-sans: var(--font-proxima);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+
+/* Force fixed light look (Figma) */
+html, body {
+  height: 100%;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* explicit Oswald helper: uses the CSS variable injected by next/font */
+.oswald {
+  font-family: var(--font-oswald) !important;
+}
+
+.ijl-title-color {
+  color: var(--ijl-title) !important; 
+}
+
