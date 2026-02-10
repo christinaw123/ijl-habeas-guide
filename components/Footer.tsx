@@ -2,37 +2,25 @@ import Container from "@/components/Container";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#002E5D]">
-      {/* Tool Footer */}
-      <div className="py-6">
-        <Container>
-          <div className="flex flex-col items-center gap-6">
-          <a
-  href="#"
-  className="h-[40px] w-[166px] bg-[#5A5A8A] px-[24px] py-[12px] flex items-center justify-center"
->
-  <span className="font-[var(--font-proxima)] text-[16px] font-normal leading-[16px] text-white whitespace-nowrap">
-    Return to Main Site
-  </span>
-</a>
+    <footer className="bg-[#00274c] py-8 px-4 w-full">
+      <div className="mx-auto flex flex-col gap-6">
+        <p className="font-['Inter',sans-serif] font-normal text-[14px] leading-[20px] tracking-[-0.1504px] text-white text-center opacity-90">
+          This tool provides general legal information, not legal advice.
+        </p>
 
-            <p className="w-full text-center font-[var(--font-proxima)] font-normal text-[14px] leading-[20px] text-[#9292B1]">
-              This tool provides general legal information, not legal advice.
-            </p>
-          </div>
-        </Container>
-      </div>
+        <p className="font-['Inter',sans-serif] font-normal text-[12px] leading-[18px] tracking-[-0.1504px] text-white text-center opacity-75 italic">
+          We've made this tool available in multiple languages using automated translation. Translations may not be perfect. If something doesn't make sense, try switching to English or get help in your language.
+        </p>
 
-      {/* Mobile Footer */}
-      <div className="py-4">
-        <Container>
-          <div className="flex flex-col items-center gap-6">
-            <div className="w-full border-t border-[#9292B1]" />
-            <p className="w-full text-center font-[var(--font-proxima)] font-normal text-[14px] leading-[20px] text-[#9292B1]">
-              © 2025 Immigrant Justice Lab at University of Michigan + Michigan Immigrant Rights Center (MIRC)
-            </p>
-          </div>
-        </Container>
+        <p className="font-['Inter',sans-serif] font-normal text-[14px] leading-[20px] tracking-[-0.1504px] text-white text-center opacity-90">
+          Legal or community organization? <a href="#" className="font-bold underline hover:text-blue-200">Get listed here</a>
+        </p>
+        
+        <div className="h-px bg-white/20 w-full" />
+        
+        <p className="font-['Inter',sans-serif] font-normal text-[14px] leading-[20px] tracking-[-0.1504px] text-white text-center opacity-90">
+          © 2026 Immigrant Justice Lab at University of Michigan + Michigan Immigrant Rights Center (MIRC)
+        </p>
       </div>
     </footer>
   );

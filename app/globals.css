@@ -11,7 +11,7 @@
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/Proxima-Nova-Semibold.woff2") format("woff2");
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -19,7 +19,7 @@
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/Proxima-Nova-Bold.woff2") format("woff2");
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
@@ -40,9 +40,10 @@
   --ijl-cta-bg: #F2F4FA;
 
   /* font tokens */
-  --font-proxima: "Proxima Nova", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-  /* Oswald variable is set by next/font (layout.tsx) as --font-oswald */
+  --font-proxima: "Proxima Nova", ui-sans-serif, system-ui, -apple-system,
+  "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji",
+  "Segoe UI Emoji";
+
 }
 
 @theme inline {
