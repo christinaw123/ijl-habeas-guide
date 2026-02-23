@@ -38,6 +38,7 @@ export function useFlowState() {
       localStorage.removeItem(FLOW_STORAGE_KEY);
     } catch {}
     setFlow(defaultFlowState);
+    setHydrated(true);
   };
 
   return { flow, setFlow, hydrated, reset };

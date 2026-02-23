@@ -3,9 +3,11 @@
 import Container from "@/components/Container";
 import Link from "next/link";
 import { useFlowState } from "@/lib/flow/useFlowState";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function KnownResults() {
   const { flow } = useFlowState();
+  const { t } = useLanguage();
 
   return (
     <div className="bg-white">
@@ -16,8 +18,10 @@ export default function KnownResults() {
               href="/detainee/step-3"
               className="inline-flex items-center gap-3 font-[var(--font-proxima)] text-[14px] leading-[20px] text-[#2F2E2E]"
             >
-              <span aria-hidden className="text-lg">←</span>
-              Back
+              <span aria-hidden className="text-lg">
+                ←
+              </span>
+              {t("resultsKnown.back")}
             </Link>
           </div>
         </Container>
@@ -26,11 +30,12 @@ export default function KnownResults() {
       <Container>
         <div className="px-4 py-8">
           <h1 className="oswald font-medium text-[32px] leading-[47px] ijl-title-color text-center">
-            Resources for {flow.arrest.state || "your state"}
+            {t("resultsKnown.titlePrefix")}{" "}
+            {flow.arrest.state || t("resultsKnown.defaultState")}
           </h1>
 
           <p className="font-[var(--font-proxima)] mt-4 text-center">
-            Placeholder results page for users who provided detained location.
+            {t("resultsKnown.placeholder")}
           </p>
         </div>
       </Container>

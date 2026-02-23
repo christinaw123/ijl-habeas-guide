@@ -4,10 +4,10 @@ import LanguageToggle from "@/components/LanguageToggle";
 
 export default function Header() {
   return (
-    <header className="w-full bg-white border-b border-[#5A5A8A]">
+    <header className="w-full bg-white border-b border-[var(--ijl-border)]">
       {/* Left-aligned wrapper (NOT centered) */}
       <div className="w-full px-4">
-        <div className="h-[72px] w-full flex items-center">
+        <div className="mx-auto max-w-2xl h-[72px] flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="block w-[122px] h-[40px] relative">
             <Image

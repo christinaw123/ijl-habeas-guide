@@ -1,4 +1,3 @@
-// app/detainee/step-1/page.tsx
 "use client";
 
 import Container from "@/components/Container";
@@ -7,11 +6,22 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { COUNTIES_BY_STATE, STATES } from "@/lib/flow/mockData";
+import { ArrowLeft, MapPin } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Step1ArrestLocationPage() {
   const router = useRouter();
   const { flow, setFlow, hydrated } = useFlowState();
   const [touched, setTouched] = useState(false);
+  const { t } = useLanguage();
 
   const counties = useMemo(() => {
     return flow.arrest.state ? COUNTIES_BY_STATE[flow.arrest.state] ?? [] : [];
@@ -19,7 +29,7 @@ export default function Step1ArrestLocationPage() {
 
   if (!hydrated) return null;
 
-  const stateValid = flow.arrest.state.trim().length > 0;
+  const stateValid = (flow.arrest.state ?? "").trim().length > 0;
 
   const onContinue = () => {
     setTouched(true);
@@ -29,97 +39,128 @@ export default function Step1ArrestLocationPage() {
 
   return (
     <div className="bg-white">
-      <div className="border-b border-[#5A5A8A]">
+      {/* Back row */}
+      <div className="border-b border-[var(--ijl-border)]">
         <Container>
-          <div className="py-6">
+          <div className="mx-auto max-w-2xl py-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-3 font-[var(--font-proxima)] text-[14px] leading-[20px] text-[#2F2E2E]"
+              className="inline-flex items-center gap-2 rounded-md px-2 py-2 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] hover:bg-[var(--ijl-cta-bg)]"
             >
-              <span aria-hidden className="text-lg">←</span>
-              Back
+              <ArrowLeft className="h-4 w-4" />
+              {t("step1.back")}
             </Link>
           </div>
         </Container>
       </div>
 
-      <Container>
-        <div className="flex flex-col items-center gap-3 px-4 py-6">
-          <h1 className="oswald font-medium text-[32px] leading-[47px] text-center ijl-title-color">
-            Where was the person arrested?
-          </h1>
+      <main className="px-4 py-8 sm:py-12">
+        <div className="mx-auto max-w-2xl">
+          {/* Hero */}
+          <div className="text-center mb-8">
+            <MapPin className="mx-auto mb-4 h-12 w-12 text-[var(--ijl-accent)]" />
+            <h1 className="oswald text-[32px] font-medium text-[var(--ijl-title)] mb-3">
+              {t("step1.title")}
+            </h1>
+            <p className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)]">
+              {t("step1.subtitle")}
+            </p>
+          </div>
 
-          <p className="font-[var(--font-proxima)] font-normal text-[16px] leading-[21px] text-center text-[#000000] px-[10px] py-4 max-w-[600px]">
-            Select the state (required) and county (optional) where the arrest occurred.
-          </p>
-
-          <div className="mt-6 w-full max-w-[640px] bg-white border border-[#E6E7E8] rounded-[10px] shadow-[0px_1px_3px_rgba(0,0,0,0.12)] p-6">
-            <label className="block font-[var(--font-proxima)] font-semibold text-[#2F2E2E]">
-              State <span className="text-[#5A5A8A]">(Required)</span>
-            </label>
-
-            <select
-              className="mt-2 w-full rounded-[10px] bg-[#F3F5F7] px-4 py-3 font-[var(--font-proxima)]"
-              value={flow.arrest.state}
-              onChange={(e) => {
-                const nextState = e.target.value;
-                setFlow((prev) => ({
-                  ...prev,
-                  arrest: { state: nextState, county: null },
-                }));
-              }}
-            >
-              <option value="">Select a state</option>
-              {STATES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-
-            {touched && !stateValid && (
-              <div className="mt-2 text-sm font-[var(--font-proxima)] text-red-600">
-                Please select a state to continue.
-              </div>
-            )}
-
-            {flow.arrest.state && (
-              <div className="mt-6">
-                <label className="block font-[var(--font-proxima)] font-semibold text-[#2F2E2E]">
-                  County <span className="text-[#5A5A8A]">(Optional)</span>
+          {/* Card */}
+          <div className="rounded-lg border border-[var(--ijl-border)] bg-white p-6 sm:p-8 shadow-[0px_1px_3px_rgba(0,0,0,0.12)]">
+            <div className="space-y-6">
+              {/* State */}
+              <div className="space-y-2">
+                <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
+                  {t("step1.state.label")}
                 </label>
 
-                <select
-                  className="mt-2 w-full rounded-[10px] bg-[#F3F5F7] px-4 py-3 font-[var(--font-proxima)]"
-                  value={flow.arrest.county ?? "__unknown__"}
-                  onChange={(e) => {
-                    const v = e.target.value;
+                <Select
+                  value={flow.arrest.state ?? ""}
+                  onValueChange={(value) => {
                     setFlow((prev) => ({
                       ...prev,
-                      arrest: { ...prev.arrest, county: v === "__unknown__" ? null : v },
+                      arrest: { state: value, county: null },
                     }));
                   }}
                 >
-                  <option value="__unknown__">I don’t know the county</option>
-                  {counties.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
+                  <SelectTrigger aria-label={t("step1.state.label")}>
+                    <SelectValue placeholder={t("step1.state.placeholder")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {STATES.map((s) => (
+                      <SelectItem key={s} value={s}>
+                        {s}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-            <button
-              type="button"
-              onClick={onContinue}
-              className="mt-8 w-full rounded-[10px] bg-[#0A0A14] py-3 font-[var(--font-proxima)] font-semibold text-white"
-            >
-              Continue
-            </button>
+                {touched && !stateValid && (
+                  <div className="text-sm font-[var(--font-proxima)] text-red-600">
+                    {t("step1.state.error")}
+                  </div>
+                )}
+              </div>
+
+              {/* County (only show once state selected) */}
+              {flow.arrest.state && (
+                <div className="space-y-2">
+                  <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
+                    {t("step1.county.label")}{" "}
+                    <span className="ml-1 font-normal text-[var(--ijl-muted)]">
+                      {t("step1.county.optional")}
+                    </span>
+                  </label>
+
+                  <Select
+                    value={flow.arrest.county ?? "__unknown__"}
+                    onValueChange={(value) => {
+                      setFlow((prev) => ({
+                        ...prev,
+                        arrest: {
+                          ...prev.arrest,
+                          county: value === "__unknown__" ? null : value,
+                        },
+                      }));
+                    }}
+                  >
+                    <SelectTrigger aria-label={t("step1.county.label")}>
+                      <SelectValue placeholder={t("step1.county.placeholder")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="__unknown__">
+                        {t("step1.county.unknown")}
+                      </SelectItem>
+                      {counties.map((c) => (
+                        <SelectItem key={c} value={c}>
+                          {c}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              {/* Continue */}
+              <button
+                type="button"
+                onClick={onContinue}
+                disabled={!stateValid}
+                className={[
+                  "h-12 w-full rounded-[10px] font-[var(--font-proxima)] font-semibold text-white",
+                  stateValid
+                    ? "bg-[var(--ijl-accent)] hover:opacity-95"
+                    : "bg-[#B9B9C9] cursor-not-allowed",
+                ].join(" ")}
+              >
+                {t("step1.continue")}
+              </button>
+            </div>
           </div>
         </div>
-      </Container>
+      </main>
     </div>
   );
 }

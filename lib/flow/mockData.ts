@@ -1,5 +1,6 @@
-export const STATES = ["Colorado", "Florida", "Hawaii"] as const;
+import US_STATES from "@/lib/data/usStates.json";
 
+export const STATES = US_STATES;
 export const COUNTIES_BY_STATE: Record<string, string[]> = {
   Colorado: ["Denver County", "El Paso County", "Jefferson County"],
   Florida: ["Miami-Dade County", "Orange County", "Palm Beach County"],
