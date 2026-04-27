@@ -3,9 +3,10 @@
 import Container from "@/components/Container";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
-import { COUNTIES_BY_STATE, STATES } from "@/lib/flow/mockData";
+import { STATES } from "@/lib/flow/mockData";
+import { getCountiesByState } from "@/lib/supabase/queries";
 import { ArrowLeft, MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
@@ -23,8 +24,11 @@ export default function Step1ArrestLocationPage() {
   const [touched, setTouched] = useState(false);
   const { t } = useLanguage();
 
-  const counties = useMemo(() => {
-    return flow.arrest.state ? COUNTIES_BY_STATE[flow.arrest.state] ?? [] : [];
+  const [counties, setCounties] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!flow.arrest.state) { setCounties([]); return; }
+    getCountiesByState(flow.arrest.state).then(setCounties);
   }, [flow.arrest.state]);
 
   if (!hydrated) return null;

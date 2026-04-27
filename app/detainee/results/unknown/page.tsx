@@ -3,22 +3,21 @@
 import Container from "@/components/Container";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { ArrowLeft } from "lucide-react";
 
 export default function UnknownResults() {
   const { t } = useLanguage();
 
   return (
     <div className="bg-white">
-      <div className="border-b border-[#5A5A8A]">
+      <div className="border-b border-[var(--ijl-border)]">
         <Container>
-          <div className="py-6">
+          <div className="py-3">
             <Link
               href="/detainee/step-2"
-              className="inline-flex items-center gap-3 font-[var(--font-proxima)] text-[14px] leading-[20px] text-[#2F2E2E]"
+              className="inline-flex items-center gap-2 rounded-md px-2 py-2 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] hover:bg-[var(--ijl-cta-bg)]"
             >
-              <span aria-hidden className="text-lg">
-                ←
-              </span>
+              <ArrowLeft className="h-4 w-4" />
               {t("resultsUnknown.back")}
             </Link>
           </div>

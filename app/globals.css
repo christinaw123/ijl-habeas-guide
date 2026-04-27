@@ -24,14 +24,37 @@
   font-display: swap;
 }
 
+@custom-variant dark (&:is(.dark *));
 
-/* ===== Design tokens from Figma ===== */
 :root {
-  /* keep app fixed light mode to match Figma exactly */
-  --background: #ffffff;
-  --foreground: #2F2E2E;
+  --font-size: 16px;
+  --background: rgba(255, 255, 255, 1.00);
+  --foreground: rgba(47, 46, 46, 1.00);
+  --card: rgba(255, 255, 255, 1.00);
+  --card-foreground: rgba(49, 65, 88, 1.00);
+  --popover: rgba(255, 255, 255, 1.00);
+  --popover-foreground: rgba(47, 46, 46, 1.00);
+  --primary: rgba(90, 90, 138, 1.00);
+  --primary-foreground: rgba(255, 255, 255, 1.00);
+  --secondary: rgba(146, 146, 177, 1.00);
+  --secondary-foreground: rgba(255, 255, 255, 1.00);
+  --muted: rgba(0, 0, 0, 0);
+  --muted-foreground: rgba(90, 90, 138, 1.00);
+  --accent: rgba(21, 93, 252, 1.00);
+  --accent-foreground: rgba(255, 255, 255, 1.00);
+  --destructive: rgba(0, 0, 0, 0);
+  --destructive-foreground: rgba(255, 255, 255, 1.00);
+  --border: rgba(230, 231, 232, 1.00);
+  --input: rgba(0, 0, 0, 0);
+  --input-background: rgba(255, 255, 255, 1.00);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: rgba(90, 90, 138, 1.00);
+  --elevation-sm: 0px 1px 3px 0px rgba(0,0,0,0.1), 0px 1px 2px 0px rgba(0,0,0,0.1);
+  --radius: 8px;
+  --radius-card: 10px;
 
-  /* brand + UI tokens from your Figma CSS */
+  /* brand tokens kept for legacy usage */
   --ijl-navy: #002E5D;
   --ijl-title: #001F3C;
   --ijl-accent: #5A5A8A;
@@ -39,28 +62,51 @@
   --ijl-border: #E6E7E8;
   --ijl-cta-bg: #F2F4FA;
 
-  /* font tokens */
   --font-proxima: "Proxima Nova", ui-sans-serif, system-ui, -apple-system,
-  "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji",
-  "Segoe UI Emoji";
-
+    "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  /* Override Tailwind v4 font tokens to match Figma */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-card: var(--radius-card);
+  --shadow-sm: var(--elevation-sm);
+  --font-oswald: 'Oswald', sans-serif;
+  --font-proxima: var(--font-proxima);
   --font-sans: var(--font-proxima);
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
 }
 
-/* Force fixed light look (Figma) */
-html, body {
-  height: 100%;
-  background: var(--background);
-  color: var(--foreground);
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-proxima);
+  }
 }
 
 /* explicit Oswald helper: uses the CSS variable injected by next/font */
@@ -69,6 +115,9 @@ html, body {
 }
 
 .ijl-title-color {
-  color: var(--ijl-title) !important; 
+  color: var(--ijl-title) !important;
 }
 
+html {
+  font-size: var(--font-size);
+}

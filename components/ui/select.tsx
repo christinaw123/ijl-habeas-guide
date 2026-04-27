@@ -40,6 +40,9 @@ export const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       position={position}
+      side="bottom"
+      sideOffset={4}
+      avoidCollisions={false}
       className={cn(
         "z-50 overflow-hidden rounded-[10px] border border-[var(--ijl-border)] bg-white shadow-md",
         "w-[var(--radix-select-trigger-width)]",

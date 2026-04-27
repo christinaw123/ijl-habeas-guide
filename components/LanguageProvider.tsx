@@ -56,10 +56,16 @@ export default function LanguageProvider({
     if (cached) {
       try {
         const parsed: Translations = JSON.parse(cached);
-        setLangState(target);
-        setTranslations(parsed);
-        localStorage.setItem(LANG_STORAGE_KEY, target);
-        return;
+        // Invalidate if any current string keys are missing (strings were added since last cache)
+        const allKeysPresent = Object.keys(STRINGS).every((k) => k in parsed);
+        if (allKeysPresent) {
+          setLangState(target);
+          setTranslations(parsed);
+          localStorage.setItem(LANG_STORAGE_KEY, target);
+          return;
+        }
+        // Cache is stale — remove it and fall through to re-fetch
+        localStorage.removeItem(cacheKey(target));
       } catch {
         // Cache corrupted — fall through to fetch
       }

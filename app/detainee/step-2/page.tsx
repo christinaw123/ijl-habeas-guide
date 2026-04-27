@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { ArrowLeft, HelpCircle } from "lucide-react";
+import { LOADING_NEXT_KEY } from "@/app/detainee/loading/page";
 
 export default function Step2KnowsWhereHeldPage() {
   const router = useRouter();
@@ -31,83 +33,120 @@ export default function Step2KnowsWhereHeldPage() {
       router.push("/detainee/results/unknown");
       return;
     }
-    router.push("/detainee/step-3");
+    localStorage.setItem(LOADING_NEXT_KEY, "step3");
+    router.push("/detainee/loading");
   };
 
+  const options = [
+    { key: "step2.yes" as const, value: true },
+    { key: "step2.no" as const, value: false },
+  ];
+
   return (
-    <div className="bg-white">
-      <div className="border-b border-[#5A5A8A]">
+    <div className="min-h-screen flex flex-col bg-white">
+      {/* Back button row */}
+      <div className="border-b border-[var(--ijl-border)]">
         <Container>
-          <div className="py-6">
+          <div className="py-3">
             <Link
               href="/detainee/step-1"
-              className="inline-flex items-center gap-3 font-[var(--font-proxima)] text-[14px] leading-[20px] text-[#2F2E2E]"
+              className="inline-flex items-center gap-2 rounded-md px-2 py-2 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] hover:bg-[var(--ijl-cta-bg)]"
             >
-              <span aria-hidden className="text-lg">
-                ←
-              </span>
+              <ArrowLeft className="h-4 w-4" />
               {t("step2.back")}
             </Link>
           </div>
         </Container>
       </div>
 
-      <Container>
-        <div className="flex flex-col items-center gap-3 px-4 py-6">
-          <h1 className="oswald font-medium text-[32px] leading-[47px] text-center ijl-title-color">
-            {t("step2.title")}
-          </h1>
+      {/* Main content */}
+      <main className="flex-1 px-4 py-8 sm:py-12">
+        <div className="mx-auto max-w-2xl">
+          {/* Hero */}
+          <div className="text-center mb-8">
+            <HelpCircle className="mx-auto mb-4 h-12 w-12 text-[var(--ijl-accent)]" />
+            <h1 className="oswald text-[32px] font-medium text-[var(--ijl-title)] mb-3">
+              {t("step2.title")}
+            </h1>
+            <p className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)]">
+              {t("step2.subtitle")}
+            </p>
+          </div>
 
-          <div className="mt-6 w-full max-w-[640px] bg-white border border-[#E6E7E8] rounded-[10px] shadow-[0px_1px_3px_rgba(0,0,0,0.12)] p-6">
-            <div className="flex flex-col gap-4">
-              {[
-                { key: "step2.yes" as const, value: true },
-                { key: "step2.no" as const, value: false },
-              ].map((opt) => (
-                <button
-                  key={opt.key}
-                  type="button"
-                  onClick={() =>
-                    setFlow((prev) => ({
-                      ...prev,
-                      detention: {
-                        ...prev.detention,
-                        knowsWhereHeld: opt.value,
-                        detainedState: opt.value
-                          ? prev.detention.detainedState
-                          : null,
-                        facilityId: opt.value ? prev.detention.facilityId : null,
-                      },
-                    }))
-                  }
-                  className={[
-                    "w-full rounded-[10px] border px-4 py-4 text-left font-[var(--font-proxima)]",
-                    flow.detention.knowsWhereHeld === opt.value
-                      ? "border-[#5A5A8A]"
-                      : "border-[#E6E7E8]",
-                  ].join(" ")}
-                >
-                  {t(opt.key)}
-                </button>
-              ))}
+          {/* Card */}
+          <div className="rounded-lg border border-[var(--ijl-border)] bg-white p-6 sm:p-8 shadow-sm">
+            <div className="space-y-4">
+              {/* Option buttons with radio circle UI */}
+              {options.map((opt) => {
+                const selected = flow.detention.knowsWhereHeld === opt.value;
+                return (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() =>
+                      setFlow((prev) => ({
+                        ...prev,
+                        detention: {
+                          ...prev.detention,
+                          knowsWhereHeld: opt.value,
+                          detainedState: opt.value
+                            ? prev.detention.detainedState
+                            : null,
+                          facilityId: opt.value
+                            ? prev.detention.facilityId
+                            : null,
+                        },
+                      }))
+                    }
+                    className={[
+                      "w-full p-4 text-left rounded-lg border-2 transition-all font-[var(--font-proxima)] text-base",
+                      selected
+                        ? "border-[var(--ijl-accent)] bg-[#5A5A8A]/10"
+                        : "border-[var(--ijl-border)] hover:border-[var(--ijl-muted)] bg-white",
+                    ].join(" ")}
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* Radio circle */}
+                      <div
+                        className={[
+                          "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0",
+                          selected
+                            ? "border-[var(--ijl-accent)]"
+                            : "border-[var(--ijl-muted)]",
+                        ].join(" ")}
+                      >
+                        {selected && (
+                          <div className="w-2.5 h-2.5 rounded-full bg-[var(--ijl-accent)]" />
+                        )}
+                      </div>
+                      <span className="text-[var(--foreground)]">{t(opt.key)}</span>
+                    </div>
+                  </button>
+                );
+              })}
+
+              {touched && !valid && (
+                <p className="text-sm font-[var(--font-proxima)] text-red-600">
+                  {t("step2.error")}
+                </p>
+              )}
+
+              {/* Continue button */}
+              <button
+                type="button"
+                onClick={onContinue}
+                className={[
+                  "mt-2 w-full rounded-[10px] py-3 font-[var(--font-proxima)] font-semibold text-white transition-opacity",
+                  "bg-[var(--ijl-accent)]",
+                  !valid ? "opacity-50 cursor-not-allowed" : "hover:opacity-90",
+                ].join(" ")}
+              >
+                {t("step2.continue")}
+              </button>
             </div>
-
-            {touched && !valid && (
-              <div className="mt-3 text-sm font-[var(--font-proxima)] text-red-600">
-                {t("step2.error")}
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={onContinue}
-              className="mt-8 w-full rounded-[10px] bg-[#0A0A14] py-3 font-[var(--font-proxima)] font-semibold text-white"
-            >
-              {t("step2.continue")}
-            </button>
           </div>
         </div>
-      </Container>
+      </main>
     </div>
   );
 }
