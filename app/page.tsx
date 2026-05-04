@@ -31,12 +31,12 @@ export default function HomePage() {
 
           {/* Card */}
           <section className="flex justify-center">
-            <div className="bg-white rounded-[10px] border border-[#E2E8F0] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] px-[33px] py-[33px] w-3/4 flex flex-col items-center gap-3">
+            <div className="bg-white rounded-[10px] border border-[#E2E8F0] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] px-[33px] py-[33px] w-full max-w-[480px] flex flex-col items-center gap-3">
               <h2 className="oswald font-medium text-[20px] leading-[28px] text-[#0F172B] text-center">
                 {t("home.card.title")}
               </h2>
 
-              <Button asChild className="w-[274px]">
+              <Button asChild className="w-full max-w-[274px]">
                 <Link href="/detainee/step-1">{t("home.card.cta")}</Link>
               </Button>
 

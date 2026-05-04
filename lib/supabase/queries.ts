@@ -49,7 +49,8 @@ export async function getCountiesByState(state: string): Promise<string[]> {
     .eq("state", state)
     .order("county");
 
-  if (error || !data) return [];
+  if (error) { console.error("getCountiesByState error:", error); return []; }
+  if (!data) return [];
 
   // Deduplicate — .select distinct isn't supported directly in the JS client
   const seen = new Set<string>();
