@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import { STRINGS } from "./strings";
 
-export type Lang = "en" | "es" | "ar";
+export type Lang = "en" | "es" | "ar" | "ht" | "vi" | "pt" | "zh-CN";
 
 export interface LanguageContextValue {
   lang: Lang;

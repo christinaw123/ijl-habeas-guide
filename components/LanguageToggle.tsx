@@ -4,9 +4,13 @@ import { Globe } from "lucide-react";
 import { useLanguage, type Lang } from "@/lib/i18n/LanguageContext";
 
 const LANGS: { label: string; value: Lang }[] = [
-  { label: "English", value: "en" },
-  { label: "Español", value: "es" },
-  { label: "العربية", value: "ar" },
+  { label: "English",        value: "en"    },
+  { label: "Español",        value: "es"    },
+  { label: "العربية",        value: "ar"    },
+  { label: "Kreyòl Ayisyen", value: "ht"    },
+  { label: "Tiếng Việt",     value: "vi"    },
+  { label: "Português",      value: "pt"    },
+  { label: "中文",            value: "zh-CN" },
 ];
 
 export default function LanguageToggle() {
