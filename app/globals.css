@@ -121,3 +121,11 @@
 html {
   font-size: var(--font-size);
 }
+
+/* Prevent Radix UI Select from locking page scroll when a dropdown is open.
+   Using html body[...] (specificity 0-1-2) beats the library's injected
+   body[...] rule (specificity 0-1-1) regardless of cascade order. */
+html body[data-scroll-locked] {
+  overflow: auto !important;
+  margin-right: 0 !important;
+}

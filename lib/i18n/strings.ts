@@ -23,14 +23,13 @@ export const STRINGS: Record<string, string> = {
   // Step 1
   "step1.back": "Back",
   "step1.title": "Where was the person arrested?",
-  "step1.subtitle": "Select the state and county where the arrest occurred",
+  "step1.subtitle": "Select the state and city where the arrest occurred",
   "step1.state.label": "State",
   "step1.state.placeholder": "Select a state",
   "step1.state.error": "Please select a state to continue.",
-  "step1.county.label": "County",
-  "step1.county.optional": "(Optional)",
-  "step1.county.placeholder": "Select a county",
-  "step1.county.unknown": "I don't know the county",
+  "step1.city.label": "City",
+  "step1.city.optional": "(Optional)",
+  "step1.city.placeholder": "Type a city name...",
   "step1.continue": "Continue",
 
   // Loading screen
@@ -73,10 +72,11 @@ export const STRINGS: Record<string, string> = {
     "Once you have the facility name, you can come back and enter it above.",
 
   // Results — known location — page / badges
+  "resultsKnown.back": "Back",
   "resultsKnown.title": "Help for Detainees",
   "resultsKnown.arrestedIn": "Arrested in:",
   "resultsKnown.detainedIn": "Detained in:",
-  "resultsKnown.unknownCounty": "Unknown County",
+  "resultsKnown.unknownCity": "Unknown City",
   "resultsKnown.unknownState": "Unknown State",
   "resultsKnown.unknownFacility": "Unknown Facility",
 
@@ -208,11 +208,157 @@ export const STRINGS: Record<string, string> = {
   "resultsKnown.other.court.title": "District Court",
   "resultsKnown.other.court.clerk": "Clerk of Court:",
 
-  // Results — unknown location
+  // Results — unknown location — page
   "resultsUnknown.back": "Back",
-  "resultsUnknown.title": "We don't have the detention location",
-  "resultsUnknown.placeholder":
-    "Placeholder page for users who don't know where the person is being held. We'll create tailored resources here.",
+  "resultsUnknown.title": "Locate a Detainee",
+  "resultsUnknown.arrestedIn": "Arrested in:",
+  "resultsUnknown.editLocation": "Edit arrest location",
+  "resultsUnknown.intro":
+    "We know this is a frightening time. This page will guide you step by step to search for your loved one.",
+
+  // Alert
+  "resultsUnknown.alert.title": "Important Timing",
+  "resultsUnknown.alert.body":
+    "It can take up to 48 hours for a newly detained person to appear in search tools. If you can't find them right away, try again later.",
+  "resultsUnknown.alert.link": "What happens after an arrest?",
+
+  // Tab labels
+  "resultsUnknown.tabs.searchIce": "1. Search ICE",
+  "resultsUnknown.tabs.otherSearches": "2. Try Other Searches",
+  "resultsUnknown.tabs.callFacilities": "3. Call Facilities",
+  "resultsUnknown.tabs.ifFound": "If You Find Them",
+  "resultsUnknown.tabs.getHelp": "Get Help",
+
+  // Search ICE tab
+  "resultsUnknown.searchIce.heading": "Search the ICE Locator",
+  "resultsUnknown.searchIce.intro":
+    "The ICE Detainee Locator lets you search for people currently in ICE custody or who have been in CBP custody for more than 48 hours.",
+  "resultsUnknown.searchIce.gather.heading": "Gather information you'll need.",
+  "resultsUnknown.searchIce.gather.anumber": "A-number",
+  "resultsUnknown.searchIce.gather.anumberLink": "What's an A-number?",
+  "resultsUnknown.searchIce.gather.or": "OR",
+  "resultsUnknown.searchIce.gather.name": "Full exact name",
+  "resultsUnknown.searchIce.gather.dob": "Date of birth",
+  "resultsUnknown.searchIce.gather.country": "Country of birth",
+  "resultsUnknown.searchIce.locator.heading": "Search the ICE Detainee Locator",
+  "resultsUnknown.searchIce.tips.label": "Important search tips",
+  "resultsUnknown.searchIce.tips.1":
+    "Spell the name exactly as it appears on government documents.",
+  "resultsUnknown.searchIce.tips.2":
+    "Try different spellings or name orders if the first search doesn't work.",
+  "resultsUnknown.searchIce.tips.3":
+    "Try each last name separately if they have more than one.",
+  "resultsUnknown.searchIce.cta": "Open ICE Detainee Locator",
+  "resultsUnknown.searchIce.next": "Try Other Search Tools",
+
+  // Other Searches tab
+  "resultsUnknown.otherSearches.heading": "Other search tools to try",
+  "resultsUnknown.otherSearches.intro":
+    "If the ICE locator didn't return results, try these additional tools.",
+  "resultsUnknown.otherSearches.vine.heading": "Search custody and case records",
+  "resultsUnknown.otherSearches.vine.sub": "(VINE)",
+  "resultsUnknown.otherSearches.vine.intro":
+    "VINE provides updated custody status and criminal case information about people in U.S. jails and prisons. VINE is owned by Equifax, a credit reporting agency. It is free to use. There are two versions of VINE:",
+  "resultsUnknown.otherSearches.vinelink.desc":
+    "enables you to search for people's custody status or criminal case information for non-immigration offenses in any state. You'll need:",
+  "resultsUnknown.otherSearches.vinelink.need1":
+    "the state the person was arrested in and their full name",
+  "resultsUnknown.otherSearches.vinelink.need2": "their ID number",
+  "resultsUnknown.otherSearches.vinelink.cta": "Open VINELink",
+  "resultsUnknown.otherSearches.dhsVinelink.desc":
+    "enables you to search for people's custody status or criminal case information from Department of Homeland Security records. You'll need the person's:",
+  "resultsUnknown.otherSearches.dhsVinelink.need1":
+    "A-number (starts with \"A\" + 9 digits) and country of birth",
+  "resultsUnknown.otherSearches.dhsVinelink.need2a": "full name",
+  "resultsUnknown.otherSearches.dhsVinelink.need2b": "date of birth",
+  "resultsUnknown.otherSearches.dhsVinelink.need2c": "country of birth",
+  "resultsUnknown.otherSearches.dhsVinelink.cta": "Open DHS VINELink",
+  "resultsUnknown.otherSearches.eoir.heading": "Check immigration court records",
+  "resultsUnknown.otherSearches.eoir.sub": "(EOIR ACIS)",
+  "resultsUnknown.otherSearches.eoir.intro":
+    "EOIR Automated Case Information System (ACIS) is a search tool provided by the Executive Office for Immigration Review in the Department of Justice. It provides basic information about the status of certain cases before an immigration court or the Board of Immigration Appeals. You'll need the person's:",
+  "resultsUnknown.otherSearches.eoir.need1":
+    "A-number (starts with \"A\" + 9 digits) and country of birth",
+  "resultsUnknown.otherSearches.eoir.cta": "Open EOIR ACIS",
+
+  // Call Facilities tab
+  "resultsUnknown.callFacilities.heading": "Call detention facilities directly",
+  "resultsUnknown.callFacilities.intro":
+    "If online searches don't work, you can call the ICE detention facilities directly to ask if the person is being held there.",
+  "resultsUnknown.callFacilities.accordion.title":
+    "How to call a detention facility",
+  "resultsUnknown.callFacilities.accordion.intro":
+    "Don't be intimidated by calling a detention facility—you have every right to ask about someone who is being detained.",
+  "resultsUnknown.callFacilities.accordion.whatToSay": "What to say:",
+  "resultsUnknown.callFacilities.accordion.script":
+    "“Hello, I am looking for information about [full name]. Is this person currently being detained at your facility?”",
+  "resultsUnknown.callFacilities.accordion.tips.label": "Tips for the call:",
+  "resultsUnknown.callFacilities.accordion.tips.1":
+    "Have the person's full name, date of birth, and A-number (if you know it) ready.",
+  "resultsUnknown.callFacilities.accordion.tips.2":
+    "The facility may only confirm if someone is there—they may not give you other details.",
+  "resultsUnknown.callFacilities.accordion.tips.3":
+    "If they're not at that facility, ask if they know where the person might have been transferred.",
+  "resultsUnknown.callFacilities.accordion.tips.4":
+    "Be polite and patient—staff may be busy or have limited information.",
+  "resultsUnknown.callFacilities.accordion.rights.title": "Know your rights",
+  "resultsUnknown.callFacilities.accordion.rights.1":
+    "You do not need to give your own name or any personal information to ask if someone is detained.",
+  "resultsUnknown.callFacilities.accordion.rights.2":
+    "Facility staff cannot ask for your immigration status.",
+  "resultsUnknown.callFacilities.facilitiesIntro":
+    "These facilities often hold people arrested in",
+  "resultsUnknown.callFacilities.next": "If You Find Them",
+
+  // If Found tab
+  "resultsUnknown.ifFound.heading": "If you find them",
+  "resultsUnknown.ifFound.intro":
+    "Take these important steps once you locate the person.",
+  "resultsUnknown.ifFound.step1": "Take a screenshot of the search result and save it.",
+  "resultsUnknown.ifFound.step2":
+    "Call the facility directly to confirm they are actually there.",
+  "resultsUnknown.ifFound.step3.link": "Return to add their location",
+  "resultsUnknown.ifFound.step3.suffix":
+    "to get specific resources and free legal aid for that facility.",
+  "resultsUnknown.ifFound.next": "Get Help",
+
+  // Get Help tab
+  "resultsUnknown.getHelp.heading": "Need help with your search?",
+  "resultsUnknown.getHelp.intro":
+    "If you weren't able to find your person using the tools above, these local organizations may be able to assist you.",
+  "resultsUnknown.getHelp.badge": "Verified organizations · Free or low-cost services",
+  "resultsUnknown.getHelp.callLink": "What to expect when you call",
+  "resultsUnknown.getHelp.org.generalSupport": "GENERAL SUPPORT",
+  "resultsUnknown.getHelp.org.legalSupport": "LEGAL SUPPORT",
+
+  // Modals
+  "resultsUnknown.modal.arrestInfo.title": "What happens after an arrest",
+  "resultsUnknown.modal.arrestInfo.p1":
+    "When someone is detained by immigration authorities, they are usually taken to a local processing center first.",
+  "resultsUnknown.modal.arrestInfo.p2":
+    "It can take 24 to 48 hours for their information to appear in online search systems. If you can't find them immediately, keep trying.",
+  "resultsUnknown.modal.aNumber.title": "What is an A-number?",
+  "resultsUnknown.modal.aNumber.p1":
+    "The A-number (Alien Registration Number) is a 9-digit number starting with “A” assigned by immigration.",
+  "resultsUnknown.modal.aNumber.p2":
+    "It may appear on any paperwork from ICE, USCIS, immigration court, or border patrol (like a Notice to Appear or I-862 form).",
+  "resultsUnknown.modal.aNumber.fileNo": "FILE NO.",
+  "resultsUnknown.modal.aNumber.noNumber": "Don't have an A-number?",
+  "resultsUnknown.modal.aNumber.noNumberDesc":
+    "You can still search using their full name, country of birth, and date of birth.",
+  "resultsUnknown.modal.whatToExpect.title": "What to expect when you call",
+  "resultsUnknown.modal.whatToExpect.p1.bold": "You may need to wait.",
+  "resultsUnknown.modal.whatToExpect.p1.body":
+    "Many organizations have limited hours and high demand. If you reach voicemail, leave a message and try another organization while you wait.",
+  "resultsUnknown.modal.whatToExpect.p2.bold": "Confirm who you're speaking with.",
+  "resultsUnknown.modal.whatToExpect.p2.body":
+    "Before sharing details about yourself or your family, make sure you're speaking with a real organization. If something feels wrong, hang up.",
+  "resultsUnknown.modal.whatToExpect.p3.bold": "Services are always free.",
+  "resultsUnknown.modal.whatToExpect.p3.body":
+    "You should never be asked for payment. Scammers sometimes pretend to be lawyers or immigration workers — if anyone asks for money, do not pay them.",
+
+  // Shared nav labels
+  "resultsUnknown.nav.back": "Back",
 
   // Footer
   "footer.legal":

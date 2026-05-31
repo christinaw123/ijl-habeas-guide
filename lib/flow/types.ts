@@ -1,7 +1,8 @@
 export type ArrestLocation = {
-    state: string;              // required
-    county: string | null;      // optional, null means unknown
-  };
+  state: string;
+  city: string | null;
+  county_codes: string[] | null;
+};
   
   export type DetentionInfo = {
     knowsWhereHeld: boolean | null; // required at step 2

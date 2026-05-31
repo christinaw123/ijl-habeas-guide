@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import BackButton from "@/components/BackButton";
 import {
   Phone, Globe, Mail, MapPin, Pencil, Scale, Landmark,
   Users, Clock, ExternalLink, X,
@@ -532,7 +533,7 @@ export default function KnownResults() {
     getResultsData(flow.detention.facilityId).then(setResults);
   }, [flow.detention.facilityId]);
 
-  const arrestCounty = flow.arrest.county ?? t("resultsKnown.unknownCounty");
+  const arrestCity = flow.arrest.city ?? t("resultsKnown.unknownCity");
   const arrestState = flow.arrest.state ?? t("resultsKnown.unknownState");
   const facilityLabel =
     results?.facility.facility_display ??
@@ -555,6 +556,7 @@ export default function KnownResults() {
 
   return (
     <div className="bg-white">
+      <BackButton href="/detainee/step-3" label={t("resultsKnown.back")} />
       <main className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl space-y-6">
 
@@ -572,7 +574,7 @@ export default function KnownResults() {
             >
               <span className={badgeText}>{t("resultsKnown.arrestedIn")}</span>
               <span className={`${badgeText} font-semibold`}>
-                {arrestCounty}, {arrestState}
+                {arrestCity}, {arrestState}
               </span>
               <Pencil className="w-3.5 h-3.5 text-[var(--ijl-muted)] group-hover:text-[var(--foreground)] transition-colors" />
             </button>

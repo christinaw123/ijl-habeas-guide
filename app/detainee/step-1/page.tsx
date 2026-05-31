@@ -1,14 +1,14 @@
 "use client";
 
-import Container from "@/components/Container";
-import Link from "next/link";
+import BackButton from "@/components/BackButton";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { STATES } from "@/lib/flow/mockData";
-import { getCountiesByState } from "@/lib/supabase/queries";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { STATE_ABBREVIATIONS } from "@/lib/data/stateAbbreviations";
+import { CityCombobox } from "@/components/ui/combobox";
 
 import {
   Select,
@@ -24,16 +24,10 @@ export default function Step1ArrestLocationPage() {
   const [touched, setTouched] = useState(false);
   const { t } = useLanguage();
 
-  const [counties, setCounties] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (!flow.arrest.state) { setCounties([]); return; }
-    getCountiesByState(flow.arrest.state).then(setCounties);
-  }, [flow.arrest.state]);
-
   if (!hydrated) return null;
 
   const stateValid = (flow.arrest.state ?? "").trim().length > 0;
+  const stateAbbr = STATE_ABBREVIATIONS[flow.arrest.state ?? ""] ?? "";
 
   const onContinue = () => {
     setTouched(true);
@@ -43,20 +37,7 @@ export default function Step1ArrestLocationPage() {
 
   return (
     <div className="bg-white">
-      {/* Back row */}
-      <div className="border-b border-[var(--ijl-border)]">
-        <Container>
-          <div className="mx-auto max-w-2xl py-3">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 rounded-md px-2 py-2 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] hover:bg-[var(--ijl-cta-bg)]"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {t("step1.back")}
-            </Link>
-          </div>
-        </Container>
-      </div>
+      <BackButton href="/" label={t("step1.back")} />
 
       <main className="px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl">
@@ -85,7 +66,7 @@ export default function Step1ArrestLocationPage() {
                   onValueChange={(value) => {
                     setFlow((prev) => ({
                       ...prev,
-                      arrest: { state: value, county: null },
+                      arrest: { state: value, city: null, county_codes: null },
                     }));
                   }}
                 >
@@ -108,42 +89,33 @@ export default function Step1ArrestLocationPage() {
                 )}
               </div>
 
-              {/* County (only show once state selected) */}
-              {flow.arrest.state && (
+              {/* City (only show once state selected) */}
+              {stateAbbr && (
                 <div className="space-y-2">
                   <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
-                    {t("step1.county.label")}{" "}
+                    {t("step1.city.label")}{" "}
                     <span className="ml-1 font-normal text-[var(--ijl-muted)]">
-                      {t("step1.county.optional")}
+                      {t("step1.city.optional")}
                     </span>
                   </label>
 
-                  <Select
-                    value={flow.arrest.county ?? "__unknown__"}
-                    onValueChange={(value) => {
+                  <CityCombobox
+                    value={flow.arrest.city}
+                    stateAbbr={stateAbbr}
+                    placeholder={t("step1.city.placeholder")}
+                    onValueChange={(city, countyCodes) =>
                       setFlow((prev) => ({
                         ...prev,
-                        arrest: {
-                          ...prev.arrest,
-                          county: value === "__unknown__" ? null : value,
-                        },
-                      }));
-                    }}
-                  >
-                    <SelectTrigger aria-label={t("step1.county.label")}>
-                      <SelectValue placeholder={t("step1.county.placeholder")} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="__unknown__">
-                        {t("step1.county.unknown")}
-                      </SelectItem>
-                      {counties.map((c) => (
-                        <SelectItem key={c} value={c}>
-                          {c}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                        arrest: { ...prev.arrest, city, county_codes: countyCodes },
+                      }))
+                    }
+                    onClear={() =>
+                      setFlow((prev) => ({
+                        ...prev,
+                        arrest: { ...prev.arrest, city: null, county_codes: null },
+                      }))
+                    }
+                  />
                 </div>
               )}
 

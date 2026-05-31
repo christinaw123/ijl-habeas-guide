@@ -1,15 +1,14 @@
 // app/detainee/step-3/page.tsx
 "use client";
 
-import Container from "@/components/Container";
-import Link from "next/link";
+import BackButton from "@/components/BackButton";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { STATES } from "@/lib/flow/mockData";
 import { type Facility, getFacilitiesByState } from "@/lib/supabase/queries";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { LOADING_NEXT_KEY } from "@/app/detainee/loading/page";
 import { FLOW_STORAGE_KEY } from "@/lib/flow/types";
 import {
@@ -113,20 +112,7 @@ export default function Step3DetainedLocationPage() {
 
   return (
     <div className="bg-white">
-      {/* Back button row */}
-      <div className="border-b border-[var(--ijl-border)]">
-        <Container>
-          <div className="py-3">
-            <Link
-              href="/detainee/step-2"
-              className="inline-flex items-center gap-2 rounded-md px-2 py-2 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] hover:bg-[var(--ijl-cta-bg)]"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {t("step3.back")}
-            </Link>
-          </div>
-        </Container>
-      </div>
+      <BackButton href="/detainee/step-2" label={t("step3.back")} />
 
       <main className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl">

@@ -1,4 +1,5 @@
 import { supabase } from "./client";
+import { STATE_ABBREVIATIONS } from "@/lib/data/stateAbbreviations";
 
 export type Facility = { id: string; name: string };
 
@@ -188,4 +189,92 @@ export async function getResultsData(
 
   // Case 3: no county info at all — return with empty relational data.
   return { facility, fieldOffice: null, district: null, orgs: [] };
+}
+
+export type UnknownResultsData = {
+  facilities: FacilityDetails[];
+  fieldOffice: FieldOffice | null;
+  orgs: LocalOrg[];
+};
+
+export async function getUnknownResultsData(
+  state: string,
+  countyCodes: string[] | null
+): Promise<UnknownResultsData> {
+  console.log(`[DEBUG] getUnknownResultsData: state=${state}, countyCodes=`, countyCodes);
+
+  if (!countyCodes?.length) {
+    console.log(`[DEBUG] no city provided — querying by state only`);
+  }
+
+  const stateAbbr = countyCodes?.length
+    ? countyCodes[0].split("_")[0]
+    : (STATE_ABBREVIATIONS[state] ?? null);
+
+  const stateWideCode = stateAbbr ? `${stateAbbr}_All` : null;
+  const orgCodes = [
+    ...(countyCodes ?? []),
+    ...(stateWideCode ? [stateWideCode] : []),
+  ];
+
+  console.log(`[DEBUG] orgCodes=`, orgCodes, `| stateWide triggered:`, !!stateWideCode);
+
+  const [facResult, fieldOfficeResult, orgResult] = await Promise.all([
+    countyCodes?.length
+      ? supabase
+          .from("facilities")
+          .select("facility_code, facility_display, address, city, state, county, zip, county_code, phone_info, url")
+          .in("county_code", countyCodes)
+          .not("facility_display", "is", null)
+          .neq("facility_display", "")
+          .order("facility_display")
+      : supabase
+          .from("facilities")
+          .select("facility_code, facility_display, address, city, state, county, zip, county_code, phone_info, url")
+          .eq("state", state)
+          .not("facility_display", "is", null)
+          .neq("facility_display", "")
+          .order("facility_display"),
+
+    countyCodes?.length
+      ? supabase
+          .from("county_field_office")
+          .select("field_offices(office_name, street_address, city, state, zip, phone)")
+          .in("county_code", countyCodes)
+          .limit(1)
+      : Promise.resolve({ data: [], error: null }),
+
+    orgCodes.length > 0
+      ? supabase
+          .from("org_county_coverage")
+          .select("local_orgs(id, organization, org_type, email, phone, url, action_text_1, action_text_2)")
+          .in("county_code", orgCodes)
+      : Promise.resolve({ data: [], error: null }),
+  ]);
+
+  if (facResult.error) console.error("getUnknownResultsData facilities error:", facResult.error);
+  console.log(`[DEBUG] facilities found:`, facResult.data?.length ?? 0);
+
+  const fieldOfficeRow = (fieldOfficeResult as { data: Array<{ field_offices: unknown }> | null }).data?.[0];
+  const fieldOffice = fieldOfficeRow?.field_offices
+    ? (fieldOfficeRow.field_offices as unknown as FieldOffice)
+    : null;
+  console.log(`[DEBUG] fieldOffice:`, fieldOffice);
+
+  const orgs: LocalOrg[] = [];
+  const seenIds = new Set<number>();
+  for (const row of (orgResult as { data: Array<{ local_orgs: unknown }> | null }).data ?? []) {
+    if (!row.local_orgs) continue;
+    const org = row.local_orgs as LocalOrg;
+    if (!seenIds.has(org.id)) { seenIds.add(org.id); orgs.push(org); }
+  }
+
+  console.log(`[DEBUG] orgs found:`, orgs.length, orgs.map(o => o.organization));
+
+  // Exclude records sourced from field offices — those have corrupt address data.
+  // The correct field office is now returned separately via county_field_office → field_offices.
+  const facilities = ((facResult.data ?? []) as FacilityDetails[]).filter(
+    (f) => !f.url?.includes("ERROR") && !f.facility_display?.endsWith("Field Office")
+  );
+  return { facilities, fieldOffice, orgs };
 }
