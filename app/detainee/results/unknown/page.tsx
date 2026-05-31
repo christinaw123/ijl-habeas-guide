@@ -573,6 +573,7 @@ export default function UnknownResults() {
                     <MapPin className="w-4 h-4 text-[var(--ijl-muted)] mt-1 flex-shrink-0" />
                     <div className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
                       <div>{fieldOffice.street_address}</div>
+                      {fieldOffice.suite_floor && <div>{fieldOffice.suite_floor}</div>}
                       <div>{fieldOffice.city}, {fieldOffice.state} {fieldOffice.zip}</div>
                     </div>
                   </div>

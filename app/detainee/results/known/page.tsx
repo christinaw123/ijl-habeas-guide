@@ -469,6 +469,7 @@ function LegalOptionsTab({
                   <MapPin className="w-4 h-4 text-[var(--muted-foreground)] mt-0.5 shrink-0" />
                   <div className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)]">
                     <div>{fieldOffice.street_address}</div>
+                    {fieldOffice.suite_floor && <div>{fieldOffice.suite_floor}</div>}
                     <div>
                       {fieldOffice.city}, {fieldOffice.state} {fieldOffice.zip}
                     </div>

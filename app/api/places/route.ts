@@ -13,6 +13,8 @@ export async function GET(request: Request) {
 
   if (!state) return NextResponse.json([]);
 
+  console.log(`[DEBUG] /api/places input: state=${state}, q=${q}`);
+
   const { data, error } = await supabase
     .from("place_county")
     .select("place_display, county_code")
@@ -26,6 +28,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  console.log(`[DEBUG] /api/places raw rows:`, data);
+
   // Group by place_display so duplicate city names collapse into one entry
   // with all associated county codes.
   const grouped = new Map<string, string[]>();
@@ -38,6 +42,8 @@ export async function GET(request: Request) {
     place_display,
     county_codes,
   }));
+
+  console.log(`[DEBUG] /api/places grouped result:`, result);
 
   return NextResponse.json(result);
 }

@@ -19,6 +19,7 @@ export type FacilityDetails = {
 export type FieldOffice = {
   office_name: string;
   street_address: string;
+  suite_floor: string | null;
   city: string;
   state: string;
   zip: string;
@@ -95,7 +96,7 @@ async function lookupByCountyCode(countyCode: string) {
     await Promise.all([
       supabase
         .from("county_field_office")
-        .select("field_offices(office_name, street_address, city, state, zip, phone)")
+        .select("field_offices(office_name, street_address, suite_floor, city, state, zip, phone)")
         .eq("county_code", countyCode)
         .limit(1),
 
@@ -239,7 +240,7 @@ export async function getUnknownResultsData(
     countyCodes?.length
       ? supabase
           .from("county_field_office")
-          .select("field_offices(office_name, street_address, city, state, zip, phone)")
+          .select("field_offices(office_name, street_address, suite_floor, city, state, zip, phone)")
           .in("county_code", countyCodes)
           .limit(1)
       : Promise.resolve({ data: [], error: null }),
