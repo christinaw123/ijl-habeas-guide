@@ -15,7 +15,9 @@ import {
   type LocalOrg,
   type FacilityDetails,
   type FieldOffice,
+  type DistrictCourt,
 } from "@/lib/supabase/queries";
+import { sanitizeUrl } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Modal
@@ -109,16 +111,16 @@ function OrgCard({ org }: { org: LocalOrg }) {
       )}
 
       <div className="space-y-2 pt-1">
-        {org.url && (
+        {sanitizeUrl(org.url) && (
           <div className="flex items-center gap-2">
             <ExternalLink className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
             <a
-              href={org.url}
+              href={sanitizeUrl(org.url)!}
               target="_blank"
               rel="noopener noreferrer"
               className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)] hover:underline break-all"
             >
-              {org.url.replace(/^https?:\/\//, "")}
+              {org.url!.replace(/^https?:\/\//, "")}
             </a>
           </div>
         )}
@@ -201,16 +203,16 @@ function ContactTab({
               </span>
             </div>
           )}
-          {facility?.url && (
+          {sanitizeUrl(facility?.url) && (
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
               <a
-                href={facility.url}
+                href={sanitizeUrl(facility!.url)!}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)] hover:underline break-all"
               >
-                {facility.url.replace(/^https?:\/\//, "")}
+                {facility!.url!.replace(/^https?:\/\//, "")}
               </a>
             </div>
           )}
@@ -397,10 +399,10 @@ function GetHelpNotFoundTab() {
 // ---------------------------------------------------------------------------
 function LegalOptionsTab({
   fieldOffice,
-  district,
+  districtCourt,
 }: {
   fieldOffice: FieldOffice | null | undefined;
-  district: string | null | undefined;
+  districtCourt: DistrictCourt | null | undefined;
 }) {
   const { t } = useLanguage();
 
@@ -444,7 +446,7 @@ function LegalOptionsTab({
         ))}
       </div>
 
-      {(fieldOffice || district) && (
+      {(fieldOffice || districtCourt) && (
         <div className="space-y-3 pt-2">
           <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
             {t("resultsKnown.legalTab.additional.heading")}
@@ -488,7 +490,7 @@ function LegalOptionsTab({
             </div>
           )}
 
-          {district && (
+          {districtCourt && (
             <div className="border border-[var(--ijl-border)] rounded-[10px] bg-white p-6 shadow-sm space-y-4">
               <div className="flex items-center gap-2">
                 <Scale className="w-4 h-4 text-[var(--muted-foreground)]" />
@@ -497,11 +499,55 @@ function LegalOptionsTab({
                 </span>
               </div>
               <h4 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--card-foreground)]">
-                {district}
+                {districtCourt.display_name}
               </h4>
-              <p className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)]">
-                {t("resultsKnown.legalTab.district.sub")}
-              </p>
+              <div className="space-y-2">
+                {districtCourt.display_address && (
+                  <div className="flex items-start gap-2">
+                    <MapPin className="w-4 h-4 text-[var(--muted-foreground)] mt-0.5 shrink-0" />
+                    <span className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)]">
+                      {districtCourt.display_address}
+                    </span>
+                  </div>
+                )}
+                {districtCourt.telephone_number && (
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
+                    <a
+                      href={`tel:${districtCourt.telephone_number.replace(/\D/g, "")}`}
+                      className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                    >
+                      {districtCourt.telephone_number}
+                    </a>
+                  </div>
+                )}
+                {sanitizeUrl(districtCourt.main_url) && (
+                  <div className="flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
+                    <a
+                      href={sanitizeUrl(districtCourt.main_url)!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)] hover:underline break-all"
+                    >
+                      {districtCourt.main_url!.replace(/^https?:\/\//, "")}
+                    </a>
+                  </div>
+                )}
+                {sanitizeUrl(districtCourt.website_url) && (
+                  <div className="flex items-center gap-2">
+                    <ExternalLink className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
+                    <a
+                      href={sanitizeUrl(districtCourt.website_url)!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)] hover:underline break-all"
+                    >
+                      {t("resultsKnown.legalTab.district.habeasLink")}
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -651,7 +697,7 @@ export default function KnownResults() {
               {activeTab === "legal-options" && (
                 <LegalOptionsTab
                   fieldOffice={results?.fieldOffice}
-                  district={results?.district}
+                  districtCourt={results?.districtCourt}
                 />
               )}
             </div>

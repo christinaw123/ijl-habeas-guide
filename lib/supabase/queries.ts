@@ -26,6 +26,14 @@ export type FieldOffice = {
   phone: string;
 };
 
+export type DistrictCourt = {
+  display_name: string;
+  display_address: string | null;
+  main_url: string | null;
+  telephone_number: string | null;
+  website_url: string | null;
+};
+
 export type LocalOrg = {
   id: number;
   organization: string;
@@ -40,7 +48,7 @@ export type LocalOrg = {
 export type ResultsData = {
   facility: FacilityDetails;
   fieldOffice: FieldOffice | null;
-  district: string | null;
+  districtCourt: DistrictCourt | null;
   orgs: LocalOrg[];
 };
 
@@ -127,10 +135,21 @@ async function lookupByCountyCode(countyCode: string) {
       : null;
 
   // Prefer county-level district; fall back to state-wide entry
-  const district =
+  const districtName =
     countyDistResult.data?.[0]?.district ??
     stateDistResult.data?.[0]?.district ??
     null;
+
+  // Look up the district court address from us_districts_addresses
+  let districtCourt: DistrictCourt | null = null;
+  if (districtName) {
+    const { data: dcData } = await supabase
+      .from("us_districts_addresses")
+      .select("display_name, display_address, main_url, telephone_number, website_url")
+      .eq("display_name", districtName)
+      .limit(1);
+    districtCourt = (dcData?.[0] as DistrictCourt) ?? null;
+  }
 
   const orgs: LocalOrg[] = [];
   const seenOrgIds = new Set<number>();
@@ -143,7 +162,7 @@ async function lookupByCountyCode(countyCode: string) {
     }
   }
 
-  return { fieldOffice, district, orgs };
+  return { fieldOffice, districtCourt, orgs };
 }
 
 export async function getResultsData(
@@ -164,8 +183,8 @@ export async function getResultsData(
 
   // Case 1: county_code is already set — run the standard lookup directly.
   if (county_code) {
-    const { fieldOffice, district, orgs } = await lookupByCountyCode(county_code);
-    return { facility, fieldOffice, district, orgs };
+    const { fieldOffice, districtCourt, orgs } = await lookupByCountyCode(county_code);
+    return { facility, fieldOffice, districtCourt, orgs };
   }
 
   // Case 2: county_code is missing but the facility has a county name.
@@ -182,14 +201,14 @@ export async function getResultsData(
     const stateAbbr = stateRows?.[0]?.county_code?.split("_")[0];
     if (stateAbbr) {
       const derivedCountyCode = `${stateAbbr}_${county}`;
-      const { fieldOffice, district, orgs } =
+      const { fieldOffice, districtCourt, orgs } =
         await lookupByCountyCode(derivedCountyCode);
-      return { facility, fieldOffice, district, orgs };
+      return { facility, fieldOffice, districtCourt, orgs };
     }
   }
 
   // Case 3: no county info at all — return with empty relational data.
-  return { facility, fieldOffice: null, district: null, orgs: [] };
+  return { facility, fieldOffice: null, districtCourt: null, orgs: [] };
 }
 
 export type UnknownResultsData = {
@@ -202,12 +221,6 @@ export async function getUnknownResultsData(
   state: string,
   countyCodes: string[] | null
 ): Promise<UnknownResultsData> {
-  console.log(`[DEBUG] getUnknownResultsData: state=${state}, countyCodes=`, countyCodes);
-
-  if (!countyCodes?.length) {
-    console.log(`[DEBUG] no city provided — querying by state only`);
-  }
-
   const stateAbbr = countyCodes?.length
     ? countyCodes[0].split("_")[0]
     : (STATE_ABBREVIATIONS[state] ?? null);
@@ -217,8 +230,6 @@ export async function getUnknownResultsData(
     ...(countyCodes ?? []),
     ...(stateWideCode ? [stateWideCode] : []),
   ];
-
-  console.log(`[DEBUG] orgCodes=`, orgCodes, `| stateWide triggered:`, !!stateWideCode);
 
   const [facResult, fieldOfficeResult, orgResult] = await Promise.all([
     countyCodes?.length
@@ -254,13 +265,11 @@ export async function getUnknownResultsData(
   ]);
 
   if (facResult.error) console.error("getUnknownResultsData facilities error:", facResult.error);
-  console.log(`[DEBUG] facilities found:`, facResult.data?.length ?? 0);
 
   const fieldOfficeRow = (fieldOfficeResult as { data: Array<{ field_offices: unknown }> | null }).data?.[0];
   const fieldOffice = fieldOfficeRow?.field_offices
     ? (fieldOfficeRow.field_offices as unknown as FieldOffice)
     : null;
-  console.log(`[DEBUG] fieldOffice:`, fieldOffice);
 
   const orgs: LocalOrg[] = [];
   const seenIds = new Set<number>();
@@ -269,8 +278,6 @@ export async function getUnknownResultsData(
     const org = row.local_orgs as LocalOrg;
     if (!seenIds.has(org.id)) { seenIds.add(org.id); orgs.push(org); }
   }
-
-  console.log(`[DEBUG] orgs found:`, orgs.length, orgs.map(o => o.organization));
 
   // Exclude records sourced from field offices — those have corrupt address data.
   // The correct field office is now returned separately via county_field_office → field_offices.

@@ -24,6 +24,7 @@ import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { getUnknownResultsData, type FacilityDetails, type FieldOffice, type LocalOrg } from "@/lib/supabase/queries";
+import { sanitizeUrl } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -629,11 +630,11 @@ export default function UnknownResults() {
                         </a>
                       </div>
                     )}
-                    {facility.url && (
+                    {sanitizeUrl(facility.url) && (
                       <div className="flex items-center gap-2">
                         <Globe className="w-4 h-4 text-[var(--ijl-muted)] flex-shrink-0" />
                         <a
-                          href={facility.url}
+                          href={sanitizeUrl(facility.url)!}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-[var(--font-proxima)] text-base text-[var(--ijl-accent)] hover:underline"
@@ -793,11 +794,11 @@ export default function UnknownResults() {
                       {org.description}
                     </p>
                     <div className="space-y-2">
-                      {org.url && (
+                      {sanitizeUrl(org.url) && (
                         <div className="flex items-center gap-2">
                           <ExternalLink className="w-4 h-4 text-[var(--ijl-muted)] flex-shrink-0" />
                           <a
-                            href={org.url}
+                            href={sanitizeUrl(org.url)!}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-[var(--font-proxima)] text-base text-[var(--ijl-accent)] hover:underline"

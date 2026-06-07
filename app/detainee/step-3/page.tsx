@@ -216,7 +216,8 @@ export default function Step3DetainedLocationPage() {
                     id="manual-facility"
                     type="text"
                     value={manualFacilityName}
-                    onChange={(e) => setManualFacilityName(e.target.value)}
+                    onChange={(e) => setManualFacilityName(e.target.value.slice(0, 300))}
+                    maxLength={300}
                     placeholder={t("step3.facility.manual.placeholder")}
                     className="w-full rounded-lg border border-[var(--ijl-border)] bg-white px-4 py-3 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] placeholder:text-[var(--ijl-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--ijl-accent)]"
                   />

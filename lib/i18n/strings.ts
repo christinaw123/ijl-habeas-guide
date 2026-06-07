@@ -175,6 +175,7 @@ export const STRINGS: Record<string, string> = {
   "resultsKnown.legalTab.additional.intro":
     "Important contact information for offices related to this detention facility.",
   "resultsKnown.legalTab.district.sub": "U.S. District Court",
+  "resultsKnown.legalTab.district.habeasLink": "File a Habeas Corpus Petition",
 
   // (legacy keys kept for any remaining references)
   "resultsKnown.intro":
