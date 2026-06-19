@@ -29,12 +29,16 @@ jobs:
       - name: Show translation progress
         run: |
           echo "=== Translation progress ==="
+          found=0
           for f in public/locales/*.json; do
-            [ -f "$f" ] || { echo "(no locale files yet)"; break; }
+            [ -f "$f" ] || continue
+            [[ "$f" == *".hashes.json" ]] && continue
+            found=1
             lang=$(basename "$f" .json)
             done=$(jq 'length' "$f")
             echo "$lang: $done / 233 strings translated"
           done
+          [ $found -eq 0 ] && echo "(no locale files yet)"
         continue-on-error: true
 
       - name: Commit updated locale files
