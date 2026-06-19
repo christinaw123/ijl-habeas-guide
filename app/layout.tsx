@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LanguageProvider from "@/components/LanguageProvider";
 import { SelectScrollFix } from "@/components/SelectScrollFix";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -25,6 +27,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main className="flex-1 flex flex-col">{children}</main>
           <Footer />
         </LanguageProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
