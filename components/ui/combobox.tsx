@@ -5,6 +5,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import * as Popover from "@radix-ui/react-popover";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import type { PlaceResult } from "@/app/api/places/route";
 
 interface CityComboboxProps {
@@ -22,6 +23,7 @@ export function CityCombobox({
   onValueChange,
   onClear,
 }: CityComboboxProps) {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [results, setResults] = useState<PlaceResult[]>([]);
@@ -120,7 +122,7 @@ export function CityCombobox({
             <CommandInput
               value={inputValue}
               onValueChange={setInputValue}
-              placeholder="Type a city name..."
+              placeholder={t("step1.city.placeholder")}
               className={cn(
                 "w-full border-b border-[var(--ijl-border)] px-3 py-2",
                 "font-[var(--font-proxima)] text-[14px] outline-none placeholder:text-[var(--ijl-muted)]"
