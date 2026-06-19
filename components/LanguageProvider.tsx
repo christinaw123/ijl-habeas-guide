@@ -55,7 +55,6 @@ export default function LanguageProvider({
       }
     }
 
-    // Fetch from MyMemory
     setLoading(true);
     try {
       const fetched = await fetchTranslations(target);
@@ -64,7 +63,11 @@ export default function LanguageProvider({
       setTranslations(fetched);
       localStorage.setItem(LANG_STORAGE_KEY, target);
     } catch {
-      // On network failure, silently stay in current language
+      // Locale file missing or network failure — reset to English so the
+      // dropdown doesn't show a language while the page is still in English.
+      setLangState("en");
+      setTranslations(STRINGS);
+      localStorage.setItem(LANG_STORAGE_KEY, "en");
     } finally {
       setLoading(false);
     }
