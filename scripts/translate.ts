@@ -12,8 +12,6 @@ const DELAY_MS = 150;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-// Thrown when the daily word quota is hit — distinguished from real errors so
-// the caller can stop cleanly without writing bad data to disk.
 class QuotaExceededError extends Error {}
 
 async function translateOne(text: string, target: string): Promise<string> {
@@ -22,14 +20,12 @@ async function translateOne(text: string, target: string): Promise<string> {
 
   const res = await fetch(`https://api.mymemory.translated.net/get?${params}`);
 
-  // HTTP 403/429 at the network level = quota or IP block — treat same as quota.
   if (res.status === 403 || res.status === 429) throw new QuotaExceededError();
   if (!res.ok) throw new Error(`MyMemory HTTP ${res.status}`);
 
   const json = await res.json();
   const status = Number(json.responseStatus);
 
-  // MyMemory also signals quota exhaustion inside the JSON body.
   if (status === 429 || status === 403 || json.quotaFinished === true) {
     throw new QuotaExceededError();
   }
@@ -48,7 +44,7 @@ function loadExisting(path: string): Record<string, string> {
   }
 }
 
-async function translateLang(lang: string): Promise<"done" | "quota"> {
+async function translateLang(lang: string): Promise<"done" | "blocked"> {
   const outPath = resolve("public/locales", `${lang}.json`);
   const existing = loadExisting(outPath);
   const missing = Object.keys(STRINGS).filter((k) => !(k in existing));
@@ -58,31 +54,36 @@ async function translateLang(lang: string): Promise<"done" | "quota"> {
     return "done";
   }
 
-  console.log(
-    `  ${lang}: ${missing.length} remaining` +
-      (existing && Object.keys(existing).length > 0
-        ? ` (${Object.keys(existing).length} already done)`
-        : "")
-  );
+  const done = Object.keys(existing).length;
+  console.log(`  ${lang}: ${missing.length} remaining${done > 0 ? ` (${done} already done)` : ""}`);
 
   const partial = { ...existing };
   let translated = 0;
+  let consecutiveErrors = 0;
 
   for (const key of missing) {
     process.stdout.write(`\r  ${lang}: ${translated + 1}/${missing.length} `);
     try {
       partial[key] = await translateOne(STRINGS[key], lang);
-      // Write after every string — interrupted runs lose at most one entry.
       writeFileSync(outPath, JSON.stringify(partial, null, 2) + "\n");
       translated++;
+      consecutiveErrors = 0;
       await sleep(DELAY_MS);
     } catch (e) {
+      process.stdout.write("\n");
       if (e instanceof QuotaExceededError) {
-        process.stdout.write("\n");
-        console.log(`  ${lang}: quota reached after ${translated} strings — progress saved.`);
-        return "quota";
+        console.log(`  ${lang}: quota/blocked after ${translated} strings — progress saved.`);
+        return "blocked";
       }
-      throw e;
+      // Unexpected error: log it, skip this string, keep going.
+      // After 3 consecutive failures assume the API is down/blocked.
+      consecutiveErrors++;
+      console.warn(`  Warning (${consecutiveErrors}/3): ${(e as Error).message}`);
+      if (consecutiveErrors >= 3) {
+        console.log(`  ${lang}: stopping after 3 consecutive errors — progress saved.`);
+        return "blocked";
+      }
+      await sleep(DELAY_MS * 4);
     }
   }
 
@@ -94,23 +95,21 @@ async function translateLang(lang: string): Promise<"done" | "quota"> {
 async function main() {
   mkdirSync(resolve("public/locales"), { recursive: true });
 
-  // Allow targeting a single language: npm run translate -- es
   const onlyLang = process.argv[2];
   const langs = onlyLang ? [onlyLang] : TARGET_LANGS;
 
   if (!EMAIL) {
-    console.warn(
-      "Warning: MYMEMORY_EMAIL not set — daily limit is ~1,000 words.\n" +
-        "Register free at mymemory.translated.net and set MYMEMORY_EMAIL to get ~10,000 words/day.\n"
+    console.log(
+      "Note: MYMEMORY_EMAIL not set — daily limit is ~1,000 words.\n" +
+      "Register free at mymemory.translated.net and set MYMEMORY_EMAIL for ~10,000 words/day.\n"
     );
   }
 
   for (const lang of langs) {
     const result = await translateLang(lang);
-    if (result === "quota") {
-      console.log("\nDaily quota reached. Run again tomorrow to continue.");
-      // Exit 0 so GitHub Actions still commits whatever was saved.
-      process.exit(0);
+    if (result === "blocked") {
+      console.log("\nRun again tomorrow to continue.");
+      return; // exit 0 — GitHub Actions will still commit whatever was saved
     }
   }
 
@@ -118,6 +117,7 @@ async function main() {
 }
 
 main().catch((e) => {
-  console.error(e.message);
+  // Only reached for setup errors (bad import, missing file, etc.) — not API errors.
+  console.error("Fatal:", e.message);
   process.exit(1);
 });
