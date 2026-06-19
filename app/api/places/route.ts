@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 
   if (error) {
     console.error("[api/places]", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: "Search unavailable" }, { status: 500 });
   }
 
   // Group by place_display so duplicate city names collapse into one entry

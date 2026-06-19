@@ -16,7 +16,7 @@ export default function HomePage() {
 
   return (
     <div className="bg-[#F8FAFC]">
-      <main className="px-4 py-8">
+      <div className="px-4 py-8">
         <div className="mx-auto flex flex-col gap-8 max-w-[640px]">
           {/* Title + description */}
           <section className="flex flex-col gap-4">
@@ -68,7 +68,7 @@ export default function HomePage() {
             </div>
           </section>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

@@ -39,7 +39,7 @@ export default function Step1ArrestLocationPage() {
     <div className="bg-white">
       <BackButton href="/" label={t("step1.back")} />
 
-      <main className="px-4 py-8 sm:py-12">
+      <div className="px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl">
           {/* Hero */}
           <div className="text-center mb-8">
@@ -136,7 +136,7 @@ export default function Step1ArrestLocationPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

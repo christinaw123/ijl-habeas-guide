@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { STATES } from "@/lib/flow/mockData";
-import { type Facility, getFacilitiesByState } from "@/lib/supabase/queries";
+import type { Facility } from "@/lib/supabase/queries";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { MapPin } from "lucide-react";
 import { LOADING_NEXT_KEY } from "@/app/detainee/loading/page";
@@ -49,12 +49,17 @@ export default function Step3DetainedLocationPage() {
     if (!detainedState) return;
 
     let cancelled = false;
-    getFacilitiesByState(detainedState).then((data) => {
-      if (!cancelled) {
-        setFacilities(data);
-        setFetchedFor(detainedState);
-      }
-    });
+    fetch(`/api/facilities?state=${encodeURIComponent(detainedState)}`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: Facility[]) => {
+        if (!cancelled) {
+          setFacilities(data);
+          setFetchedFor(detainedState);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setFetchedFor(detainedState);
+      });
 
     return () => { cancelled = true; };
   }, [flow.detention.detainedState]);
@@ -114,7 +119,7 @@ export default function Step3DetainedLocationPage() {
     <div className="bg-white">
       <BackButton href="/detainee/step-2" label={t("step3.back")} />
 
-      <main className="flex-1 px-4 py-8 sm:py-12">
+      <div className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl">
           {/* Hero */}
           <div className="text-center mb-8">
@@ -289,7 +294,7 @@ export default function Step3DetainedLocationPage() {
             </div>
           )}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

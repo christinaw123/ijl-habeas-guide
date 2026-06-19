@@ -11,7 +11,7 @@ export default function ImmigrationBondsPage() {
     <div className="bg-white">
       <BackButton href="/detainee/results/known" label={t("learn.back")} />
 
-      <main className="px-4 py-8 sm:py-12">
+      <div className="px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl flex flex-col gap-6">
           <h1 className="oswald font-medium text-[24px] leading-[32px] text-[var(--ijl-title)]">
             {t("learn.bonds.title")}
@@ -79,7 +79,7 @@ export default function ImmigrationBondsPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

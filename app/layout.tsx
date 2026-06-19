@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { ReactNode } from "react";
-import { Oswald, Inter } from "next/font/google";
+import { Oswald } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LanguageProvider from "@/components/LanguageProvider";
@@ -13,17 +13,11 @@ const oswald = Oswald({
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${oswald.variable} ${inter.variable} min-h-screen flex flex-col bg-white`}
+        className={`${oswald.variable} min-h-screen flex flex-col bg-white`}
       >
         <LanguageProvider>
           <SelectScrollFix />

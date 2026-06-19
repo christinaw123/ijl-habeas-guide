@@ -23,7 +23,7 @@ import Link from "next/link";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { getUnknownResultsData, type FacilityDetails, type FieldOffice, type LocalOrg } from "@/lib/supabase/queries";
+import type { FacilityDetails, FieldOffice, LocalOrg, UnknownResultsData } from "@/lib/supabase/queries";
 import { sanitizeUrl } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
@@ -175,13 +175,22 @@ export default function UnknownResults() {
 
   useEffect(() => {
     if (!hydrated || !flow.arrest.state) return;
-    getUnknownResultsData(flow.arrest.state, flow.arrest.county_codes ?? null).then(
-      ({ facilities, fieldOffice, orgs }) => {
+    const params = new URLSearchParams({ state: flow.arrest.state });
+    if (flow.arrest.county_codes?.length) {
+      params.set("countyCodes", flow.arrest.county_codes.join(","));
+    }
+    fetch(`/api/results/unknown?${params}`)
+      .then((r) => (r.ok ? r.json() : { facilities: [], fieldOffice: null, orgs: [] }))
+      .then(({ facilities, fieldOffice, orgs }: UnknownResultsData) => {
         setFacilities(facilities.map(toFacility));
         setFieldOffice(fieldOffice);
         setOrgs(orgs.map(toOrg));
-      }
-    );
+      })
+      .catch(() => {
+        setFacilities([]);
+        setFieldOffice(null);
+        setOrgs([]);
+      });
   }, [hydrated, flow.arrest.state, flow.arrest.county_codes]);
 
   if (!hydrated || flow.detention.knowsWhereHeld !== false) return null;
@@ -203,7 +212,7 @@ export default function UnknownResults() {
       <BackButton href="/detainee/step-2" label={t("resultsUnknown.back")} />
 
       {/* Main content */}
-      <main className="px-4 py-8 sm:py-12">
+      <div className="px-4 py-8 sm:py-12">
         <div className="max-w-2xl mx-auto space-y-6">
           {/* Title */}
           <h1 className="oswald font-medium text-[36px] leading-[1.2] ijl-title-color">
@@ -842,7 +851,7 @@ export default function UnknownResults() {
             </div>
           )}
         </div>
-      </main>
+      </div>
 
       {/* ── Modal: What happens after an arrest ─────────────────────── */}
       <Modal

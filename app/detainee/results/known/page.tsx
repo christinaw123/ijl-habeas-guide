@@ -10,13 +10,12 @@ import {
 } from "lucide-react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import {
-  getResultsData,
-  type ResultsData,
-  type LocalOrg,
-  type FacilityDetails,
-  type FieldOffice,
-  type DistrictCourt,
+import type {
+  ResultsData,
+  LocalOrg,
+  FacilityDetails,
+  FieldOffice,
+  DistrictCourt,
 } from "@/lib/supabase/queries";
 import { sanitizeUrl } from "@/lib/utils";
 
@@ -594,7 +593,10 @@ export default function KnownResults() {
 
   useEffect(() => {
     if (!flow.detention.facilityId) return;
-    getResultsData(flow.detention.facilityId).then(setResults);
+    fetch(`/api/results/known?facilityCode=${encodeURIComponent(flow.detention.facilityId)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then(setResults)
+      .catch(() => setResults(null));
   }, [flow.detention.facilityId]);
 
   const arrestCity = flow.arrest.city ?? t("resultsKnown.unknownCity");
@@ -621,7 +623,7 @@ export default function KnownResults() {
   return (
     <div className="bg-white">
       <BackButton href="/detainee/step-3" label={t("resultsKnown.back")} />
-      <main className="flex-1 px-4 py-8 sm:py-12">
+      <div className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl space-y-6">
 
           {/* Title */}
@@ -720,7 +722,7 @@ export default function KnownResults() {
             </div>
           )}
         </div>
-      </main>
+      </div>
 
       {/* Commissary modal */}
       <Modal

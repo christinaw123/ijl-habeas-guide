@@ -46,7 +46,7 @@ export default function Step2KnowsWhereHeldPage() {
       <BackButton href="/detainee/step-1" label={t("step2.back")} />
 
       {/* Main content */}
-      <main className="flex-1 px-4 py-8 sm:py-12">
+      <div className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl">
           {/* Hero */}
           <div className="text-center mb-8">
@@ -132,7 +132,7 @@ export default function Step2KnowsWhereHeldPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
