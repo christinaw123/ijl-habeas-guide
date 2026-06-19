@@ -22,7 +22,7 @@ function getClientIp(request: NextRequest): string {
   return request.headers.get("x-real-ip") ?? "unknown";
 }
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const ip = getClientIp(request);
 
   const { data, error } = await supabase

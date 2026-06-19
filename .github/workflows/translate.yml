@@ -29,6 +29,7 @@ jobs:
       - name: Show translation progress
         run: |
           echo "=== Translation progress ==="
+          total=$(jq '[.[] | length] | max // "?"' public/locales/.hashes.json 2>/dev/null || echo "?")
           found=0
           for f in public/locales/*.json; do
             [ -f "$f" ] || continue
@@ -36,7 +37,7 @@ jobs:
             found=1
             lang=$(basename "$f" .json)
             done=$(jq 'length' "$f")
-            echo "$lang: $done / 233 strings translated"
+            echo "$lang: $done / $total strings translated"
           done
           [ $found -eq 0 ] && echo "(no locale files yet)"
         continue-on-error: true

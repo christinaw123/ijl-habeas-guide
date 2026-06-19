@@ -5,11 +5,24 @@ import { LanguageContext, type Lang } from "@/lib/i18n/LanguageContext";
 import { STRINGS } from "@/lib/i18n/strings";
 
 type Translations = Record<string, string>;
+type CacheEntry = { t: Translations; v: string };
 
 const LANG_STORAGE_KEY = "ijl_lang";
 
 function cacheKey(lang: string) {
   return `ijl_translations_${lang}`;
+}
+
+// Lightweight checksum of all English source string values. Changes whenever
+// any source text is edited, busting cached translations for that build.
+function stringsChecksum(): string {
+  let h = 0;
+  for (const v of Object.values(STRINGS)) {
+    for (let i = 0; i < v.length; i++) {
+      h = (Math.imul(31, h) + v.charCodeAt(i)) | 0;
+    }
+  }
+  return h.toString(36);
 }
 
 async function fetchTranslations(targetLang: string): Promise<Translations> {
@@ -27,7 +40,11 @@ export default function LanguageProvider({
   const [translations, setTranslations] = useState<Translations>(STRINGS);
   const [loading, setLoading] = useState(false);
 
-  const applyLang = useCallback(async (target: Lang) => {
+  // fromStorage=true when restoring a saved preference on mount: a persistent
+  // failure (locale file never deployed) should clear the preference rather than
+  // retrying on every page load. For user-triggered switches, keep the
+  // preference so a transient failure doesn't permanently erase it.
+  const applyLang = useCallback(async (target: Lang, { fromStorage = false }: { fromStorage?: boolean } = {}) => {
     if (target === "en") {
       setLangState("en");
       setTranslations(STRINGS);
@@ -35,39 +52,44 @@ export default function LanguageProvider({
       return;
     }
 
+    const checksum = stringsChecksum();
+
     // Check localStorage cache first
     const cached = localStorage.getItem(cacheKey(target));
     if (cached) {
       try {
-        const parsed: Translations = JSON.parse(cached);
-        // Invalidate if any current string keys are missing (strings were added since last cache)
-        const allKeysPresent = Object.keys(STRINGS).every((k) => k in parsed);
-        if (allKeysPresent) {
+        const entry: CacheEntry = JSON.parse(cached);
+        const allKeysPresent = Object.keys(STRINGS).every((k) => k in entry.t);
+        if (allKeysPresent && entry.v === checksum) {
           setLangState(target);
-          setTranslations(parsed);
+          setTranslations(entry.t);
           localStorage.setItem(LANG_STORAGE_KEY, target);
           return;
         }
-        // Cache is stale — remove it and fall through to re-fetch
+        // Cache is stale (missing keys or source strings changed) — re-fetch
         localStorage.removeItem(cacheKey(target));
       } catch {
-        // Cache corrupted — fall through to fetch
+        // Cache corrupted or old format — fall through to fetch
       }
     }
 
     setLoading(true);
     try {
       const fetched = await fetchTranslations(target);
-      localStorage.setItem(cacheKey(target), JSON.stringify(fetched));
+      localStorage.setItem(cacheKey(target), JSON.stringify({ t: fetched, v: checksum } satisfies CacheEntry));
       setLangState(target);
       setTranslations(fetched);
       localStorage.setItem(LANG_STORAGE_KEY, target);
     } catch {
-      // Locale file missing or network failure — reset to English so the
-      // dropdown doesn't show a language while the page is still in English.
+      // Locale file missing or network failure — reset the UI to English so the
+      // dropdown doesn't show a language while content is still in English.
       setLangState("en");
       setTranslations(STRINGS);
-      localStorage.setItem(LANG_STORAGE_KEY, "en");
+      if (fromStorage) {
+        // Clear the stored preference to avoid retrying on every page load when
+        // the locale file is persistently missing.
+        localStorage.setItem(LANG_STORAGE_KEY, "en");
+      }
     } finally {
       setLoading(false);
     }
@@ -77,7 +99,7 @@ export default function LanguageProvider({
   useEffect(() => {
     const saved = localStorage.getItem(LANG_STORAGE_KEY) as Lang | null;
     if (saved && saved !== "en") {
-      applyLang(saved);
+      applyLang(saved, { fromStorage: true });
     }
   }, [applyLang]);
 

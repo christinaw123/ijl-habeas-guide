@@ -361,6 +361,49 @@ export const STRINGS: Record<string, string> = {
   // Shared nav labels
   "resultsUnknown.nav.back": "Back",
 
+  // Learn pages — bonds and habeas corpus
+  "learn.back": "Back",
+
+  "learn.bonds.title": "Immigration Bonds",
+  "learn.bonds.p1":
+    "When someone is detained by immigration officials, often the first legal step will be to determine if the person can request to be released from detention on an \"immigration bond.\"",
+  "learn.bonds.p2":
+    "Getting released on a bond can enable the person to return to their family or loved ones and can make it easier to access support and materials for a case in Immigration Court.",
+  "learn.bonds.findHelp.prefix":
+    "If you or someone you know has been detained, first try to",
+  "learn.bonds.findHelp.link": "find an attorney or free legal aid organization",
+  "learn.bonds.selfRep.intro":
+    "If the person is forced to defend themself in Immigration Court without an attorney, this resource might be helpful.",
+  "learn.bonds.guide.title": "Immigration Bond Guide",
+  "learn.bonds.guide.desc":
+    "– information about how to ask to be released on bond in Immigration Court",
+  "learn.bonds.faq.title": "Immigration Court FAQ",
+  "learn.bonds.faq.desc":
+    "– information about what happens in Immigration Court and links to additional resources that might address other questions you have about your options",
+  "learn.bonds.bailFund.intro":
+    "If the person is granted bond but you need help paying it, national and local bail funds may be able to assist. These community organizations help people who cannot afford to pay the bond on their own.",
+  "learn.bonds.bailFund.title": "The National Bail Fund Network",
+  "learn.bonds.bailFund.desc":
+    "has a full directory of community-led bail and bond funds that regularly post pretrial and immigration bail.",
+
+  "learn.habeas.title": "Habeas Corpus",
+  "learn.habeas.p1":
+    "When someone is detained by immigration officials, it's possible that the person will not get a chance to ask for bond in Immigration Court, or that an Immigration Judge will not grant the person's request to be released on bond. This can happen for many reasons.",
+  "learn.habeas.p2":
+    "In certain cases, a person may request release from detention at a hearing before a different type of judge in a different type of court. This requires making a specific kind of legal request – known as a \"habeas petition\" – in a U.S. Federal District Court.",
+  "learn.habeas.p3":
+    "Habeas corpus is a legal process that allows detained individuals to challenge the legality of their detention in court. It ensures that no one can be held without legal justification.",
+  "learn.habeas.findHelp.prefix":
+    "It is important to get an attorney before submitting a habeas petition in Federal District Court, as the process can be complex. Use our legal aid help finder to",
+  "learn.habeas.findHelp.link": "find an attorney or free legal aid organization",
+  "learn.habeas.selfRep.intro":
+    "If forced to submit a habeas petition without an attorney, the person will need information about the Detention Facility, the Federal District Court responsible for that location, and the ICE Field Office responsible for that location. Refer to this guide for more information:",
+  "learn.habeas.guide.title": "Immigration Habeas Petition Guide",
+  "learn.habeas.guide.desc":
+    "– This guide provides information about some of the reasons immigrants in detention facilities submit habeas petitions to Federal District Courts",
+  "learn.habeas.p5":
+    "The Federal District Court responsible for the location where the person is detained provides forms for individuals who submit habeas petitions without an attorney and cannot afford the usual filing fees.",
+
   // Footer
   "footer.legal":
     "This tool provides general legal information, not legal advice.",

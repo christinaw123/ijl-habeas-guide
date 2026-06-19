@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import BackButton from "@/components/BackButton";
+import Link from "next/link";
 import {
   Phone, Globe, Mail, MapPin, Pencil, Scale, Landmark,
   Users, Clock, ExternalLink, X,
@@ -406,20 +407,26 @@ function LegalOptionsTab({
 }) {
   const { t } = useLanguage();
 
-  const legalSections = [
+  const legalSections: { titleKey: string; bodyKey: string; href?: string }[] = [
     {
       titleKey: "resultsKnown.options.court.title",
       bodyKey: "resultsKnown.options.court.description",
+      // href not yet set — immigration court page in progress
     },
     {
       titleKey: "resultsKnown.options.bonds.title",
       bodyKey: "resultsKnown.options.bonds.description",
+      href: "/detainee/learn/bonds",
     },
     {
       titleKey: "resultsKnown.options.habeas.title",
       bodyKey: "resultsKnown.options.habeas.description",
+      href: "/detainee/learn/habeas",
     },
   ];
+
+  const learnMoreClass =
+    "inline-flex items-center h-9 px-3 text-[14px] font-[var(--font-proxima)] font-medium rounded-md border border-[var(--ijl-border)] bg-white transition-colors";
 
   return (
     <div className="space-y-6">
@@ -436,12 +443,22 @@ function LegalOptionsTab({
             <p className="font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
               {t(s.bodyKey)}
             </p>
-            <button
-              type="button"
-              className="inline-flex items-center h-9 px-3 text-[14px] font-[var(--font-proxima)] font-medium rounded-md border border-[var(--ijl-border)] text-[var(--foreground)] bg-white hover:bg-[var(--ijl-cta-bg)] transition-colors"
-            >
-              {t("resultsKnown.legalTab.learnMore")}
-            </button>
+            {s.href ? (
+              <Link
+                href={s.href}
+                className={`${learnMoreClass} text-[var(--foreground)] hover:bg-[var(--ijl-cta-bg)]`}
+              >
+                {t("resultsKnown.legalTab.learnMore")}
+              </Link>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className={`${learnMoreClass} text-[var(--ijl-muted)] cursor-not-allowed opacity-50`}
+              >
+                {t("resultsKnown.legalTab.learnMore")}
+              </button>
+            )}
           </div>
         ))}
       </div>

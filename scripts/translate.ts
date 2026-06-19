@@ -85,10 +85,16 @@ async function translateLang(lang: string, hashes: HashStore): Promise<"done" | 
   const partial = { ...existing };
   const partialHashes = { ...langHashes };
 
-  // Apply removals immediately.
+  // Apply removals immediately and persist — the translation loop also writes
+  // per string, but if toTranslate is empty the loop won't run at all.
   for (const key of removed) {
     delete partial[key];
     delete partialHashes[key];
+  }
+  if (removed.length > 0) {
+    writeFileSync(outPath, JSON.stringify(partial, null, 2) + "\n");
+    hashes[lang] = partialHashes;
+    writeFileSync(HASHES_PATH, JSON.stringify(hashes, null, 2) + "\n");
   }
 
   let translated = 0;
