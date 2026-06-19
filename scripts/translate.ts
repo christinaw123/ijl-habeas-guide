@@ -21,12 +21,15 @@ async function translateOne(text: string, target: string): Promise<string> {
   if (EMAIL) params.set("de", EMAIL);
 
   const res = await fetch(`https://api.mymemory.translated.net/get?${params}`);
+
+  // HTTP 403/429 at the network level = quota or IP block — treat same as quota.
+  if (res.status === 403 || res.status === 429) throw new QuotaExceededError();
   if (!res.ok) throw new Error(`MyMemory HTTP ${res.status}`);
 
   const json = await res.json();
   const status = Number(json.responseStatus);
 
-  // MyMemory signals quota exhaustion via status 429/403 or quotaFinished flag.
+  // MyMemory also signals quota exhaustion inside the JSON body.
   if (status === 429 || status === 403 || json.quotaFinished === true) {
     throw new QuotaExceededError();
   }
