@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "cmdk";
 import * as Popover from "@radix-ui/react-popover";
 import { Check, ChevronsUpDown, X } from "lucide-react";
@@ -24,16 +24,27 @@ export function CityCombobox({
   onClear,
 }: CityComboboxProps) {
   const { t } = useLanguage();
+  const listboxId = useId();
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [results, setResults] = useState<PlaceResult[]>([]);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [prevStateAbbr, setPrevStateAbbr] = useState(stateAbbr);
+
+  // Reset when the parent switches to a different state (React render-time adjustment pattern)
+  if (prevStateAbbr !== stateAbbr) {
+    setPrevStateAbbr(stateAbbr);
+    setInputValue("");
+    setResults([]);
+  }
+
+  // Derive empty results when input is blank to avoid synchronous setState in an effect
+  const visibleResults = inputValue.trim() ? results : [];
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
     if (!inputValue.trim()) {
-      setResults([]);
       return;
     }
 
@@ -59,12 +70,6 @@ export function CityCombobox({
     };
   }, [inputValue, stateAbbr]);
 
-  // Reset input when stateAbbr changes (parent already clears value)
-  useEffect(() => {
-    setInputValue("");
-    setResults([]);
-  }, [stateAbbr]);
-
   function handleSelect(place: PlaceResult) {
     onValueChange(place.place_display, place.county_codes);
     setInputValue(place.place_display);
@@ -85,6 +90,7 @@ export function CityCombobox({
           type="button"
           role="combobox"
           aria-expanded={open}
+          aria-controls={listboxId}
           className={cn(
             "flex h-10 w-full items-center justify-between rounded-md border border-[var(--ijl-border)] bg-white px-3 py-2",
             "font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]",
@@ -114,14 +120,18 @@ export function CityCombobox({
 
       <Popover.Portal>
         <Popover.Content
+          forceMount
           align="start"
           sideOffset={4}
-          className="z-50 w-[var(--radix-popover-trigger-width)] rounded-md border border-[var(--ijl-border)] bg-white shadow-md"
+          className="z-50 w-[var(--radix-popover-trigger-width)] rounded-md border border-[var(--ijl-border)] bg-white shadow-md data-[state=closed]:hidden"
         >
           <Command shouldFilter={false}>
             <CommandInput
               value={inputValue}
-              onValueChange={setInputValue}
+              onValueChange={(val) => {
+                setInputValue(val);
+                if (!val.trim()) setResults([]);
+              }}
               placeholder={t("step1.city.placeholder")}
               className={cn(
                 "w-full border-b border-[var(--ijl-border)] px-3 py-2",
@@ -129,15 +139,15 @@ export function CityCombobox({
               )}
               autoFocus
             />
-            <CommandList className="max-h-60 overflow-y-auto py-1">
-              {inputValue.trim() && results.length === 0 && (
+            <CommandList id={listboxId} className="max-h-60 overflow-y-auto py-1">
+              {inputValue.trim() && visibleResults.length === 0 && (
                 <CommandEmpty className="px-3 py-2 font-[var(--font-proxima)] text-[13px] text-[var(--ijl-muted)]">
                   No cities found.
                 </CommandEmpty>
               )}
-              {results.length > 0 && (
+              {visibleResults.length > 0 && (
                 <CommandGroup>
-                  {results.map((place) => (
+                  {visibleResults.map((place) => (
                     <CommandItem
                       key={`${place.county_codes.join(",")}__${place.place_display}`}
                       value={place.place_display}
