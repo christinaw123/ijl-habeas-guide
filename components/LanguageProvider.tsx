@@ -7,31 +7,15 @@ import { STRINGS } from "@/lib/i18n/strings";
 type Translations = Record<string, string>;
 
 const LANG_STORAGE_KEY = "ijl_lang";
-const MYMEMORY_BASE = "https://api.mymemory.translated.net/get";
 
 function cacheKey(lang: string) {
   return `ijl_translations_${lang}`;
 }
 
 async function fetchTranslations(targetLang: string): Promise<Translations> {
-  const entries = Object.entries(STRINGS);
-  const results = await Promise.allSettled(
-    entries.map(async ([, text]) => {
-      const url = `${MYMEMORY_BASE}?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      // MyMemory returns the original text on failure; keep it as fallback
-      return (data.responseData?.translatedText as string) || text;
-    })
-  );
-
-  const translations: Translations = {};
-  entries.forEach(([key, fallback], i) => {
-    const result = results[i];
-    translations[key] =
-      result.status === "fulfilled" ? result.value : fallback;
-  });
-  return translations;
+  const res = await fetch(`/locales/${targetLang}.json`);
+  if (!res.ok) throw new Error(`Failed to load translations for ${targetLang}`);
+  return res.json();
 }
 
 export default function LanguageProvider({
