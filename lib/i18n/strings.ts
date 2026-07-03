@@ -20,6 +20,9 @@ export const STRINGS: Record<string, string> = {
     "The Immigrant Justice Lab and MIRC work together to help immigrant communities get the information and support they need. MIRC offers free legal help to immigrants across Michigan, including people who have been detained.",
   "home.about.cta": "Learn More",
 
+  // Common
+  "common.state.search": "Search states…",
+
   // Step 1
   "step1.back": "Back",
   "step1.title": "Where was the person arrested?",

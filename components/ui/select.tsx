@@ -42,7 +42,7 @@ export const SelectContent = React.forwardRef<
       position={position}
       side="bottom"
       sideOffset={4}
-      avoidCollisions={true}
+      avoidCollisions={false}
       collisionPadding={8}
       className={cn(
         "z-50 overflow-hidden rounded-[10px] border border-[var(--ijl-border)] bg-white shadow-md",

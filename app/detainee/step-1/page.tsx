@@ -4,19 +4,11 @@ import BackButton from "@/components/BackButton";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
-import { STATES } from "@/lib/flow/mockData";
 import { MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { STATE_ABBREVIATIONS } from "@/lib/data/stateAbbreviations";
-import { CityCombobox } from "@/components/ui/combobox";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { CityCombobox } from "@/components/ui/city-combobox";
+import { StateCombobox } from "@/components/ui/state-combobox";
 
 export default function Step1ArrestLocationPage() {
   const router = useRouter();
@@ -61,26 +53,22 @@ export default function Step1ArrestLocationPage() {
                   {t("step1.state.label")}
                 </label>
 
-                <Select
-                  value={flow.arrest.state ?? ""}
-                  onValueChange={(value) => {
+                <StateCombobox
+                  value={flow.arrest.state ?? null}
+                  placeholder={t("step1.state.placeholder")}
+                  onValueChange={(value) =>
                     setFlow((prev) => ({
                       ...prev,
                       arrest: { state: value, city: null, county_codes: null },
-                    }));
-                  }}
-                >
-                  <SelectTrigger aria-label={t("step1.state.label")}>
-                    <SelectValue placeholder={t("step1.state.placeholder")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {STATES.map((s) => (
-                      <SelectItem key={s} value={s}>
-                        {s}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                    }))
+                  }
+                  onClear={() =>
+                    setFlow((prev) => ({
+                      ...prev,
+                      arrest: { state: "", city: null, county_codes: null },
+                    }))
+                  }
+                />
 
                 {touched && !stateValid && (
                   <div className="text-sm font-[var(--font-proxima)] text-red-600">

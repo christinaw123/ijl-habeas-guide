@@ -351,7 +351,7 @@ function GetHelpNotFoundTab() {
           {t("resultsKnown.help.notFound.legal.desc")}
         </p>
         <a
-          href="https://www.immi.org/en/Home/prescreening"
+          href="https://www.immi.org/en/"
           target="_blank"
           rel="noopener noreferrer"
           className={outlineBtn}

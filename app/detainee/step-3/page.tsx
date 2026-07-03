@@ -5,7 +5,6 @@ import BackButton from "@/components/BackButton";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
-import { STATES } from "@/lib/flow/mockData";
 import type { Facility } from "@/lib/supabase/queries";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { MapPin } from "lucide-react";
@@ -18,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { StateCombobox } from "@/components/ui/state-combobox";
 
 export default function Step3DetainedLocationPage() {
   const router = useRouter();
@@ -140,8 +140,9 @@ export default function Step3DetainedLocationPage() {
                 <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
                   {t("step3.state.label")}
                 </label>
-                <Select
-                  value={flow.detention.detainedState ?? ""}
+                <StateCombobox
+                  value={flow.detention.detainedState ?? null}
+                  placeholder={t("step3.state.placeholder")}
                   onValueChange={(value) => {
                     setFlow((prev) => ({
                       ...prev,
@@ -155,18 +156,20 @@ export default function Step3DetainedLocationPage() {
                     setManualFacilityName("");
                     setShowGuidance(false);
                   }}
-                >
-                  <SelectTrigger aria-label={t("step3.state.label")}>
-                    <SelectValue placeholder={t("step3.state.placeholder")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {STATES.map((s) => (
-                      <SelectItem key={s} value={s}>
-                        {s}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  onClear={() => {
+                    setFlow((prev) => ({
+                      ...prev,
+                      detention: {
+                        ...prev.detention,
+                        detainedState: null,
+                        facilityId: null,
+                      },
+                    }));
+                    setShowManualEntry(false);
+                    setManualFacilityName("");
+                    setShowGuidance(false);
+                  }}
+                />
               </div>
 
               {/* Facility dropdown (hidden when manual entry is active) */}
