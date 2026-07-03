@@ -42,11 +42,12 @@ export const SelectContent = React.forwardRef<
       position={position}
       side="bottom"
       sideOffset={4}
-      avoidCollisions={false}
+      avoidCollisions={true}
+      collisionPadding={8}
       className={cn(
         "z-50 overflow-hidden rounded-[10px] border border-[var(--ijl-border)] bg-white shadow-md",
         "w-[var(--radix-select-trigger-width)]",
-        "max-h-[320px]",
+        "max-h-[min(320px,var(--radix-select-content-available-height))]",
   className
       )}
       {...props}

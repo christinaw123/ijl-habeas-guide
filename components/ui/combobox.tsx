@@ -27,6 +27,7 @@ export function CityCombobox({
   const listboxId = useId();
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const [results, setResults] = useState<PlaceResult[]>([]);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [prevStateAbbr, setPrevStateAbbr] = useState(stateAbbr);
@@ -40,6 +41,14 @@ export function CityCombobox({
 
   // Derive empty results when input is blank to avoid synchronous setState in an effect
   const visibleResults = inputValue.trim() ? results : [];
+
+  // Focus the search input after the popover has finished positioning to avoid triggering
+  // the iOS virtual keyboard before Radix measures the available space.
+  useEffect(() => {
+    if (!open) return;
+    const id = requestAnimationFrame(() => inputRef.current?.focus());
+    return () => cancelAnimationFrame(id);
+  }, [open]);
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -123,10 +132,12 @@ export function CityCombobox({
           forceMount
           align="start"
           sideOffset={4}
+          collisionPadding={8}
           className="z-50 w-[var(--radix-popover-trigger-width)] rounded-md border border-[var(--ijl-border)] bg-white shadow-md data-[state=closed]:hidden"
         >
           <Command shouldFilter={false}>
             <CommandInput
+              ref={inputRef}
               value={inputValue}
               onValueChange={(val) => {
                 setInputValue(val);
@@ -137,7 +148,6 @@ export function CityCombobox({
                 "w-full border-b border-[var(--ijl-border)] px-3 py-2",
                 "font-[var(--font-proxima)] text-[14px] outline-none placeholder:text-[var(--ijl-muted)]"
               )}
-              autoFocus
             />
             <CommandList id={listboxId} className="max-h-60 overflow-y-auto py-1">
               {inputValue.trim() && visibleResults.length === 0 && (

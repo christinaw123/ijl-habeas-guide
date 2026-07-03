@@ -1,5 +1,11 @@
 import "./globals.css";
 import type { ReactNode } from "react";
+import type { Viewport } from "next";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 import { Oswald } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
