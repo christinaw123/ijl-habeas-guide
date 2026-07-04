@@ -256,7 +256,8 @@
     "learn.habeas.selfRep.intro": "5a8a2736",
     "learn.habeas.guide.title": "8fb8d31d",
     "learn.habeas.guide.desc": "04b0a51b",
-    "learn.habeas.p5": "ece95a6d"
+    "learn.habeas.p5": "ece95a6d",
+    "common.state.search": "09fe5af0"
   },
   "ar": {
     "toggle.label": "4994a8ff",
@@ -515,7 +516,8 @@
     "learn.habeas.selfRep.intro": "5a8a2736",
     "learn.habeas.guide.title": "8fb8d31d",
     "learn.habeas.guide.desc": "04b0a51b",
-    "learn.habeas.p5": "ece95a6d"
+    "learn.habeas.p5": "ece95a6d",
+    "common.state.search": "09fe5af0"
   },
   "ht": {
     "toggle.label": "4994a8ff",
@@ -774,7 +776,8 @@
     "footer.translation": "5d907c13",
     "footer.org": "505f91d8",
     "footer.org.link": "c74ba6c0",
-    "footer.copyright": "a1c05189"
+    "footer.copyright": "a1c05189",
+    "common.state.search": "09fe5af0"
   },
   "vi": {
     "toggle.label": "4994a8ff",
@@ -1033,7 +1036,8 @@
     "footer.translation": "5d907c13",
     "footer.org": "505f91d8",
     "footer.org.link": "c74ba6c0",
-    "footer.copyright": "a1c05189"
+    "footer.copyright": "a1c05189",
+    "common.state.search": "09fe5af0"
   },
   "pt": {
     "toggle.label": "4994a8ff",
@@ -1292,7 +1296,8 @@
     "footer.translation": "5d907c13",
     "footer.org": "505f91d8",
     "footer.org.link": "c74ba6c0",
-    "footer.copyright": "a1c05189"
+    "footer.copyright": "a1c05189",
+    "common.state.search": "09fe5af0"
   },
   "zh-CN": {
     "toggle.label": "4994a8ff",
@@ -1551,6 +1556,7 @@
     "footer.translation": "5d907c13",
     "footer.org": "505f91d8",
     "footer.org.link": "c74ba6c0",
-    "footer.copyright": "a1c05189"
+    "footer.copyright": "a1c05189",
+    "common.state.search": "09fe5af0"
   }
 }

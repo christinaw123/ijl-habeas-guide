@@ -255,5 +255,6 @@
   "learn.habeas.selfRep.intro": "Si se ve obligado a presentar una petición de hábeas sin un abogado, la persona necesitará información sobre el Centro de Detención, el Tribunal de Distrito Federal responsable de esa ubicación y la Oficina de Campo de ICE responsable de esa ubicación. Consulte esta guía para obtener más información:",
   "learn.habeas.guide.title": "Guía de Petición de Hábeas de Inmigración",
   "learn.habeas.guide.desc": "– Esta guía proporciona información sobre algunas de las razones por las que los inmigrantes en centros de detención presentan peticiones de hábeas ante los Tribunales del Distrito Federal",
-  "learn.habeas.p5": "El Tribunal de Distrito Federal responsable del lugar donde se encuentra detenida la persona proporciona formularios para las personas que presentan peticiones de hábeas sin un abogado y no pueden pagar las tarifas de presentación habituales."
+  "learn.habeas.p5": "El Tribunal de Distrito Federal responsable del lugar donde se encuentra detenida la persona proporciona formularios para las personas que presentan peticiones de hábeas sin un abogado y no pueden pagar las tarifas de presentación habituales.",
+  "common.state.search": "Buscar estado/provincia"
 }
