@@ -17,7 +17,7 @@ import type {
   FieldOffice,
   DistrictCourt,
 } from "@/lib/supabase/queries";
-import { sanitizeUrl } from "@/lib/utils";
+import { sanitizeUrl, primaryFacilityUrl } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Modal
@@ -182,11 +182,11 @@ function ContactTab({
           {facility?.facility_display ?? t("resultsKnown.unknownFacility")}
         </h3>
         <div className="space-y-2">
-          {(facility?.address || facility?.city) && (
+          {(facility?.address_standardized || facility?.city) && (
             <div className="flex items-start gap-2">
               <MapPin className="w-4 h-4 text-[var(--muted-foreground)] mt-1 shrink-0" />
               <div className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)]">
-                {facility?.address && <div>{facility.address}</div>}
+                {facility?.address_standardized && <div>{facility.address_standardized}</div>}
                 {facility?.city && (
                   <div>
                     {facility.city}, {facility.state} {facility.zip}
@@ -195,24 +195,24 @@ function ContactTab({
               </div>
             </div>
           )}
-          {facility?.phone_info && (
+          {facility?.display_telephone_number && (
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
               <span className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)] hover:text-[var(--foreground)]">
-                {facility.phone_info}
+                {facility.display_telephone_number}
               </span>
             </div>
           )}
-          {sanitizeUrl(facility?.url) && (
+          {facility && sanitizeUrl(primaryFacilityUrl(facility)) && (
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
               <a
-                href={sanitizeUrl(facility!.url)!}
+                href={sanitizeUrl(primaryFacilityUrl(facility))!}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)] hover:underline break-all"
               >
-                {facility!.url!.replace(/^https?:\/\//, "")}
+                {primaryFacilityUrl(facility)!.replace(/^https?:\/\//, "")}
               </a>
             </div>
           )}
@@ -602,9 +602,7 @@ export default function KnownResults() {
   const arrestCity = flow.arrest.city ?? t("resultsKnown.unknownCity");
   const arrestState = flow.arrest.state ?? t("resultsKnown.unknownState");
   const facilityLabel =
-    results?.facility.facility_display ??
-    flow.detention.facilityId ??
-    t("resultsKnown.unknownFacility");
+    results?.facility.facility_display ?? t("resultsKnown.unknownFacility");
 
   const orgs = results?.orgs ?? [];
   const hasOrgs = orgs.length > 0;

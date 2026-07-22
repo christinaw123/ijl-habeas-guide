@@ -6,15 +6,25 @@ export type Facility = { id: string; name: string };
 export type FacilityDetails = {
   facility_code: string;
   facility_display: string;
-  address: string;
+  address_standardized: string;
   city: string;
   state: string;
-  county: string | null;
   zip: string;
   county_code: string | null;
-  phone_info: string | null;
-  url: string | null;
+  ICE_url: string | null;
+  facility_url: string | null;
+  display_telephone_number: string | null;
+  flag_generic_fo_url: string | null;
 };
+
+const FACILITY_COLUMNS =
+  "facility_code, facility_display, address_standardized, city, state, zip, county_code, ICE_url, facility_url, display_telephone_number, flag_generic_fo_url";
+
+// county_code is legal-but-unusable when blank or "{ST}_" with no county part
+// (e.g. Guantánamo) — the contract requires omitting district info, not erroring.
+function hasUsableCountyCode(countyCode: string | null): countyCode is string {
+  return !!countyCode && !/^[^_]*_$/.test(countyCode);
+}
 
 export type FieldOffice = {
   office_name: string;
@@ -76,7 +86,7 @@ export async function getCountiesByState(state: string): Promise<string[]> {
 
 export async function getFacilitiesByState(state: string): Promise<Facility[]> {
   const { data, error } = await supabase
-    .from("facilities")
+    .from("facilities_live")
     .select("facility_code, facility_display")
     .eq("state", state)
     .not("facility_code", "is", null)
@@ -169,46 +179,25 @@ export async function getResultsData(
   facilityCode: string
 ): Promise<ResultsData | null> {
   const { data: facilityRows, error: facilityErr } = await supabase
-    .from("facilities")
-    .select(
-      "facility_code, facility_display, address, city, state, county, zip, county_code, phone_info, url"
-    )
+    .from("facilities_live")
+    .select(FACILITY_COLUMNS)
     .eq("facility_code", facilityCode)
     .limit(1);
 
   if (facilityErr || !facilityRows || facilityRows.length === 0) return null;
 
   const facility = facilityRows[0] as FacilityDetails;
-  const { county_code, county, state } = facility;
 
-  // Case 1: county_code is already set — run the standard lookup directly.
-  if (county_code) {
-    const { fieldOffice, districtCourt, orgs } = await lookupByCountyCode(county_code);
-    return { facility, fieldOffice, districtCourt, orgs };
+  // county_code missing or "{ST}_"-only (e.g. Guantánamo) — omit district info,
+  // do not error, per the data contract's null-safe join rule.
+  if (!hasUsableCountyCode(facility.county_code)) {
+    return { facility, fieldOffice: null, districtCourt: null, orgs: [] };
   }
 
-  // Case 2: county_code is missing but the facility has a county name.
-  // Derive the county_code by combining the state abbreviation (extracted from
-  // any county_district entry for this state) with the facility's county field.
-  // e.g. state="Nebraska", county="Lincoln" → stateAbbr="NE" → "NE_Lincoln"
-  if (county) {
-    const { data: stateRows } = await supabase
-      .from("county_district")
-      .select("county_code")
-      .eq("state", state)
-      .limit(1);
-
-    const stateAbbr = stateRows?.[0]?.county_code?.split("_")[0];
-    if (stateAbbr) {
-      const derivedCountyCode = `${stateAbbr}_${county}`;
-      const { fieldOffice, districtCourt, orgs } =
-        await lookupByCountyCode(derivedCountyCode);
-      return { facility, fieldOffice, districtCourt, orgs };
-    }
-  }
-
-  // Case 3: no county info at all — return with empty relational data.
-  return { facility, fieldOffice: null, districtCourt: null, orgs: [] };
+  const { fieldOffice, districtCourt, orgs } = await lookupByCountyCode(
+    facility.county_code
+  );
+  return { facility, fieldOffice, districtCourt, orgs };
 }
 
 export type UnknownResultsData = {
@@ -234,15 +223,15 @@ export async function getUnknownResultsData(
   const [facResult, fieldOfficeResult, orgResult] = await Promise.all([
     countyCodes?.length
       ? supabase
-          .from("facilities")
-          .select("facility_code, facility_display, address, city, state, county, zip, county_code, phone_info, url")
+          .from("facilities_live")
+          .select(FACILITY_COLUMNS)
           .in("county_code", countyCodes)
           .not("facility_display", "is", null)
           .neq("facility_display", "")
           .order("facility_display")
       : supabase
-          .from("facilities")
-          .select("facility_code, facility_display, address, city, state, county, zip, county_code, phone_info, url")
+          .from("facilities_live")
+          .select(FACILITY_COLUMNS)
           .eq("state", state)
           .not("facility_display", "is", null)
           .neq("facility_display", "")
@@ -279,10 +268,6 @@ export async function getUnknownResultsData(
     if (!seenIds.has(org.id)) { seenIds.add(org.id); orgs.push(org); }
   }
 
-  // Exclude records sourced from field offices — those have corrupt address data.
-  // The correct field office is now returned separately via county_field_office → field_offices.
-  const facilities = ((facResult.data ?? []) as FacilityDetails[]).filter(
-    (f) => !f.url?.includes("ERROR") && !f.facility_display?.endsWith("Field Office")
-  );
+  const facilities = (facResult.data ?? []) as FacilityDetails[];
   return { facilities, fieldOffice, orgs };
 }
