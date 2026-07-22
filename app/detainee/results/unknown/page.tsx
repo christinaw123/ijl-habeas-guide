@@ -24,7 +24,7 @@ import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import type { FacilityDetails, FieldOffice, LocalOrg, UnknownResultsData } from "@/lib/supabase/queries";
-import { sanitizeUrl } from "@/lib/utils";
+import { sanitizeUrl, primaryFacilityUrl } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -58,17 +58,18 @@ type Org = {
 // ---------------------------------------------------------------------------
 function toFacility(f: FacilityDetails): Facility {
   const lines: string[] = [];
-  if (f.address) lines.push(f.address);
+  if (f.address_standardized) lines.push(f.address_standardized);
   lines.push(`${f.city}, ${f.state} ${f.zip}`.trim());
-  const phoneRaw = f.phone_info?.replace(/\D/g, "") || undefined;
+  const phoneRaw = f.display_telephone_number?.replace(/\D/g, "") || undefined;
+  const url = primaryFacilityUrl(f) ?? undefined;
   return {
     id: f.facility_code,
     name: f.facility_display,
     address: lines,
     phone: phoneRaw,
-    phoneDisplay: f.phone_info ?? undefined,
-    url: f.url ?? undefined,
-    urlDisplay: f.url?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? undefined,
+    phoneDisplay: f.display_telephone_number ?? undefined,
+    url,
+    urlDisplay: url?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? undefined,
   };
 }
 
