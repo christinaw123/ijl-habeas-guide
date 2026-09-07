@@ -27,6 +27,7 @@ export function CityCombobox({
   const [query, setQuery] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [results, setResults] = useState<PlaceResult[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [prevStateAbbr, setPrevStateAbbr] = useState(stateAbbr);
@@ -36,6 +37,7 @@ export function CityCombobox({
     setPrevStateAbbr(stateAbbr);
     setQuery("");
     setResults([]);
+    setIsLoading(false);
   }
 
   // When open, show what the user is typing; when closed, show selected city or empty
@@ -44,6 +46,10 @@ export function CityCombobox({
   useEffect(() => {
     if (!open) return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    // Mark loading immediately so the dropdown never shows a misleading
+    // "no cities found" while a fetch is only pending/in-flight.
+    setIsLoading(true);
 
     debounceRef.current = setTimeout(async () => {
       try {
@@ -59,6 +65,8 @@ export function CityCombobox({
         setResults(data);
       } catch {
         setResults([]);
+      } finally {
+        setIsLoading(false);
       }
     }, 200);
 
@@ -77,6 +85,7 @@ export function CityCombobox({
     setQuery("");
     setResults([]);
     setHighlightedIndex(-1);
+    setIsLoading(false);
     setOpen(false);
   }
 
@@ -180,9 +189,13 @@ export function CityCombobox({
           role="listbox"
           className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded-md border border-[var(--ijl-border)] bg-white shadow-md"
         >
-          {results.length === 0 ? (
+          {isLoading ? (
             <li className="px-4 py-3 font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
-              No cities found.
+              {t("step1.city.loading")}
+            </li>
+          ) : results.length === 0 ? (
+            <li className="px-4 py-3 font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
+              {t("step1.city.noResults")}
             </li>
           ) : (
             results.map((place, i) => (
