@@ -15,6 +15,7 @@ declare module 'next/cache' {
      * Cache this `"use cache"` for a timespan defined by the `"default"` profile.
      * ```
      *   stale:      300 seconds (5 minutes)
+     * 
      *   revalidate: 900 seconds (15 minutes)
      *   expire:     never
      * ```
