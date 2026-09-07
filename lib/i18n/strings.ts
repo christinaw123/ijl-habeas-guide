@@ -33,6 +33,8 @@ export const STRINGS: Record<string, string> = {
   "step1.city.label": "City",
   "step1.city.optional": "(Optional)",
   "step1.city.placeholder": "Type a city name...",
+  "step1.city.loading": "Loading cities…",
+  "step1.city.noResults": "No cities found.",
   "step1.continue": "Continue",
 
   // Loading screen
