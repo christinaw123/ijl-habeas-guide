@@ -256,5 +256,7 @@
   "footer.org": "法律组织还是社区组织？",
   "footer.org.link": "在此处获取列表",
   "footer.copyright": "© 2026密歇根大学移民正义实验室+密歇根移民权利中心（ MIRC ）",
-  "common.state.search": "搜索州"
+  "common.state.search": "搜索州",
+  "step1.city.loading": "正在加载城市…",
+  "step1.city.noResults": "沒有該城市"
 }

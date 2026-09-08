@@ -256,5 +256,7 @@
   "footer.org": "Tổ chức pháp lý hay cộng đồng?",
   "footer.org.link": "Đăng cho thuê tại đây",
   "footer.copyright": "© 2026 Phòng thí nghiệm Tư pháp Nhập cư tại Đại học Michigan + Trung tâm Quyền Nhập cư Michigan (MIRC)",
-  "common.state.search": "Tìm Tiểu Bang"
+  "common.state.search": "Tìm Tiểu Bang",
+  "step1.city.loading": "Đang tải thành phố…",
+  "step1.city.noResults": "Không tìm thấy thành phố nào."
 }
