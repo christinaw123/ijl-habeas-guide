@@ -256,5 +256,7 @@
   "footer.org": "Òganizasyon legal oswa kominotè?",
   "footer.org.link": "Jwenn lis isit la/Jwenn lis isit la",
   "footer.copyright": "© 2026 Laboratwa Jistis Imigran nan University of Michigan + Michigan Imigran Dwa Sant (MIRC)",
-  "common.state.search": "Rechèch eta yo..."
+  "common.state.search": "Rechèch eta yo...",
+  "step1.city.loading": "Chaje vil yo...",
+  "step1.city.noResults": "Pa gen okenn vil yo te jwenn."
 }

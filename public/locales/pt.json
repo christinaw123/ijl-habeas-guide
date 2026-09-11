@@ -256,5 +256,7 @@
   "footer.org": "Organização jurídica ou comunitária?",
   "footer.org.link": "Anuncie-se aqui",
   "footer.copyright": "© 2026 Laboratório de Justiça para Imigrantes da Universidade de Michigan + Michigan Immigrant Rights Center (MIRC)",
-  "common.state.search": "Pesquisar Estados"
+  "common.state.search": "Pesquisar Estados",
+  "step1.city.loading": "Carregando metrópoles...",
+  "step1.city.noResults": "Não foram encontradas cidades."
 }
