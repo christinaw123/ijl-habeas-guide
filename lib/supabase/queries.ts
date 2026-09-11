@@ -88,10 +88,13 @@ export async function getCountiesByState(state: string): Promise<string[]> {
 }
 
 export async function getFacilitiesByState(state: string): Promise<Facility[]> {
+  // facilities_live.state is the abbreviation (e.g. "MA"); callers pass the full name
+  // (StateCombobox / usStates.json), so this must go through STATE_ABBREVIATIONS.
+  const stateAbbr = STATE_ABBREVIATIONS[state] ?? state;
   const { data, error } = await supabase
     .from("facilities_live")
     .select("facility_code, facility_display")
-    .eq("state", state)
+    .eq("state", stateAbbr)
     .not("facility_code", "is", null)
     .not("facility_display", "is", null)
     .neq("facility_display", "")
