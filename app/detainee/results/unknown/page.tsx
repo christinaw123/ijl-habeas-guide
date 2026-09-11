@@ -23,7 +23,7 @@ import Link from "next/link";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
-import type { FacilityDetails, FieldOffice, LocalOrg, UnknownResultsData } from "@/lib/supabase/queries";
+import type { FacilityDetails, LocalOrg, UnknownResultsData } from "@/lib/supabase/queries";
 import { sanitizeUrl, primaryFacilityUrl } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
@@ -164,7 +164,6 @@ export default function UnknownResults() {
   const [aNumberOpen, setANumberOpen] = useState(false);
   const [whatToExpectOpen, setWhatToExpectOpen] = useState(false);
   const [facilities, setFacilities] = useState<Facility[] | null>(null);
-  const [fieldOffice, setFieldOffice] = useState<FieldOffice | null>(null);
   const [orgs, setOrgs] = useState<Org[] | null>(null);
 
   useEffect(() => {
@@ -180,19 +179,20 @@ export default function UnknownResults() {
     if (flow.arrest.county_codes?.length) {
       params.set("countyCodes", flow.arrest.county_codes.join(","));
     }
+    if (flow.arrest.city) {
+      params.set("city", flow.arrest.city);
+    }
     fetch(`/api/results/unknown?${params}`)
       .then((r) => (r.ok ? r.json() : { facilities: [], fieldOffice: null, orgs: [] }))
-      .then(({ facilities, fieldOffice, orgs }: UnknownResultsData) => {
+      .then(({ facilities, orgs }: UnknownResultsData) => {
         setFacilities(facilities.map(toFacility));
-        setFieldOffice(fieldOffice);
         setOrgs(orgs.map(toOrg));
       })
       .catch(() => {
         setFacilities([]);
-        setFieldOffice(null);
         setOrgs([]);
       });
-  }, [hydrated, flow.arrest.state, flow.arrest.county_codes]);
+  }, [hydrated, flow.arrest.state, flow.arrest.county_codes, flow.arrest.city]);
 
   if (!hydrated || flow.detention.knowsWhereHeld !== false) return null;
 
@@ -573,34 +573,6 @@ export default function UnknownResults() {
               <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)] italic">
                 {t("resultsUnknown.callFacilities.facilitiesIntro")} {arrestLocation}
               </p>
-
-              {/* Field office card — sourced from field_offices table via county_code */}
-              {fieldOffice && (
-                <div className="border border-[var(--ijl-border)] rounded-[10px] bg-white shadow-sm p-6 space-y-2">
-                  <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
-                    {fieldOffice.office_name}
-                  </h3>
-                  <div className="flex items-start gap-2">
-                    <MapPin className="w-4 h-4 text-[var(--ijl-muted)] mt-1 flex-shrink-0" />
-                    <div className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
-                      <div>{fieldOffice.street_address}</div>
-                      {fieldOffice.suite_floor && <div>{fieldOffice.suite_floor}</div>}
-                      <div>{fieldOffice.city}, {fieldOffice.state} {fieldOffice.zip}</div>
-                    </div>
-                  </div>
-                  {fieldOffice.phone && (
-                    <div className="flex items-center gap-2">
-                      <Phone className="w-4 h-4 text-[var(--ijl-muted)] flex-shrink-0" />
-                      <a
-                        href={`tel:${fieldOffice.phone.replace(/\D/g, "")}`}
-                        className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)] hover:text-[var(--foreground)]"
-                      >
-                        {fieldOffice.phone}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              )}
 
               {/* Facility cards */}
               {facilities === null ? (

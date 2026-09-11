@@ -1,5 +1,6 @@
 import { supabase } from "./client";
 import { STATE_ABBREVIATIONS } from "@/lib/data/stateAbbreviations";
+import { haversineDistanceMiles } from "@/lib/geo";
 
 export type Facility = { id: string; name: string };
 
@@ -15,10 +16,12 @@ export type FacilityDetails = {
   facility_url: string | null;
   display_telephone_number: string | null;
   flag_generic_fo_url: string | null;
+  latitude: number | null;
+  longitude: number | null;
 };
 
 const FACILITY_COLUMNS =
-  "facility_code, facility_display, address_standardized, city, state, zip, county_code, ICE_url, facility_url, display_telephone_number, flag_generic_fo_url";
+  "facility_code, facility_display, address_standardized, city, state, zip, county_code, ICE_url, facility_url, display_telephone_number, flag_generic_fo_url, latitude, longitude";
 
 // county_code is legal-but-unusable when blank or "{ST}_" with no county part
 // (e.g. Guantánamo) — the contract requires omitting district info, not erroring.
@@ -208,7 +211,8 @@ export type UnknownResultsData = {
 
 export async function getUnknownResultsData(
   state: string,
-  countyCodes: string[] | null
+  countyCodes: string[] | null,
+  city: string | null = null
 ): Promise<UnknownResultsData> {
   const stateAbbr = countyCodes?.length
     ? countyCodes[0].split("_")[0]
@@ -220,29 +224,24 @@ export async function getUnknownResultsData(
     ...(stateWideCode ? [stateWideCode] : []),
   ];
 
-  const [facResult, fieldOfficeResult, orgResult] = await Promise.all([
-    countyCodes?.length
-      ? supabase
-          .from("facilities_live")
-          .select(FACILITY_COLUMNS)
-          .in("county_code", countyCodes)
-          .not("facility_display", "is", null)
-          .neq("facility_display", "")
-          .order("facility_display")
-      : supabase
-          .from("facilities_live")
-          .select(FACILITY_COLUMNS)
-          .eq("state", state)
-          .not("facility_display", "is", null)
-          .neq("facility_display", "")
-          .order("facility_display"),
-
+  const [cfoResult, arrestCoordsResult, orgResult] = await Promise.all([
     countyCodes?.length
       ? supabase
           .from("county_field_office")
-          .select("field_offices(office_name, street_address, suite_floor, city, state, zip, phone)")
+          .select(
+            "field_office, field_offices(office_name, street_address, suite_floor, city, state, zip, phone)"
+          )
           .in("county_code", countyCodes)
           .limit(1)
+      : Promise.resolve({ data: [], error: null }),
+
+    // The arrest city's own coordinates, to sort the facility list by proximity below.
+    countyCodes?.length && city
+      ? supabase
+          .from("place_county")
+          .select("latitude, longitude")
+          .eq("place_display", city)
+          .in("county_code", countyCodes)
       : Promise.resolve({ data: [], error: null }),
 
     orgCodes.length > 0
@@ -253,12 +252,57 @@ export async function getUnknownResultsData(
       : Promise.resolve({ data: [], error: null }),
   ]);
 
-  if (facResult.error) console.error("getUnknownResultsData facilities error:", facResult.error);
-
-  const fieldOfficeRow = (fieldOfficeResult as { data: Array<{ field_offices: unknown }> | null }).data?.[0];
-  const fieldOffice = fieldOfficeRow?.field_offices
-    ? (fieldOfficeRow.field_offices as unknown as FieldOffice)
+  const cfoRow = (
+    cfoResult as {
+      data: Array<{ field_office: string | null; field_offices: unknown }> | null;
+    }
+  ).data?.[0];
+  // The ICE field office's whole area of responsibility (e.g. "Boston"), not just the
+  // arrest county — a county can have zero facilities of its own while still being
+  // covered by a field office that runs facilities elsewhere in its AOR.
+  const fieldOfficeAor = cfoRow?.field_office ?? null;
+  const fieldOffice = cfoRow?.field_offices
+    ? (cfoRow.field_offices as unknown as FieldOffice)
     : null;
+
+  const coordRows =
+    (arrestCoordsResult as { data: Array<{ latitude: number | null; longitude: number | null }> | null })
+      .data ?? [];
+  const validCoords = coordRows.filter(
+    (r): r is { latitude: number; longitude: number } => r.latitude != null && r.longitude != null
+  );
+  const arrestCoords = validCoords.length
+    ? {
+        lat: validCoords.reduce((sum, r) => sum + r.latitude, 0) / validCoords.length,
+        lng: validCoords.reduce((sum, r) => sum + r.longitude, 0) / validCoords.length,
+      }
+    : null;
+
+  const facQuery = fieldOfficeAor
+    ? supabase
+        .from("facilities_live")
+        .select(FACILITY_COLUMNS)
+        .eq("ice_field_office", fieldOfficeAor)
+        .not("facility_display", "is", null)
+        .neq("facility_display", "")
+    : countyCodes?.length
+      ? supabase
+          .from("facilities_live")
+          .select(FACILITY_COLUMNS)
+          .in("county_code", countyCodes)
+          .not("facility_display", "is", null)
+          .neq("facility_display", "")
+      : supabase
+          .from("facilities_live")
+          .select(FACILITY_COLUMNS)
+          // facilities_live.state is the abbreviation (e.g. "MA"); flow.arrest.state is
+          // the full name, so this must go through STATE_ABBREVIATIONS, not eq(state).
+          .eq("state", stateAbbr ?? state)
+          .not("facility_display", "is", null)
+          .neq("facility_display", "");
+
+  const facResult = await facQuery;
+  if (facResult.error) console.error("getUnknownResultsData facilities error:", facResult.error);
 
   const orgs: LocalOrg[] = [];
   const seenIds = new Set<number>();
@@ -268,6 +312,23 @@ export async function getUnknownResultsData(
     if (!seenIds.has(org.id)) { seenIds.add(org.id); orgs.push(org); }
   }
 
-  const facilities = (facResult.data ?? []) as FacilityDetails[];
+  const rawFacilities = (facResult.data ?? []) as FacilityDetails[];
+
+  // Sort by proximity to the arrest city when we know where that is; facilities missing
+  // coordinates sort to the end. Falls back to alphabetical when we have no arrest coords.
+  const facilities = arrestCoords
+    ? [...rawFacilities].sort((a, b) => {
+        const distA =
+          a.latitude != null && a.longitude != null
+            ? haversineDistanceMiles(arrestCoords.lat, arrestCoords.lng, a.latitude, a.longitude)
+            : Infinity;
+        const distB =
+          b.latitude != null && b.longitude != null
+            ? haversineDistanceMiles(arrestCoords.lat, arrestCoords.lng, b.latitude, b.longitude)
+            : Infinity;
+        return distA !== distB ? distA - distB : a.facility_display.localeCompare(b.facility_display);
+      })
+    : [...rawFacilities].sort((a, b) => a.facility_display.localeCompare(b.facility_display));
+
   return { facilities, fieldOffice, orgs };
 }

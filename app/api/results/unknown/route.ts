@@ -11,6 +11,8 @@ export async function GET(request: Request) {
   const countyCodes = codesParam
     ? codesParam.split(",").slice(0, 50).filter((c) => c.length > 0 && c.length <= 100)
     : null;
-  const data = await getUnknownResultsData(state, countyCodes);
+  const cityParam = searchParams.get("city");
+  const city = cityParam && cityParam.length <= 100 ? cityParam : null;
+  const data = await getUnknownResultsData(state, countyCodes, city);
   return NextResponse.json(data);
 }
