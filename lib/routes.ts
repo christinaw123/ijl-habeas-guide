@@ -2,7 +2,7 @@
 export const ROUTES = {
   home: "/",
   arrest: "/arrest",
-  knowsLocation: "/knows-location",
+  detention: "/detention",
   facility: "/facility",
   loading: "/loading",
   resultsKnown: "/results/known",

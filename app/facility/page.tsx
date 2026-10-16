@@ -19,7 +19,7 @@ import {
 import { StateCombobox } from "@/components/ui/state-combobox";
 import { ROUTES } from "@/lib/routes";
 
-export default function Step3DetainedLocationPage() {
+export default function FacilityPage() {
   const router = useRouter();
   const { flow, setFlow, hydrated } = useFlowState();
   const [touched, setTouched] = useState(false);
@@ -31,7 +31,7 @@ export default function Step3DetainedLocationPage() {
   useEffect(() => {
     if (!hydrated) return;
     if (!flow.arrest.state) router.replace(ROUTES.arrest);
-    if (flow.detention.knowsWhereHeld === null) router.replace(ROUTES.knowsLocation);
+    if (flow.detention.knowsWhereHeld === null) router.replace(ROUTES.detention);
     if (flow.detention.knowsWhereHeld === false)
       router.replace(ROUTES.resultsUnknown);
   }, [hydrated, flow, router]);
@@ -117,7 +117,7 @@ export default function Step3DetainedLocationPage() {
 
   return (
     <div className="bg-white">
-      <BackButton href={ROUTES.knowsLocation} label={t("step3.back")} />
+      <BackButton href={ROUTES.detention} label={t("facility.back")} />
 
       <div className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl">
@@ -125,10 +125,10 @@ export default function Step3DetainedLocationPage() {
           <div className="text-center mb-8">
             <MapPin className="mx-auto mb-4 h-12 w-12 text-[var(--ijl-accent)]" />
             <h1 className="oswald text-[32px] font-medium text-[var(--ijl-title)] mb-3">
-              {t("step3.title")}
+              {t("facility.title")}
             </h1>
             <p className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)]">
-              {t("step3.subtitle")}
+              {t("facility.subtitle")}
             </p>
           </div>
 
@@ -138,11 +138,11 @@ export default function Step3DetainedLocationPage() {
               {/* State */}
               <div className="space-y-2">
                 <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
-                  {t("step3.state.label")}
+                  {t("facility.state.label")}
                 </label>
                 <StateCombobox
                   value={flow.detention.detainedState ?? null}
-                  placeholder={t("step3.state.placeholder")}
+                  placeholder={t("facility.state.placeholder")}
                   onValueChange={(value) => {
                     setFlow((prev) => ({
                       ...prev,
@@ -176,7 +176,7 @@ export default function Step3DetainedLocationPage() {
               {hasState && !showManualEntry && (
                 <div className="space-y-2">
                   <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
-                    {t("step3.facility.label")}
+                    {t("facility.facility.label")}
                   </label>
                   <Select
                     value={flow.detention.facilityId ?? ""}
@@ -187,8 +187,8 @@ export default function Step3DetainedLocationPage() {
                       }))
                     }
                   >
-                    <SelectTrigger aria-label={t("step3.facility.label")}>
-                      <SelectValue placeholder={t("step3.facility.placeholder")} />
+                    <SelectTrigger aria-label={t("facility.facility.label")}>
+                      <SelectValue placeholder={t("facility.facility.placeholder")} />
                     </SelectTrigger>
                     <SelectContent>
                       {loadingFacilities ? (
@@ -218,7 +218,7 @@ export default function Step3DetainedLocationPage() {
                     htmlFor="manual-facility"
                     className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]"
                   >
-                    {t("step3.facility.manual.label")}
+                    {t("facility.facility.manual.label")}
                   </label>
                   <input
                     id="manual-facility"
@@ -226,7 +226,7 @@ export default function Step3DetainedLocationPage() {
                     value={manualFacilityName}
                     onChange={(e) => setManualFacilityName(e.target.value.slice(0, 300))}
                     maxLength={300}
-                    placeholder={t("step3.facility.manual.placeholder")}
+                    placeholder={t("facility.facility.manual.placeholder")}
                     className="w-full rounded-lg border border-[var(--ijl-border)] bg-white px-4 py-3 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] placeholder:text-[var(--ijl-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--ijl-accent)]"
                   />
                 </div>
@@ -234,7 +234,7 @@ export default function Step3DetainedLocationPage() {
 
               {touched && !valid && (
                 <p className="text-sm font-[var(--font-proxima)] text-red-600">
-                  {t("step3.error")}
+                  {t("facility.error")}
                 </p>
               )}
 
@@ -248,7 +248,7 @@ export default function Step3DetainedLocationPage() {
                   !valid ? "opacity-50 cursor-not-allowed" : "hover:opacity-90",
                 ].join(" ")}
               >
-                {t("step3.continue")}
+                {t("facility.continue")}
               </button>
             </div>
           </div>
@@ -262,7 +262,7 @@ export default function Step3DetainedLocationPage() {
                   onClick={handleNoFacility}
                   className="text-[var(--ijl-accent)] hover:underline"
                 >
-                  {t("step3.help.noFacility")}
+                  {t("facility.help.noFacility")}
                 </button>
               </div>
               <div>
@@ -271,7 +271,7 @@ export default function Step3DetainedLocationPage() {
                   onClick={handleUnknownFacility}
                   className="text-[var(--ijl-accent)] hover:underline"
                 >
-                  {t("step3.help.unknownFacility")}
+                  {t("facility.help.unknownFacility")}
                 </button>
               </div>
             </div>
@@ -281,18 +281,18 @@ export default function Step3DetainedLocationPage() {
           {showGuidance && (
             <div className="mt-6 rounded-lg border border-[var(--ijl-border)] bg-[var(--ijl-cta-bg)] p-6">
               <h3 className="oswald text-xl font-medium text-[var(--ijl-title)] mb-3">
-                {t("step3.guidance.title")}
+                {t("facility.guidance.title")}
               </h3>
               <div className="space-y-3 font-[var(--font-proxima)] text-sm text-[var(--foreground)]">
-                <p>{t("step3.guidance.intro")}</p>
+                <p>{t("facility.guidance.intro")}</p>
                 <ul className="list-disc pl-5 space-y-2">
-                  <li>{t("step3.guidance.tip1")}</li>
-                  <li>{t("step3.guidance.tip2")}</li>
-                  <li>{t("step3.guidance.tip3")}</li>
-                  <li>{t("step3.guidance.tip4")}</li>
-                  <li>{t("step3.guidance.tip5")}</li>
+                  <li>{t("facility.guidance.tip1")}</li>
+                  <li>{t("facility.guidance.tip2")}</li>
+                  <li>{t("facility.guidance.tip3")}</li>
+                  <li>{t("facility.guidance.tip4")}</li>
+                  <li>{t("facility.guidance.tip5")}</li>
                 </ul>
-                <p className="mt-4">{t("step3.guidance.outro")}</p>
+                <p className="mt-4">{t("facility.guidance.outro")}</p>
               </div>
             </div>
           )}

@@ -23,57 +23,57 @@ export const STRINGS: Record<string, string> = {
   // Common
   "common.state.search": "Search states…",
 
-  // Step 1
-  "step1.back": "Back",
-  "step1.title": "Where was the person arrested?",
-  "step1.subtitle": "Select the state and city where the arrest occurred",
-  "step1.state.label": "State",
-  "step1.state.placeholder": "Select a state",
-  "step1.state.error": "Please select a state to continue.",
-  "step1.city.label": "City",
-  "step1.city.optional": "(Optional)",
-  "step1.city.placeholder": "Type a city name...",
-  "step1.city.loading": "Loading cities…",
-  "step1.city.noResults": "No cities found.",
-  "step1.continue": "Continue",
+  // Arrest page
+  "arrest.back": "Back",
+  "arrest.title": "Where was the person arrested?",
+  "arrest.subtitle": "Select the state and city where the arrest occurred",
+  "arrest.state.label": "State",
+  "arrest.state.placeholder": "Select a state",
+  "arrest.state.error": "Please select a state to continue.",
+  "arrest.city.label": "City",
+  "arrest.city.optional": "(Optional)",
+  "arrest.city.placeholder": "Type a city name...",
+  "arrest.city.loading": "Loading cities…",
+  "arrest.city.noResults": "No cities found.",
+  "arrest.continue": "Continue",
 
   // Loading screen
   "loading.title": "Retrieving data...",
   "loading.subtitle": "Please wait while we fetch the information.",
 
-  // Step 2
-  "step2.back": "Back",
-  "step2.title": "Do you know where the person is being held?",
-  "step2.subtitle": "Select the option that best describes the situation",
-  "step2.yes": "Yes",
-  "step2.no": "No",
-  "step2.error": "Please select Yes or No to continue.",
-  "step2.continue": "Continue",
+  // Detention page (do you know where they are held?)
+  "detention.back": "Back",
+  "detention.title": "Do you know where the person is being held?",
+  "detention.subtitle": "Select the option that best describes the situation",
+  "detention.yes": "Yes",
+  "detention.no": "No",
+  "detention.error": "Please select Yes or No to continue.",
+  "detention.continue": "Continue",
 
-  // Step 3
-  "step3.back": "Back",
-  "step3.title": "Where is the person detained?",
-  "step3.subtitle": "Select the location and name of the detention facility.",
-  "step3.state.label": "State",
-  "step3.state.placeholder": "Select a state",
-  "step3.facility.label": "Detention Facility",
-  "step3.facility.placeholder": "Select a facility",
-  "step3.facility.manual.label": "Other Detention Facility",
-  "step3.facility.manual.placeholder": "Enter facility name",
-  "step3.error": "Please select the required fields to continue.",
-  "step3.continue": "Continue",
-  "step3.help.noFacility": "I don't see the facility",
-  "step3.help.unknownFacility": "I don't know the name of the facility",
-  "step3.guidance.title": "How to Find the Facility Name",
-  "step3.guidance.intro":
+  // Facility page
+  "facility.back": "Back",
+  "facility.title": "Where is the person detained?",
+  "facility.subtitle": "Select the location and name of the detention facility.",
+  "facility.state.label": "State",
+  "facility.state.placeholder": "Select a state",
+  "facility.facility.label": "Detention Facility",
+  "facility.facility.placeholder": "Select a facility",
+  "facility.facility.manual.label": "Other Detention Facility",
+  "facility.facility.manual.placeholder": "Enter facility name",
+  "facility.error": "Please select the required fields to continue.",
+  "facility.continue": "Continue",
+  "facility.help.noFacility": "I don't see the facility",
+  "facility.help.unknownFacility": "I don't know the name of the facility",
+  "facility.guidance.title": "How to Find the Facility Name",
+  "facility.guidance.intro":
     "If you don't know the name of the detention facility, try these options:",
-  "step3.guidance.tip1": "Ask another detainee — they may know the facility name",
-  "step3.guidance.tip2": "Ask a guard or staff member at the facility",
-  "step3.guidance.tip3": "Check any documents you received when the person was detained",
-  "step3.guidance.tip4": "Look for signs or posted information inside the facility",
-  "step3.guidance.tip5":
+  "facility.guidance.tip1": "Ask another detainee — they may know the facility name",
+  "facility.guidance.tip2": "Ask a guard or staff member at the facility",
+  "facility.guidance.tip3": "Check any documents you received when the person was detained",
+  "facility.guidance.tip4": "Look for signs or posted information inside the facility",
+  "facility.guidance.tip5":
     "Contact a family member or friend who may have the facility information",
-  "step3.guidance.outro":
+  "facility.guidance.outro":
     "Once you have the facility name, you can come back and enter it above.",
 
   // Results — known location — page / badges

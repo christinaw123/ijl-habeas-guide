@@ -22,7 +22,7 @@ export default function LoadingPage() {
       return;
     }
     if (flow.detention.knowsWhereHeld !== true) {
-      router.replace(ROUTES.knowsLocation);
+      router.replace(ROUTES.detention);
       return;
     }
 

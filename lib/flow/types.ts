@@ -5,7 +5,7 @@ export type ArrestLocation = {
 };
 
 export type DetentionInfo = {
-  knowsWhereHeld: boolean | null; // required at the knows-location step
+  knowsWhereHeld: boolean | null; // required at the detention step
   detainedState: string | null;   // required if knowsWhereHeld === true
   facilityId: string | null;      // required if knowsWhereHeld === true
 };

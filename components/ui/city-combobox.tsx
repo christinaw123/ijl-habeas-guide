@@ -143,7 +143,7 @@ export function CityCombobox({
             open && highlightedIndex >= 0 ? `${listboxId}-option-${highlightedIndex}` : undefined
           }
           value={displayValue}
-          placeholder={open ? t("step1.city.placeholder") : placeholder}
+          placeholder={open ? t("arrest.city.placeholder") : placeholder}
           onChange={(e) => {
             setQuery(e.target.value);
             setHighlightedIndex(-1);
@@ -191,11 +191,11 @@ export function CityCombobox({
         >
           {isLoading ? (
             <li className="px-4 py-3 font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
-              {t("step1.city.loading")}
+              {t("arrest.city.loading")}
             </li>
           ) : results.length === 0 ? (
             <li className="px-4 py-3 font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
-              {t("step1.city.noResults")}
+              {t("arrest.city.noResults")}
             </li>
           ) : (
             results.map((place, i) => (

@@ -9,7 +9,7 @@ import { HelpCircle } from "lucide-react";
 import { LOADING_NEXT_KEY } from "@/lib/flow/storageKeys";
 import { ROUTES } from "@/lib/routes";
 
-export default function Step2KnowsWhereHeldPage() {
+export default function DetentionPage() {
   const router = useRouter();
   const { flow, setFlow, hydrated } = useFlowState();
   const [touched, setTouched] = useState(false);
@@ -37,13 +37,13 @@ export default function Step2KnowsWhereHeldPage() {
   };
 
   const options = [
-    { key: "step2.yes" as const, value: true },
-    { key: "step2.no" as const, value: false },
+    { key: "detention.yes" as const, value: true },
+    { key: "detention.no" as const, value: false },
   ];
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <BackButton href={ROUTES.arrest} label={t("step2.back")} />
+      <BackButton href={ROUTES.arrest} label={t("detention.back")} />
 
       {/* Main content */}
       <div className="flex-1 px-4 py-8 sm:py-12">
@@ -52,10 +52,10 @@ export default function Step2KnowsWhereHeldPage() {
           <div className="text-center mb-8">
             <HelpCircle className="mx-auto mb-4 h-12 w-12 text-[var(--ijl-accent)]" />
             <h1 className="oswald text-[32px] font-medium text-[var(--ijl-title)] mb-3">
-              {t("step2.title")}
+              {t("detention.title")}
             </h1>
             <p className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)]">
-              {t("step2.subtitle")}
+              {t("detention.subtitle")}
             </p>
           </div>
 
@@ -113,7 +113,7 @@ export default function Step2KnowsWhereHeldPage() {
 
               {touched && !valid && (
                 <p className="text-sm font-[var(--font-proxima)] text-red-600">
-                  {t("step2.error")}
+                  {t("detention.error")}
                 </p>
               )}
 
@@ -127,7 +127,7 @@ export default function Step2KnowsWhereHeldPage() {
                   !valid ? "opacity-50 cursor-not-allowed" : "hover:opacity-90",
                 ].join(" ")}
               >
-                {t("step2.continue")}
+                {t("detention.continue")}
               </button>
             </div>
           </div>

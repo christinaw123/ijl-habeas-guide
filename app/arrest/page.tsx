@@ -11,7 +11,7 @@ import { CityCombobox } from "@/components/ui/city-combobox";
 import { StateCombobox } from "@/components/ui/state-combobox";
 import { ROUTES } from "@/lib/routes";
 
-export default function Step1ArrestLocationPage() {
+export default function ArrestPage() {
   const router = useRouter();
   const { flow, setFlow, hydrated } = useFlowState();
   const [touched, setTouched] = useState(false);
@@ -25,12 +25,12 @@ export default function Step1ArrestLocationPage() {
   const onContinue = () => {
     setTouched(true);
     if (!stateValid) return;
-    router.push(ROUTES.knowsLocation);
+    router.push(ROUTES.detention);
   };
 
   return (
     <div className="bg-white">
-      <BackButton href="/" label={t("step1.back")} />
+      <BackButton href="/" label={t("arrest.back")} />
 
       <div className="px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl">
@@ -38,10 +38,10 @@ export default function Step1ArrestLocationPage() {
           <div className="text-center mb-8">
             <MapPin className="mx-auto mb-4 h-12 w-12 text-[var(--ijl-accent)]" />
             <h1 className="oswald text-[32px] font-medium text-[var(--ijl-title)] mb-3">
-              {t("step1.title")}
+              {t("arrest.title")}
             </h1>
             <p className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)]">
-              {t("step1.subtitle")}
+              {t("arrest.subtitle")}
             </p>
           </div>
 
@@ -51,12 +51,12 @@ export default function Step1ArrestLocationPage() {
               {/* State */}
               <div className="space-y-2">
                 <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
-                  {t("step1.state.label")}
+                  {t("arrest.state.label")}
                 </label>
 
                 <StateCombobox
                   value={flow.arrest.state ?? null}
-                  placeholder={t("step1.state.placeholder")}
+                  placeholder={t("arrest.state.placeholder")}
                   onValueChange={(value) =>
                     setFlow((prev) => ({
                       ...prev,
@@ -73,7 +73,7 @@ export default function Step1ArrestLocationPage() {
 
                 {touched && !stateValid && (
                   <div className="text-sm font-[var(--font-proxima)] text-red-600">
-                    {t("step1.state.error")}
+                    {t("arrest.state.error")}
                   </div>
                 )}
               </div>
@@ -82,16 +82,16 @@ export default function Step1ArrestLocationPage() {
               {stateAbbr && (
                 <div className="space-y-2">
                   <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
-                    {t("step1.city.label")}{" "}
+                    {t("arrest.city.label")}{" "}
                     <span className="ml-1 font-normal text-[var(--ijl-muted)]">
-                      {t("step1.city.optional")}
+                      {t("arrest.city.optional")}
                     </span>
                   </label>
 
                   <CityCombobox
                     value={flow.arrest.city}
                     stateAbbr={stateAbbr}
-                    placeholder={t("step1.city.placeholder")}
+                    placeholder={t("arrest.city.placeholder")}
                     onValueChange={(city, countyCodes) =>
                       setFlow((prev) => ({
                         ...prev,
@@ -120,7 +120,7 @@ export default function Step1ArrestLocationPage() {
                     : "bg-[#B9B9C9] cursor-not-allowed",
                 ].join(" ")}
               >
-                {t("step1.continue")}
+                {t("arrest.continue")}
               </button>
             </div>
           </div>

@@ -33,7 +33,7 @@ export default function UnknownResults() {
   useEffect(() => {
     if (!hydrated) return;
     if (flow.detention.knowsWhereHeld !== false) {
-      router.replace(ROUTES.knowsLocation);
+      router.replace(ROUTES.detention);
     }
   }, [hydrated, flow.detention.knowsWhereHeld, router]);
 
@@ -74,7 +74,7 @@ export default function UnknownResults() {
 
   return (
     <div className="bg-white min-h-screen">
-      <BackButton href={ROUTES.knowsLocation} label={t("resultsUnknown.back")} />
+      <BackButton href={ROUTES.detention} label={t("resultsUnknown.back")} />
 
       {/* Main content */}
       <div className="px-4 py-8 sm:py-12">
