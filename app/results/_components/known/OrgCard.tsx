@@ -9,26 +9,26 @@ export default function OrgCard({ org }: { org: LocalOrg }) {
   const { t } = useLanguage();
   const isLegal = org.org_type === "legal";
   return (
-    <div className="border border-[var(--ijl-border)] rounded-[10px] bg-white p-6 shadow-sm space-y-3">
+    <div className="border border-(--ijl-border) rounded-[10px] bg-white p-6 shadow-sm space-y-3">
       <div className="flex items-center gap-2">
         {isLegal ? (
-          <Scale className="w-4 h-4 text-[var(--muted-foreground)]" />
+          <Scale className="w-4 h-4 text-(--muted-foreground)" />
         ) : (
-          <Users className="w-4 h-4 text-[var(--muted-foreground)]" />
+          <Users className="w-4 h-4 text-(--muted-foreground)" />
         )}
-        <span className="font-[var(--font-proxima)] text-[12px] uppercase tracking-wide text-[var(--muted-foreground)] font-semibold">
+        <span className="font-proxima text-[12px] uppercase tracking-wide text-(--muted-foreground) font-semibold">
           {isLegal
             ? t("resultsKnown.org.legalSupport")
             : t("resultsKnown.org.generalSupport")}
         </span>
       </div>
 
-      <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--card-foreground)]">
+      <h3 className="font-proxima font-bold text-[18px] text-(--card-foreground)">
         {org.organization}
       </h3>
 
       {org.action_text && (
-        <p className="font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
+        <p className="font-proxima text-[16px] text-foreground">
           {org.action_text}
         </p>
       )}
@@ -36,12 +36,12 @@ export default function OrgCard({ org }: { org: LocalOrg }) {
       <div className="space-y-2 pt-1">
         {sanitizeUrl(org.url) && (
           <div className="flex items-center gap-2">
-            <ExternalLink className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
+            <ExternalLink className="w-4 h-4 text-(--muted-foreground) shrink-0" />
             <a
               href={sanitizeUrl(org.url)!}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)] hover:underline break-all"
+              className="font-proxima text-[16px] text-(--ijl-accent) hover:underline break-all"
             >
               {org.url!.replace(/^https?:\/\//, "")}
             </a>
@@ -49,10 +49,10 @@ export default function OrgCard({ org }: { org: LocalOrg }) {
         )}
         {org.phone && (
           <div className="flex items-center gap-2">
-            <Phone className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
+            <Phone className="w-4 h-4 text-(--muted-foreground) shrink-0" />
             <a
               href={`tel:${org.phone.replace(/\D/g, "")}`}
-              className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+              className="font-proxima text-[16px] text-(--muted-foreground) hover:text-foreground"
             >
               {org.phone}
             </a>
@@ -60,10 +60,10 @@ export default function OrgCard({ org }: { org: LocalOrg }) {
         )}
         {org.email && (
           <div className="flex items-center gap-2">
-            <Mail className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
+            <Mail className="w-4 h-4 text-(--muted-foreground) shrink-0" />
             <a
               href={`mailto:${org.email}`}
-              className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)] hover:underline"
+              className="font-proxima text-[16px] text-(--ijl-accent) hover:underline"
             >
               {org.email}
             </a>
@@ -74,8 +74,8 @@ export default function OrgCard({ org }: { org: LocalOrg }) {
             what the clock was always for. */}
         {org.response_time && (
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
-            <span className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)]">
+            <Clock className="w-4 h-4 text-(--muted-foreground) shrink-0" />
+            <span className="font-proxima text-[16px] text-(--muted-foreground)">
               {org.response_time}
             </span>
           </div>

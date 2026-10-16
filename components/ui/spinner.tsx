@@ -17,7 +17,7 @@ export function Spinner({
       <div
         aria-hidden="true"
         className={cn(
-          "rounded-full border-2 border-[var(--ijl-accent)] border-t-transparent animate-spin",
+          "rounded-full border-2 border-(--ijl-accent) border-t-transparent animate-spin",
           size === "sm" ? "w-5 h-5" : "w-8 h-8"
         )}
       />

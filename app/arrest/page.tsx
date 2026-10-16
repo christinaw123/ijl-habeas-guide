@@ -36,21 +36,21 @@ export default function ArrestPage() {
         <div className="mx-auto max-w-2xl">
           {/* Hero */}
           <div className="text-center mb-8">
-            <MapPin className="mx-auto mb-4 h-12 w-12 text-[var(--ijl-accent)]" />
-            <h1 className="oswald text-[32px] font-medium text-[var(--ijl-title)] mb-3">
+            <MapPin className="mx-auto mb-4 h-12 w-12 text-(--ijl-accent)" />
+            <h1 className="oswald text-[32px] font-medium text-(--ijl-title) mb-3">
               {t("arrest.title")}
             </h1>
-            <p className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)]">
+            <p className="font-proxima text-[16px] text-(--ijl-accent)">
               {t("arrest.subtitle")}
             </p>
           </div>
 
           {/* Card */}
-          <div className="rounded-lg border border-[var(--ijl-border)] bg-white p-6 sm:p-8 shadow-[0px_1px_3px_rgba(0,0,0,0.12)]">
+          <div className="rounded-lg border border-(--ijl-border) bg-white p-6 sm:p-8 shadow-[0px_1px_3px_rgba(0,0,0,0.12)]">
             <div className="space-y-6">
               {/* State */}
               <div className="space-y-2">
-                <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
+                <label className="font-proxima text-[14px] text-foreground">
                   {t("arrest.state.label")}
                 </label>
 
@@ -72,7 +72,7 @@ export default function ArrestPage() {
                 />
 
                 {touched && !stateValid && (
-                  <div className="text-sm font-[var(--font-proxima)] text-red-600">
+                  <div className="text-sm font-proxima text-red-600">
                     {t("arrest.state.error")}
                   </div>
                 )}
@@ -81,9 +81,9 @@ export default function ArrestPage() {
               {/* City (only show once state selected) */}
               {stateAbbr && (
                 <div className="space-y-2">
-                  <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
+                  <label className="font-proxima text-[14px] text-foreground">
                     {t("arrest.city.label")}{" "}
-                    <span className="ml-1 font-normal text-[var(--ijl-muted)]">
+                    <span className="ml-1 font-normal text-(--ijl-muted)">
                       {t("arrest.city.optional")}
                     </span>
                   </label>
@@ -114,9 +114,9 @@ export default function ArrestPage() {
                 onClick={onContinue}
                 disabled={!stateValid}
                 className={[
-                  "h-12 w-full rounded-[10px] font-[var(--font-proxima)] font-semibold text-white",
+                  "h-12 w-full rounded-[10px] font-proxima font-semibold text-white",
                   stateValid
-                    ? "bg-[var(--ijl-accent)] hover:opacity-95"
+                    ? "bg-(--ijl-accent) hover:opacity-95"
                     : "bg-[#B9B9C9] cursor-not-allowed",
                 ].join(" ")}
               >

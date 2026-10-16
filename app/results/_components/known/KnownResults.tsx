@@ -112,7 +112,7 @@ export default function KnownResults({ flow }: { flow: FlowState }) {
         onClose={() => setShowCommissaryModal(false)}
         title={t("resultsKnown.modal.commissary.title")}
       >
-        <div className="space-y-4 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
+        <div className="space-y-4 font-proxima text-[16px] text-foreground">
           <p>{t("resultsKnown.modal.commissary.p1")}</p>
           <p>{t("resultsKnown.modal.commissary.p2")}</p>
         </div>
@@ -124,7 +124,7 @@ export default function KnownResults({ flow }: { flow: FlowState }) {
         onClose={() => setShowCallModal(false)}
         title={t("resultsKnown.modal.call.title")}
       >
-        <div className="space-y-4 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
+        <div className="space-y-4 font-proxima text-[16px] text-foreground">
           <p>
             <span className="font-bold">{t("resultsKnown.modal.call.p1.bold")}</span>{" "}
             {t("resultsKnown.modal.call.p1.body")}

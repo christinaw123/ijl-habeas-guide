@@ -6,22 +6,22 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 export default function GetHelpNotFoundTab() {
   const { t } = useLanguage();
   const outlineBtn =
-    "inline-flex items-center gap-2 h-9 px-3 text-[14px] font-[var(--font-proxima)] font-medium rounded-md border border-[var(--ijl-border)] text-[var(--foreground)] bg-white hover:bg-[var(--ijl-cta-bg)] transition-colors";
+    "inline-flex items-center gap-2 h-9 px-3 text-[14px] font-proxima font-medium rounded-md border border-(--ijl-border) text-foreground bg-white hover:bg-(--ijl-cta-bg) transition-colors";
   return (
     <div className="space-y-6">
-      <h2 className="oswald text-[24px] font-medium text-[var(--ijl-title)]">
+      <h2 className="oswald text-[24px] font-medium text-(--ijl-title)">
         {t("resultsKnown.help.heading")}
       </h2>
 
-      <p className="font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
+      <p className="font-proxima text-[16px] text-foreground">
         {t("resultsKnown.help.notFound.intro")}
       </p>
 
       <div className="space-y-3">
-        <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
+        <h3 className="font-proxima font-bold text-[18px] text-foreground">
           {t("resultsKnown.help.notFound.legal.heading")}
         </h3>
-        <p className="font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
+        <p className="font-proxima text-[16px] text-foreground">
           {t("resultsKnown.help.notFound.legal.desc")}
         </p>
         <a
@@ -36,10 +36,10 @@ export default function GetHelpNotFoundTab() {
       </div>
 
       <div className="space-y-3">
-        <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
+        <h3 className="font-proxima font-bold text-[18px] text-foreground">
           {t("resultsKnown.help.notFound.community.heading")}
         </h3>
-        <p className="font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
+        <p className="font-proxima text-[16px] text-foreground">
           {t("resultsKnown.help.notFound.community.desc")}
         </p>
         <a
@@ -53,11 +53,11 @@ export default function GetHelpNotFoundTab() {
         </a>
       </div>
 
-      <div className="border border-[var(--ijl-border)] rounded-lg bg-white p-6 shadow-sm space-y-3">
-        <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
+      <div className="border border-(--ijl-border) rounded-lg bg-white p-6 shadow-sm space-y-3">
+        <h3 className="font-proxima font-bold text-[18px] text-foreground">
           {t("resultsKnown.help.notFound.list.heading")}
         </h3>
-        <p className="font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
+        <p className="font-proxima text-[16px] text-foreground">
           {t("resultsKnown.help.notFound.list.desc")}
         </p>
         <a href="#" className={outlineBtn}>

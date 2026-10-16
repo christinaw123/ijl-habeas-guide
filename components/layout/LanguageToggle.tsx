@@ -28,7 +28,7 @@ export default function LanguageToggle() {
         onChange={(e) => setLang(e.target.value as Lang)}
         disabled={loading}
         className={[
-          "cursor-pointer rounded-md border border-[var(--ijl-border)] bg-white px-2 py-1 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ijl-accent)] transition-opacity",
+          "cursor-pointer rounded-md border border-(--ijl-border) bg-white px-2 py-1 font-proxima text-[16px] text-foreground focus:outline-none focus:ring-2 focus:ring-(--ijl-accent) transition-opacity",
           loading ? "opacity-50 cursor-not-allowed animate-pulse" : "",
         ].join(" ")}
       >

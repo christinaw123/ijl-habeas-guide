@@ -14,23 +14,23 @@ export default function GetHelpFoundTab({
   const { t } = useLanguage();
   return (
     <div className="space-y-6">
-      <h2 className="oswald text-[24px] font-medium text-[var(--ijl-title)]">
+      <h2 className="oswald text-[24px] font-medium text-(--ijl-title)">
         {t("resultsKnown.help.heading")}
       </h2>
 
-      <p className="font-[var(--font-proxima)] text-[18px] text-[var(--foreground)]">
+      <p className="font-proxima text-[18px] text-foreground">
         {t("resultsKnown.help.found.intro")}
       </p>
 
       <div className="flex items-center gap-4 flex-wrap">
-        <div className="flex items-center gap-2 bg-[var(--ijl-cta-bg)] px-4 py-1.5 rounded-full">
-          <span className="font-[var(--font-proxima)] text-[12px] text-[var(--foreground)]">
+        <div className="flex items-center gap-2 bg-(--ijl-cta-bg) px-4 py-1.5 rounded-full">
+          <span className="font-proxima text-[12px] text-foreground">
             {t("resultsKnown.help.found.badge")}
           </span>
         </div>
         <button
           onClick={onCallModalClick}
-          className="font-[var(--font-proxima)] text-[12px] text-[var(--ijl-accent)] underline hover:no-underline"
+          className="font-proxima text-[12px] text-(--ijl-accent) underline hover:no-underline"
         >
           {t("resultsKnown.help.found.callLink")}
         </button>

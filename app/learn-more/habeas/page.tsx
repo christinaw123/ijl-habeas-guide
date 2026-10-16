@@ -14,11 +14,11 @@ export default function HabeasCorpusPage() {
 
       <div className="px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl flex flex-col gap-6">
-          <h1 className="oswald font-medium text-[24px] leading-[32px] text-[var(--ijl-title)]">
+          <h1 className="oswald font-medium text-[24px] leading-8 text-(--ijl-title)">
             {t("learn.habeas.title")}
           </h1>
 
-          <div className="font-[var(--font-proxima)] text-[16px] leading-[24px] text-[var(--foreground)] space-y-6">
+          <div className="font-proxima text-[16px] leading-6 text-foreground space-y-6">
             <p>{t("learn.habeas.p1")}</p>
 
             <p>{t("learn.habeas.p2")}</p>
@@ -29,7 +29,7 @@ export default function HabeasCorpusPage() {
               {t("learn.habeas.findHelp.prefix")}{" "}
               <Link
                 href={ROUTES.results}
-                className="font-bold underline text-[var(--ijl-accent)] hover:opacity-80"
+                className="font-bold underline text-(--ijl-accent) hover:opacity-80"
               >
                 {t("learn.habeas.findHelp.link")}
               </Link>
@@ -40,7 +40,7 @@ export default function HabeasCorpusPage() {
               <p>{t("learn.habeas.selfRep.intro")}</p>
               <ul className="list-disc pl-5 space-y-2">
                 <li className="pl-2">
-                  <span className="font-bold text-[var(--foreground)]">
+                  <span className="font-bold text-foreground">
                     {t("learn.habeas.guide.title")}
                   </span>{" "}
                   {t("learn.habeas.guide.desc")}

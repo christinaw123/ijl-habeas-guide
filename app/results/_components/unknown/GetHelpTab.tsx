@@ -22,20 +22,20 @@ export default function GetHelpTab({
       <h2 className="oswald font-medium text-[24px] ijl-title-color">
         {t("resultsUnknown.getHelp.heading")}
       </h2>
-      <p className="font-[var(--font-proxima)] text-[18px] text-[var(--foreground)]">
+      <p className="font-proxima text-[18px] text-foreground">
         {t("resultsUnknown.getHelp.intro")}
       </p>
 
       {/* Badge + modal link */}
       <div className="flex items-center gap-4 flex-wrap">
-        <div className="flex items-center gap-2 bg-[#efefef] px-4 py-[6px] rounded-full">
-          <span className="font-[var(--font-proxima)] text-[12px] text-[var(--foreground)]">
+        <div className="flex items-center gap-2 bg-[#efefef] px-4 py-1.5 rounded-full">
+          <span className="font-proxima text-[12px] text-foreground">
             {t("resultsUnknown.getHelp.badge")}
           </span>
         </div>
         <button
           onClick={onWhatToExpectClick}
-          className="font-[var(--font-proxima)] text-[12px] text-[var(--ijl-accent)] underline hover:no-underline"
+          className="font-proxima text-[12px] text-(--ijl-accent) underline hover:no-underline"
         >
           {t("resultsUnknown.getHelp.callLink")}
         </button>
@@ -45,7 +45,7 @@ export default function GetHelpTab({
       {orgs === null ? (
         <Spinner className="py-8" />
       ) : orgs.length === 0 ? (
-        <p className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
+        <p className="font-proxima text-base text-(--ijl-muted)">
           No organizations found for this area.
         </p>
       ) : (
@@ -53,40 +53,40 @@ export default function GetHelpTab({
         {orgs.map((org) => (
           <div
             key={org.id}
-            className="border border-[var(--ijl-border)] rounded-[10px] bg-white shadow-sm p-6 space-y-3"
+            className="border border-(--ijl-border) rounded-[10px] bg-white shadow-sm p-6 space-y-3"
           >
             <div className="flex items-center gap-2">
               {org.type === "legal" ? (
-                <Scale className="w-4 h-4 text-[var(--ijl-muted)]" />
+                <Scale className="w-4 h-4 text-(--ijl-muted)" />
               ) : (
-                <Users className="w-4 h-4 text-[var(--ijl-muted)]" />
+                <Users className="w-4 h-4 text-(--ijl-muted)" />
               )}
-              <span className="font-[var(--font-proxima)] text-[12px] uppercase tracking-wide text-[var(--ijl-muted)] font-semibold">
+              <span className="font-proxima text-[12px] uppercase tracking-wide text-(--ijl-muted) font-semibold">
                 {org.type === "legal"
                   ? t("resultsUnknown.getHelp.org.legalSupport")
                   : t("resultsUnknown.getHelp.org.generalSupport")}
               </span>
             </div>
             <div>
-              <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
+              <h3 className="font-proxima font-bold text-[18px] text-foreground">
                 {org.name}
               </h3>
-              <p className="font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
+              <p className="font-proxima text-[14px] text-(--ijl-muted)">
                 ({org.abbr})
               </p>
             </div>
-            <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <p className="font-proxima text-base text-foreground">
               {org.description}
             </p>
             <div className="space-y-2">
               {sanitizeUrl(org.url) && (
                 <div className="flex items-center gap-2">
-                  <ExternalLink className="w-4 h-4 text-[var(--ijl-muted)] flex-shrink-0" />
+                  <ExternalLink className="w-4 h-4 text-(--ijl-muted) shrink-0" />
                   <a
                     href={sanitizeUrl(org.url)!}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-[var(--font-proxima)] text-base text-[var(--ijl-accent)] hover:underline"
+                    className="font-proxima text-base text-(--ijl-accent) hover:underline"
                   >
                     {org.urlDisplay}
                   </a>
@@ -94,10 +94,10 @@ export default function GetHelpTab({
               )}
               {org.phone && (
                 <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-[var(--ijl-muted)] flex-shrink-0" />
+                  <Phone className="w-4 h-4 text-(--ijl-muted) shrink-0" />
                   <a
                     href={`tel:${org.phone}`}
-                    className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)] hover:text-[var(--foreground)]"
+                    className="font-proxima text-base text-(--ijl-muted) hover:text-foreground"
                   >
                     {org.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
                   </a>
@@ -105,8 +105,8 @@ export default function GetHelpTab({
               )}
               {org.hours && (
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[var(--ijl-muted)] flex-shrink-0" />
-                  <span className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
+                  <Clock className="w-4 h-4 text-(--ijl-muted) shrink-0" />
+                  <span className="font-proxima text-base text-(--ijl-muted)">
                     {org.hours}
                   </span>
                 </div>

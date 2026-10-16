@@ -26,44 +26,44 @@ export default function CallFacilitiesTab({
       <h2 className="oswald font-medium text-[24px] ijl-title-color">
         {t("resultsUnknown.callFacilities.heading")}
       </h2>
-      <p className="font-[var(--font-proxima)] text-[18px] text-[var(--foreground)]">
+      <p className="font-proxima text-[18px] text-foreground">
         {t("resultsUnknown.callFacilities.intro")}
       </p>
 
       {/* Accordion: How to call */}
-      <div className="border border-[var(--ijl-border)] rounded-[10px] bg-white shadow-sm overflow-hidden">
+      <div className="border border-(--ijl-border) rounded-[10px] bg-white shadow-sm overflow-hidden">
         <button
           onClick={onToggleAccordion}
-          className="w-full flex items-center justify-between px-6 py-4 font-[var(--font-proxima)] text-[18px] font-bold text-[var(--foreground)] hover:bg-[var(--ijl-cta-bg)] transition-colors text-left"
+          className="w-full flex items-center justify-between px-6 py-4 font-proxima text-[18px] font-bold text-foreground hover:bg-(--ijl-cta-bg) transition-colors text-left"
           aria-expanded={accordionOpen}
         >
           {t("resultsUnknown.callFacilities.accordion.title")}
           <ChevronDown
-            className={`w-5 h-5 text-[var(--ijl-muted)] transition-transform flex-shrink-0 ml-2 ${
+            className={`w-5 h-5 text-(--ijl-muted) transition-transform shrink-0 ml-2 ${
               accordionOpen ? "rotate-180" : ""
             }`}
           />
         </button>
         {accordionOpen && (
           <div className="px-6 pb-6 space-y-4">
-            <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <p className="font-proxima text-base text-foreground">
               {t("resultsUnknown.callFacilities.accordion.intro")}
             </p>
             <div className="space-y-2">
-              <h4 className="font-[var(--font-proxima)] font-bold text-base text-[var(--foreground)]">
+              <h4 className="font-proxima font-bold text-base text-foreground">
                 {t("resultsUnknown.callFacilities.accordion.whatToSay")}
               </h4>
               <div className="bg-[#F5F5F4] rounded-lg p-4">
-                <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)] italic">
+                <p className="font-proxima text-base text-foreground italic">
                   {t("resultsUnknown.callFacilities.accordion.script")}
                 </p>
               </div>
             </div>
             <div className="space-y-2">
-              <h4 className="font-[var(--font-proxima)] font-bold text-base text-[var(--foreground)]">
+              <h4 className="font-proxima font-bold text-base text-foreground">
                 {t("resultsUnknown.callFacilities.accordion.tips.label")}
               </h4>
-              <ul className="list-disc pl-5 space-y-2 font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+              <ul className="list-disc pl-5 space-y-2 font-proxima text-base text-foreground">
                 <li>{t("resultsUnknown.callFacilities.accordion.tips.1")}</li>
                 <li>{t("resultsUnknown.callFacilities.accordion.tips.2")}</li>
                 <li>{t("resultsUnknown.callFacilities.accordion.tips.3")}</li>
@@ -71,10 +71,10 @@ export default function CallFacilitiesTab({
               </ul>
             </div>
             <div className="bg-[#F5F5F4] rounded-lg p-4 space-y-2">
-              <h4 className="font-[var(--font-proxima)] font-bold text-base text-[var(--foreground)]">
+              <h4 className="font-proxima font-bold text-base text-foreground">
                 {t("resultsUnknown.callFacilities.accordion.rights.title")}
               </h4>
-              <ul className="list-disc pl-5 space-y-2 font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+              <ul className="list-disc pl-5 space-y-2 font-proxima text-base text-foreground">
                 <li>{t("resultsUnknown.callFacilities.accordion.rights.1")}</li>
                 <li>{t("resultsUnknown.callFacilities.accordion.rights.2")}</li>
               </ul>
@@ -84,7 +84,7 @@ export default function CallFacilitiesTab({
       </div>
 
       {/* Facilities intro */}
-      <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)] italic">
+      <p className="font-proxima text-base text-foreground italic">
         {t("resultsUnknown.callFacilities.facilitiesIntro")} {arrestLocation}
       </p>
 
@@ -92,7 +92,7 @@ export default function CallFacilitiesTab({
       {facilities === null ? (
         <Spinner className="py-8" />
       ) : facilities.length === 0 ? (
-        <p className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
+        <p className="font-proxima text-base text-(--ijl-muted)">
           No facilities found for this area.
         </p>
       ) : (
@@ -100,14 +100,14 @@ export default function CallFacilitiesTab({
         {facilities.map((facility) => (
           <div
             key={facility.id}
-            className="border border-[var(--ijl-border)] rounded-[10px] bg-white shadow-sm p-6 space-y-2"
+            className="border border-(--ijl-border) rounded-[10px] bg-white shadow-sm p-6 space-y-2"
           >
-            <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
+            <h3 className="font-proxima font-bold text-[18px] text-foreground">
               {facility.name}
             </h3>
             <div className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 text-[var(--ijl-muted)] mt-1 flex-shrink-0" />
-              <div className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
+              <MapPin className="w-4 h-4 text-(--ijl-muted) mt-1 shrink-0" />
+              <div className="font-proxima text-base text-(--ijl-muted)">
                 {facility.address.map((line) => (
                   <div key={line}>{line}</div>
                 ))}
@@ -115,10 +115,10 @@ export default function CallFacilitiesTab({
             </div>
             {facility.phone && (
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[var(--ijl-muted)] flex-shrink-0" />
+                <Phone className="w-4 h-4 text-(--ijl-muted) shrink-0" />
                 <a
                   href={`tel:${facility.phone}`}
-                  className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)] hover:text-[var(--foreground)]"
+                  className="font-proxima text-base text-(--ijl-muted) hover:text-foreground"
                 >
                   {facility.phoneDisplay}
                 </a>
@@ -126,12 +126,12 @@ export default function CallFacilitiesTab({
             )}
             {sanitizeUrl(facility.url) && (
               <div className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-[var(--ijl-muted)] flex-shrink-0" />
+                <Globe className="w-4 h-4 text-(--ijl-muted) shrink-0" />
                 <a
                   href={sanitizeUrl(facility.url)!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-[var(--font-proxima)] text-base text-[var(--ijl-accent)] hover:underline"
+                  className="font-proxima text-base text-(--ijl-accent) hover:underline"
                 >
                   {facility.urlDisplay}
                 </a>

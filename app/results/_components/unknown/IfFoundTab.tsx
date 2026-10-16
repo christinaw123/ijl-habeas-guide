@@ -18,45 +18,45 @@ export default function IfFoundTab({
       <h2 className="oswald font-medium text-[24px] ijl-title-color">
         {t("resultsUnknown.ifFound.heading")}
       </h2>
-      <p className="font-[var(--font-proxima)] text-[18px] text-[var(--foreground)]">
+      <p className="font-proxima text-[18px] text-foreground">
         {t("resultsUnknown.ifFound.intro")}
       </p>
 
       {/* Steps card */}
-      <div className="border border-[var(--ijl-border)] rounded-[10px] bg-white shadow-sm p-6 space-y-4">
+      <div className="border border-(--ijl-border) rounded-[10px] bg-white shadow-sm p-6 space-y-4">
         {/* Step 1 */}
         <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#E6E7E8] flex items-center justify-center">
-            <span className="font-[var(--font-proxima)] font-medium text-[var(--foreground)] text-[14px]">
+          <div className="shrink-0 w-8 h-8 rounded-full bg-[#E6E7E8] flex items-center justify-center">
+            <span className="font-proxima font-medium text-foreground text-[14px]">
               1
             </span>
           </div>
-          <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)] pt-1">
+          <p className="font-proxima text-base text-foreground pt-1">
             {t("resultsUnknown.ifFound.step1")}
           </p>
         </div>
         {/* Step 2 */}
         <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#E6E7E8] flex items-center justify-center">
-            <span className="font-[var(--font-proxima)] font-medium text-[var(--foreground)] text-[14px]">
+          <div className="shrink-0 w-8 h-8 rounded-full bg-[#E6E7E8] flex items-center justify-center">
+            <span className="font-proxima font-medium text-foreground text-[14px]">
               2
             </span>
           </div>
-          <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)] pt-1">
+          <p className="font-proxima text-base text-foreground pt-1">
             {t("resultsUnknown.ifFound.step2")}
           </p>
         </div>
         {/* Step 3 — contains inline link */}
         <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#E6E7E8] flex items-center justify-center">
-            <span className="font-[var(--font-proxima)] font-medium text-[var(--foreground)] text-[14px]">
+          <div className="shrink-0 w-8 h-8 rounded-full bg-[#E6E7E8] flex items-center justify-center">
+            <span className="font-proxima font-medium text-foreground text-[14px]">
               3
             </span>
           </div>
-          <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)] pt-1">
+          <p className="font-proxima text-base text-foreground pt-1">
             <Link
               href={ROUTES.facility}
-              className="text-[var(--ijl-accent)] underline font-medium"
+              className="text-(--ijl-accent) underline font-medium"
             >
               {t("resultsUnknown.ifFound.step3.link")}
             </Link>{" "}

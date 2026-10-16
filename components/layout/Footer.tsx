@@ -7,16 +7,16 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#001F3C] py-8 px-4 w-full">
-      <div className="max-w-[375px] mx-auto flex flex-col gap-6">
-        <p className="font-[var(--font-proxima)] font-normal text-[14px] leading-[20px] tracking-[-0.1504px] text-white text-center opacity-90">
+      <div className="max-w-93.75 mx-auto flex flex-col gap-6">
+        <p className="font-proxima font-normal text-[14px] leading-5 tracking-[-0.1504px] text-white text-center opacity-90">
           {t("footer.legal")}
         </p>
 
-        <p className="font-[var(--font-proxima)] font-normal text-[12px] leading-[18px] tracking-[-0.1504px] text-white text-center opacity-75 italic">
+        <p className="font-proxima font-normal text-[12px] leading-4.5 tracking-[-0.1504px] text-white text-center opacity-75 italic">
           {t("footer.translation")}
         </p>
 
-        <p className="font-[var(--font-proxima)] font-normal text-[14px] leading-[20px] tracking-[-0.1504px] text-white text-center opacity-90">
+        <p className="font-proxima font-normal text-[14px] leading-5 tracking-[-0.1504px] text-white text-center opacity-90">
           {t("footer.org")}{" "}
           <a href="#" className="font-bold underline hover:opacity-90">
             {t("footer.org.link")}
@@ -25,7 +25,7 @@ export default function Footer() {
 
         <div className="h-px bg-white/20 w-full" />
 
-        <p className="font-[var(--font-proxima)] font-normal text-[14px] leading-[20px] tracking-[-0.1504px] text-white text-center opacity-90">
+        <p className="font-proxima font-normal text-[14px] leading-5 tracking-[-0.1504px] text-white text-center opacity-90">
           {t("footer.copyright")}
         </p>
       </div>

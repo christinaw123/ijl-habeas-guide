@@ -14,11 +14,11 @@ export default function ImmigrationBondsPage() {
 
       <div className="px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl flex flex-col gap-6">
-          <h1 className="oswald font-medium text-[24px] leading-[32px] text-[var(--ijl-title)]">
+          <h1 className="oswald font-medium text-[24px] leading-8 text-(--ijl-title)">
             {t("learn.bonds.title")}
           </h1>
 
-          <div className="font-[var(--font-proxima)] text-[16px] leading-[24px] text-[var(--foreground)] space-y-6">
+          <div className="font-proxima text-[16px] leading-6 text-foreground space-y-6">
             <p>{t("learn.bonds.p1")}</p>
 
             <p>{t("learn.bonds.p2")}</p>
@@ -27,7 +27,7 @@ export default function ImmigrationBondsPage() {
               {t("learn.bonds.findHelp.prefix")}{" "}
               <Link
                 href={ROUTES.results}
-                className="font-bold underline text-[var(--ijl-accent)] hover:opacity-80"
+                className="font-bold underline text-(--ijl-accent) hover:opacity-80"
               >
                 {t("learn.bonds.findHelp.link")}
               </Link>
@@ -42,7 +42,7 @@ export default function ImmigrationBondsPage() {
                     href="https://www.immigrantjusticelab.org/guides/a-immigration-bonds"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-bold underline text-[var(--ijl-accent)] hover:opacity-80"
+                    className="font-bold underline text-(--ijl-accent) hover:opacity-80"
                   >
                     {t("learn.bonds.guide.title")}
                   </a>{" "}
@@ -53,7 +53,7 @@ export default function ImmigrationBondsPage() {
                     href="https://www.immigrantjusticelab.org/guides/faq"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-bold underline text-[var(--ijl-accent)] hover:opacity-80"
+                    className="font-bold underline text-(--ijl-accent) hover:opacity-80"
                   >
                     {t("learn.bonds.faq.title")}
                   </a>{" "}
@@ -70,7 +70,7 @@ export default function ImmigrationBondsPage() {
                     href="https://bit.ly/localbailfunds"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-bold underline text-[var(--ijl-accent)] hover:opacity-80"
+                    className="font-bold underline text-(--ijl-accent) hover:opacity-80"
                   >
                     {t("learn.bonds.bailFund.title")}
                   </a>{" "}

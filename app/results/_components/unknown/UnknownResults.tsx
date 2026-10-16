@@ -78,17 +78,17 @@ export default function UnknownResults({ flow }: { flow: FlowState }) {
         intro={t("resultsUnknown.intro")}
         notice={
           <div className="flex gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
-            <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <h3 className="font-[var(--font-proxima)] font-bold text-[14px] text-amber-900">
+              <h3 className="font-proxima font-bold text-[14px] text-amber-900">
                 {t("resultsUnknown.alert.title")}
               </h3>
-              <p className="font-[var(--font-proxima)] text-[14px] text-amber-800">
+              <p className="font-proxima text-[14px] text-amber-800">
                 {t("resultsUnknown.alert.body")}
               </p>
               <button
                 onClick={() => setArrestInfoOpen(true)}
-                className="font-[var(--font-proxima)] text-[12px] font-medium text-amber-900 underline"
+                className="font-proxima text-[12px] font-medium text-amber-900 underline"
               >
                 {t("resultsUnknown.alert.link")}
               </button>
@@ -141,10 +141,10 @@ export default function UnknownResults({ flow }: { flow: FlowState }) {
         title={t("resultsUnknown.modal.arrestInfo.title")}
       >
         <div className="space-y-4">
-          <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+          <p className="font-proxima text-base text-foreground">
             {t("resultsUnknown.modal.arrestInfo.p1")}
           </p>
-          <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+          <p className="font-proxima text-base text-foreground">
             {t("resultsUnknown.modal.arrestInfo.p2")}
           </p>
         </div>
@@ -160,16 +160,16 @@ export default function UnknownResults({ flow }: { flow: FlowState }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Document illustration */}
           <div className="flex items-center justify-center">
-            <div className="border border-[var(--ijl-border)] rounded-lg p-6 w-full max-w-[280px] bg-white">
+            <div className="border border-(--ijl-border) rounded-lg p-6 w-full max-w-[280px] bg-white">
               <div className="flex justify-center mb-4">
                 <div className="w-16 h-16 rounded-full border-2 border-gray-300 bg-gray-50" />
               </div>
               <div className="h-4 bg-gray-200 rounded mb-6 w-3/4 mx-auto" />
               <div className="border-2 border-dashed border-amber-400 bg-amber-50 rounded-lg p-4 mb-6">
-                <div className="text-amber-700 font-[var(--font-proxima)] text-[12px] font-medium mb-1">
+                <div className="text-amber-700 font-proxima text-[12px] font-medium mb-1">
                   {t("resultsUnknown.modal.aNumber.fileNo")}
                 </div>
-                <div className="text-amber-900 font-[var(--font-proxima)] text-[18px] font-bold">
+                <div className="text-amber-900 font-proxima text-[18px] font-bold">
                   A-123-456-789
                 </div>
               </div>
@@ -182,14 +182,14 @@ export default function UnknownResults({ flow }: { flow: FlowState }) {
           </div>
           {/* Text */}
           <div className="space-y-4">
-            <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <p className="font-proxima text-base text-foreground">
               {t("resultsUnknown.modal.aNumber.p1")}
             </p>
-            <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <p className="font-proxima text-base text-foreground">
               {t("resultsUnknown.modal.aNumber.p2")}
             </p>
             <div className="bg-[#F5F5F4] rounded-lg p-4">
-              <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+              <p className="font-proxima text-base text-foreground">
                 <span className="font-bold">
                   {t("resultsUnknown.modal.aNumber.noNumber")}
                 </span>{" "}
@@ -207,19 +207,19 @@ export default function UnknownResults({ flow }: { flow: FlowState }) {
         title={t("resultsUnknown.modal.whatToExpect.title")}
       >
         <div className="space-y-4">
-          <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+          <p className="font-proxima text-base text-foreground">
             <span className="font-bold">
               {t("resultsUnknown.modal.whatToExpect.p1.bold")}
             </span>{" "}
             {t("resultsUnknown.modal.whatToExpect.p1.body")}
           </p>
-          <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+          <p className="font-proxima text-base text-foreground">
             <span className="font-bold">
               {t("resultsUnknown.modal.whatToExpect.p2.bold")}
             </span>{" "}
             {t("resultsUnknown.modal.whatToExpect.p2.body")}
           </p>
-          <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+          <p className="font-proxima text-base text-foreground">
             <span className="font-bold">
               {t("resultsUnknown.modal.whatToExpect.p3.bold")}
             </span>{" "}

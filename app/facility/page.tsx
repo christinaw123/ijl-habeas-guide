@@ -112,21 +112,21 @@ export default function FacilityPage() {
         <div className="mx-auto max-w-2xl">
           {/* Hero */}
           <div className="text-center mb-8">
-            <MapPin className="mx-auto mb-4 h-12 w-12 text-[var(--ijl-accent)]" />
-            <h1 className="oswald text-[32px] font-medium text-[var(--ijl-title)] mb-3">
+            <MapPin className="mx-auto mb-4 h-12 w-12 text-(--ijl-accent)" />
+            <h1 className="oswald text-[32px] font-medium text-(--ijl-title) mb-3">
               {t("facility.title")}
             </h1>
-            <p className="font-[var(--font-proxima)] text-[16px] text-[var(--ijl-accent)]">
+            <p className="font-proxima text-[16px] text-(--ijl-accent)">
               {t("facility.subtitle")}
             </p>
           </div>
 
           {/* Card */}
-          <div className="rounded-lg border border-[var(--ijl-border)] bg-white p-6 sm:p-8 shadow-sm">
+          <div className="rounded-lg border border-(--ijl-border) bg-white p-6 sm:p-8 shadow-sm">
             <div className="space-y-6">
               {/* State */}
               <div className="space-y-2">
-                <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
+                <label className="font-proxima text-[14px] text-foreground">
                   {t("facility.state.label")}
                 </label>
                 <StateCombobox
@@ -164,7 +164,7 @@ export default function FacilityPage() {
               {/* Facility dropdown (hidden when manual entry is active) */}
               {hasState && !showManualEntry && (
                 <div className="space-y-2">
-                  <label className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
+                  <label className="font-proxima text-[14px] text-foreground">
                     {t("facility.facility.label")}
                   </label>
                   <Select
@@ -183,7 +183,7 @@ export default function FacilityPage() {
                       {loadingFacilities ? (
                         <Spinner size="sm" className="py-3" />
                       ) : facilities.length === 0 ? (
-                        <div className="px-3 py-2 text-sm text-[var(--ijl-muted)] font-[var(--font-proxima)]">
+                        <div className="px-3 py-2 text-sm text-(--ijl-muted) font-proxima">
                           No facilities found for this state
                         </div>
                       ) : (
@@ -203,7 +203,7 @@ export default function FacilityPage() {
                 <div className="space-y-2">
                   <label
                     htmlFor="manual-facility"
-                    className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]"
+                    className="font-proxima text-[14px] text-foreground"
                   >
                     {t("facility.facility.manual.label")}
                   </label>
@@ -214,13 +214,13 @@ export default function FacilityPage() {
                     onChange={(e) => setManualFacilityName(e.target.value.slice(0, 300))}
                     maxLength={300}
                     placeholder={t("facility.facility.manual.placeholder")}
-                    className="w-full rounded-lg border border-[var(--ijl-border)] bg-white px-4 py-3 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)] placeholder:text-[var(--ijl-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--ijl-accent)]"
+                    className="w-full rounded-lg border border-(--ijl-border) bg-white px-4 py-3 font-proxima text-[16px] text-foreground placeholder:text-(--ijl-muted) focus:outline-none focus:ring-2 focus:ring-(--ijl-accent)"
                   />
                 </div>
               )}
 
               {touched && !valid && (
-                <p className="text-sm font-[var(--font-proxima)] text-red-600">
+                <p className="text-sm font-proxima text-red-600">
                   {t("facility.error")}
                 </p>
               )}
@@ -230,8 +230,8 @@ export default function FacilityPage() {
                 type="button"
                 onClick={onContinue}
                 className={[
-                  "w-full rounded-[10px] py-3 font-[var(--font-proxima)] font-semibold text-white transition-opacity",
-                  "bg-[var(--ijl-accent)]",
+                  "w-full rounded-[10px] py-3 font-proxima font-semibold text-white transition-opacity",
+                  "bg-(--ijl-accent)",
                   !valid ? "opacity-50 cursor-not-allowed" : "hover:opacity-90",
                 ].join(" ")}
               >
@@ -242,12 +242,12 @@ export default function FacilityPage() {
 
           {/* Help options — only shown once a state is selected */}
           {hasState && (
-            <div className="mt-6 text-center space-y-2 text-sm font-[var(--font-proxima)]">
+            <div className="mt-6 text-center space-y-2 text-sm font-proxima">
               <div>
                 <button
                   type="button"
                   onClick={handleNoFacility}
-                  className="text-[var(--ijl-accent)] hover:underline"
+                  className="text-(--ijl-accent) hover:underline"
                 >
                   {t("facility.help.noFacility")}
                 </button>
@@ -256,7 +256,7 @@ export default function FacilityPage() {
                 <button
                   type="button"
                   onClick={handleUnknownFacility}
-                  className="text-[var(--ijl-accent)] hover:underline"
+                  className="text-(--ijl-accent) hover:underline"
                 >
                   {t("facility.help.unknownFacility")}
                 </button>
@@ -266,11 +266,11 @@ export default function FacilityPage() {
 
           {/* Guidance panel */}
           {showGuidance && (
-            <div className="mt-6 rounded-lg border border-[var(--ijl-border)] bg-[var(--ijl-cta-bg)] p-6">
-              <h3 className="oswald text-xl font-medium text-[var(--ijl-title)] mb-3">
+            <div className="mt-6 rounded-lg border border-(--ijl-border) bg-(--ijl-cta-bg) p-6">
+              <h3 className="oswald text-xl font-medium text-(--ijl-title) mb-3">
                 {t("facility.guidance.title")}
               </h3>
-              <div className="space-y-3 font-[var(--font-proxima)] text-sm text-[var(--foreground)]">
+              <div className="space-y-3 font-proxima text-sm text-foreground">
                 <p>{t("facility.guidance.intro")}</p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>{t("facility.guidance.tip1")}</li>

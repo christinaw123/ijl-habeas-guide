@@ -15,9 +15,9 @@ export const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-12 w-full items-center justify-between rounded-[10px] border border-[var(--ijl-border)] bg-white px-4 py-3",
-      "font-[var(--font-proxima)] text-[16px] leading-[22.4px] text-[var(--foreground)]",
-      "focus:outline-none focus:ring-2 focus:ring-[var(--ijl-accent)] focus:ring-offset-2 focus:ring-offset-white",
+      "flex h-12 w-full items-center justify-between rounded-[10px] border border-(--ijl-border) bg-white px-4 py-3",
+      "font-proxima text-[16px] leading-[22.4px] text-foreground",
+      "focus:outline-none focus:ring-2 focus:ring-(--ijl-accent) focus:ring-offset-2 focus:ring-offset-white",
       "disabled:cursor-not-allowed disabled:opacity-50",
       className
     )}
@@ -44,8 +44,8 @@ export const SelectContent = React.forwardRef<
       avoidCollisions={false}
       collisionPadding={8}
       className={cn(
-        "z-50 overflow-hidden rounded-[10px] border border-[var(--ijl-border)] bg-white shadow-md",
-        "w-[var(--radix-select-trigger-width)]",
+        "z-50 overflow-hidden rounded-[10px] border border-(--ijl-border) bg-white shadow-md",
+        "w-(--radix-select-trigger-width)",
         "max-h-[min(320px,var(--radix-select-content-available-height))]",
   className
       )}
@@ -75,9 +75,9 @@ export const SelectItem = React.forwardRef<
     ref={ref}
     className={cn(
         "relative flex w-full cursor-pointer select-none items-center px-4 py-3",
-        "font-[var(--font-proxima)] text-[16px] leading-[22px] text-[var(--foreground)]",
+        "font-proxima text-[16px] leading-5.5 text-foreground",
         "focus:bg-[#1E63F0] focus:text-white focus:outline-none",
-        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "data-disabled:pointer-events-none data-disabled:opacity-50",
         className
     )}
     {...props}

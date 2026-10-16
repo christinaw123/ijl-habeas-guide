@@ -43,7 +43,7 @@ export default function ResultsLayout<T extends string>({
   const badgeBase =
     "flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EFEFEF] hover:bg-[#E5E5E5] transition-colors cursor-pointer group w-fit";
   const badgeText =
-    "font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]";
+    "font-proxima text-[14px] text-foreground";
 
   return (
     <div className="bg-white">
@@ -51,7 +51,7 @@ export default function ResultsLayout<T extends string>({
       <div className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl space-y-6">
           {/* Title */}
-          <h1 className="oswald text-[36px] font-medium text-[var(--ijl-title)] leading-[1.3]">
+          <h1 className="oswald text-[36px] font-medium text-(--ijl-title) leading-[1.3]">
             {title}
           </h1>
 
@@ -66,29 +66,29 @@ export default function ResultsLayout<T extends string>({
               >
                 <span className={badgeText}>{badge.label}</span>
                 <span className={`${badgeText} font-semibold`}>{badge.value}</span>
-                <Pencil className="w-3.5 h-3.5 text-[var(--ijl-muted)] group-hover:text-[var(--foreground)] transition-colors" />
+                <Pencil className="w-3.5 h-3.5 text-(--ijl-muted) group-hover:text-foreground transition-colors" />
               </button>
             ))}
           </div>
 
           {/* Intro */}
-          <p className="font-[var(--font-proxima)] text-[18px] text-[var(--foreground)]">
+          <p className="font-proxima text-[18px] text-foreground">
             {intro}
           </p>
 
           {notice}
 
           {/* Tab bar (scrolls horizontally on narrow screens) */}
-          <div className="border-b border-[var(--ijl-border)] flex overflow-x-auto">
+          <div className="border-b border-(--ijl-border) flex overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => onTabChange(tab.id)}
                 className={[
-                  "whitespace-nowrap font-[var(--font-proxima)] text-[14px] px-4 py-2 border-b-2 transition-all flex-shrink-0",
+                  "whitespace-nowrap font-proxima text-[14px] px-4 py-2 border-b-2 transition-all shrink-0",
                   activeTab === tab.id
-                    ? "border-[var(--ijl-accent)] font-semibold text-[var(--foreground)]"
-                    : "border-transparent text-[var(--ijl-muted)] hover:text-[var(--foreground)]",
+                    ? "border-(--ijl-accent) font-semibold text-foreground"
+                    : "border-transparent text-(--ijl-muted) hover:text-foreground",
                 ].join(" ")}
               >
                 {tab.label}

@@ -16,43 +16,43 @@ export default function OtherSearchesTab({
       <h2 className="oswald font-medium text-[24px] ijl-title-color">
         {t("resultsUnknown.otherSearches.heading")}
       </h2>
-      <p className="font-[var(--font-proxima)] text-[18px] text-[var(--foreground)]">
+      <p className="font-proxima text-[18px] text-foreground">
         {t("resultsUnknown.otherSearches.intro")}
       </p>
 
       {/* Card: VINE */}
-      <div className="border border-[var(--ijl-border)] rounded-[10px] bg-white shadow-sm p-6 space-y-4">
+      <div className="border border-(--ijl-border) rounded-[10px] bg-white shadow-sm p-6 space-y-4">
         <div>
-          <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
+          <h3 className="font-proxima font-bold text-[18px] text-foreground">
             {t("resultsUnknown.otherSearches.vine.heading")}
           </h3>
-          <p className="font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
+          <p className="font-proxima text-[14px] text-(--ijl-muted)">
             {t("resultsUnknown.otherSearches.vine.sub")}
           </p>
         </div>
-        <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+        <p className="font-proxima text-base text-foreground">
           {t("resultsUnknown.otherSearches.vine.intro")}
         </p>
 
         <div className="space-y-6">
           {/* VINELink */}
           <div className="space-y-3">
-            <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <p className="font-proxima text-base text-foreground">
               <ExternalLink className="inline w-4 h-4 mr-1 -mt-0.5" />
               <span className="font-bold">VINELink</span>{" "}
               {t("resultsUnknown.otherSearches.vinelink.desc")}
             </p>
-            <ul className="list-disc pl-5 space-y-1 font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <ul className="list-disc pl-5 space-y-1 font-proxima text-base text-foreground">
               <li>
                 <span className="font-bold">
                   {t("resultsUnknown.otherSearches.vinelink.need1")}
                 </span>
               </li>
             </ul>
-            <p className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)] pl-5">
+            <p className="font-proxima text-base text-(--ijl-muted) pl-5">
               {t("resultsUnknown.searchIce.gather.or")}
             </p>
-            <ul className="list-disc pl-5 space-y-1 font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <ul className="list-disc pl-5 space-y-1 font-proxima text-base text-foreground">
               <li>{t("resultsUnknown.otherSearches.vinelink.need2")}</li>
             </ul>
             <Button size="lg" asChild>
@@ -69,22 +69,22 @@ export default function OtherSearchesTab({
 
           {/* DHS VINELink */}
           <div className="space-y-3">
-            <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <p className="font-proxima text-base text-foreground">
               <ExternalLink className="inline w-4 h-4 mr-1 -mt-0.5" />
               <span className="font-bold">DHS VINELink</span>{" "}
               {t("resultsUnknown.otherSearches.dhsVinelink.desc")}
             </p>
-            <ul className="list-disc pl-5 space-y-1 font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <ul className="list-disc pl-5 space-y-1 font-proxima text-base text-foreground">
               <li>
                 <span className="font-bold">
                   {t("resultsUnknown.otherSearches.dhsVinelink.need1")}
                 </span>
               </li>
             </ul>
-            <p className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)] pl-5">
+            <p className="font-proxima text-base text-(--ijl-muted) pl-5">
               {t("resultsUnknown.searchIce.gather.or")}
             </p>
-            <ul className="list-disc pl-5 space-y-1 font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+            <ul className="list-disc pl-5 space-y-1 font-proxima text-base text-foreground">
               <li>{t("resultsUnknown.otherSearches.dhsVinelink.need2a")}</li>
               <li>{t("resultsUnknown.otherSearches.dhsVinelink.need2b")}</li>
               <li>{t("resultsUnknown.otherSearches.dhsVinelink.need2c")}</li>
@@ -104,19 +104,19 @@ export default function OtherSearchesTab({
       </div>
 
       {/* Card: EOIR ACIS */}
-      <div className="border border-[var(--ijl-border)] rounded-[10px] bg-white shadow-sm p-6 space-y-4">
+      <div className="border border-(--ijl-border) rounded-[10px] bg-white shadow-sm p-6 space-y-4">
         <div>
-          <h3 className="font-[var(--font-proxima)] font-bold text-[18px] text-[var(--foreground)]">
+          <h3 className="font-proxima font-bold text-[18px] text-foreground">
             {t("resultsUnknown.otherSearches.eoir.heading")}
           </h3>
-          <p className="font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
+          <p className="font-proxima text-[14px] text-(--ijl-muted)">
             {t("resultsUnknown.otherSearches.eoir.sub")}
           </p>
         </div>
-        <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+        <p className="font-proxima text-base text-foreground">
           {t("resultsUnknown.otherSearches.eoir.intro")}
         </p>
-        <ul className="list-disc pl-5 font-[var(--font-proxima)] text-base text-[var(--foreground)]">
+        <ul className="list-disc pl-5 font-proxima text-base text-foreground">
           <li>
             <span className="font-bold">
               {t("resultsUnknown.otherSearches.eoir.need1")}

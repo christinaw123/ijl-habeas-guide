@@ -152,10 +152,10 @@ export function CityCombobox({
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           className={cn(
-            "h-12 w-full rounded-[10px] border border-[var(--ijl-border)] bg-white px-4 py-3 pr-12",
-            "font-[var(--font-proxima)] text-[16px] leading-[22.4px]",
-            open || value ? "text-[var(--foreground)]" : "text-[var(--ijl-muted)]",
-            "focus:outline-none focus:ring-2 focus:ring-[var(--ijl-accent)] focus:ring-offset-2 focus:ring-offset-white"
+            "h-12 w-full rounded-[10px] border border-(--ijl-border) bg-white px-4 py-3 pr-12",
+            "font-proxima text-[16px] leading-[22.4px]",
+            open || value ? "text-foreground" : "text-(--ijl-muted)",
+            "focus:outline-none focus:ring-2 focus:ring-(--ijl-accent) focus:ring-offset-2 focus:ring-offset-white"
           )}
         />
         <span className="pointer-events-none absolute right-3 flex items-center gap-1">
@@ -169,9 +169,9 @@ export function CityCombobox({
                 handleClear(e as unknown as React.MouseEvent);
               }}
               onKeyDown={(e) => e.key === "Enter" && handleClear(e as unknown as React.MouseEvent)}
-              className="pointer-events-auto cursor-pointer rounded p-0.5 hover:bg-[var(--ijl-cta-bg)]"
+              className="pointer-events-auto cursor-pointer rounded p-0.5 hover:bg-(--ijl-cta-bg)"
             >
-              <X className="h-3.5 w-3.5 text-[var(--ijl-muted)]" />
+              <X className="h-3.5 w-3.5 text-(--ijl-muted)" />
             </span>
           )}
           <ChevronDown
@@ -187,14 +187,14 @@ export function CityCombobox({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded-md border border-[var(--ijl-border)] bg-white shadow-md"
+          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded-md border border-(--ijl-border) bg-white shadow-md"
         >
           {isLoading ? (
-            <li className="px-4 py-3 font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
+            <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
               {t("arrest.city.loading")}
             </li>
           ) : results.length === 0 ? (
-            <li className="px-4 py-3 font-[var(--font-proxima)] text-[14px] text-[var(--ijl-muted)]">
+            <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
               {t("arrest.city.noResults")}
             </li>
           ) : (
@@ -210,8 +210,8 @@ export function CityCombobox({
                   handleSelect(place);
                 }}
                 className={cn(
-                  "cursor-pointer px-4 py-3 font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]",
-                  i === highlightedIndex && "bg-[var(--ijl-cta-bg)]",
+                  "cursor-pointer px-4 py-3 font-proxima text-[16px] text-foreground",
+                  i === highlightedIndex && "bg-(--ijl-cta-bg)",
                   value === place.place_display && i !== highlightedIndex && "font-semibold"
                 )}
               >
