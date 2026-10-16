@@ -73,28 +73,6 @@ export type ResultsData = {
   orgs: LocalOrg[];
 };
 
-export async function getCountiesByState(state: string): Promise<string[]> {
-  const { data, error } = await supabase
-    .from("county_field_office")
-    .select("county")
-    .eq("state", state)
-    .order("county");
-
-  if (error) { console.error("getCountiesByState error:", error); return []; }
-  if (!data) return [];
-
-  // Deduplicate — .select distinct isn't supported directly in the JS client
-  const seen = new Set<string>();
-  const counties: string[] = [];
-  for (const row of data) {
-    if (row.county && !seen.has(row.county)) {
-      seen.add(row.county);
-      counties.push(row.county);
-    }
-  }
-  return counties;
-}
-
 export async function getFacilitiesByState(state: string): Promise<Facility[]> {
   // facilities_live.state is the abbreviation (e.g. "MA"); callers pass the full name
   // (StateCombobox / usStates.json), so this must go through STATE_ABBREVIATIONS.

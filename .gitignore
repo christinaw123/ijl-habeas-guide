@@ -42,3 +42,5 @@ next-env.d.ts
 
 # claudes
 CLAUDE.md
+# logs
+logs/

@@ -179,40 +179,20 @@ export const STRINGS: Record<string, string> = {
   "resultsKnown.legalTab.additional.heading": "Additional facility information",
   "resultsKnown.legalTab.additional.intro":
     "Important contact information for offices related to this detention facility.",
-  "resultsKnown.legalTab.district.sub": "U.S. District Court",
   "resultsKnown.legalTab.district.habeasLink": "File a Habeas Corpus Petition",
 
   // (legacy keys kept for any remaining references)
-  "resultsKnown.intro":
-    "We're sorry that you or someone you know has been detained. This page has information to help you contact the detainee, information about the detention facility, community and legal aid support organizations.",
-  "resultsKnown.community.heading": "Get help from community organizations",
-  "resultsKnown.community.description":
-    "These organizations provide support for detainees and their families in this arrest area or for this detention facility. They may be able to help you contact the detainee, add money to commissary account, and provide support for the detainee's family.",
-  "resultsKnown.community.toAskForHelp": "TO ASK FOR HELP:",
-  "resultsKnown.facility.heading": "Contact the detention facility",
-  "resultsKnown.facility.description":
-    "The facility website might have information about how to contact the detainee or add money to their commissary account.",
-  "resultsKnown.legal.heading": "Get legal help",
-  "resultsKnown.legal.description":
-    "These organizations provide legal support for detainees and their families in this arrest area or for this detention facility. They may be able to help the detainee get released on bond, help in Immigration Court, and, in some cases, get released via habeas petition in Federal District Court.",
-  "resultsKnown.legal.toAskForHelp": "TO ASK FOR HELP:",
-  "resultsKnown.options.heading": "Learn about legal options for detainees",
   "resultsKnown.options.court.title": "Immigration Court",
   "resultsKnown.options.court.description":
     "Immigration Court is where deportation cases are reviewed and decided. In Immigration Court, you can defend yourself against deportation, request release from detention, and request \"voluntary departure\" if you agree to leave the United States.",
-  "resultsKnown.options.court.cta": "Learn more",
   "resultsKnown.options.bonds.title": "Immigration Bonds",
   "resultsKnown.options.bonds.description":
     "When someone is detained by immigration officials, often the first legal step will be to determine if the person can request to be released from detention on an \"immigration bond.\"",
-  "resultsKnown.options.bonds.cta": "Learn more",
   "resultsKnown.options.habeas.title": "Habeas Corpus",
   "resultsKnown.options.habeas.description":
     "Sometimes a detainee can't ask for a bond hearing or their bond request is denied. In certain cases, they can instead ask to be released through a hearing in a different type of court. This requires making a specific kind of legal request — known as a \"habeas petition\" — in a U.S. Federal District Court.",
-  "resultsKnown.options.habeas.cta": "Learn more",
-  "resultsKnown.other.heading": "Other Important Information",
   "resultsKnown.other.iceOffice.title": "ICE Field Office",
   "resultsKnown.other.court.title": "District Court",
-  "resultsKnown.other.court.clerk": "Clerk of Court:",
 
   // Results — unknown location — page
   "resultsUnknown.back": "Back",
