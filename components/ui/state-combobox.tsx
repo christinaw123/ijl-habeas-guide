@@ -4,7 +4,7 @@ import { useId, useRef, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import US_STATES from "@/lib/data/usStates.json";
+import US_STATES from "@/lib/constants/usStates.json";
 
 interface StateComboboxProps {
   value: string | null;

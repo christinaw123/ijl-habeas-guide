@@ -1,6 +1,6 @@
 import "server-only";
 import { supabase } from "./supabase";
-import { STATE_ABBREVIATIONS } from "@/lib/data/stateAbbreviations";
+import { STATE_ABBREVIATIONS } from "@/lib/constants/stateAbbreviations";
 import { haversineDistanceMiles } from "./geo";
 import type {
   Facility,

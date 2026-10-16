@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { STATE_ABBREVIATIONS } from "@/lib/data/stateAbbreviations";
+import { STATE_ABBREVIATIONS } from "@/lib/constants/stateAbbreviations";
 import { CityCombobox } from "@/components/ui/city-combobox";
 import { StateCombobox } from "@/components/ui/state-combobox";
 import { ROUTES } from "@/lib/routes";

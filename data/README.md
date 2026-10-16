@@ -1,6 +1,6 @@
 # data/
 
-The data pipeline behind the site. It's Python, separate from the Next.js app, and the app never imports anything from here.
+Pipeline experimentation and data validation. It's Python, separate from the Next.js app, and the app never imports anything from here. (Not to be confused with `lib/constants/`, which holds the app's static lookups.)
 
 The site's reference data (facilities, field offices, courts, local orgs, county coverage) comes from a curated spreadsheet, the **Sheet of Record**. Scripts here validate it and load it into Supabase, and the app reads it from there through `server/queries.ts`.
 
