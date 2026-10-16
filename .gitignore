@@ -54,3 +54,6 @@ data/update_xlsx/
 
 # claude code local state
 .claude/scheduled_tasks.lock
+
+# onboarding guide is shared privately, not published
+ONBOARDING.md

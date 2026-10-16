@@ -2,8 +2,6 @@
 
 A free public web tool built for the Immigrant Justice Lab (University of Michigan, in partnership with MIRC). It helps families of someone detained by immigration officials find where the person is held, get the right contacts (facility, ICE field office, federal district court, local legal and community organizations), and understand their legal options.
 
-**New to the project? Start with [ONBOARDING.md](./ONBOARDING.md).**
-
 ## Setup
 
 ```bash
