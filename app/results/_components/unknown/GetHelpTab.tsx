@@ -2,9 +2,10 @@
 
 import { Phone, Scale, Users, Clock, ExternalLink, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { sanitizeUrl } from "@/lib/utils";
-import type { Tab, Org } from "./types";
+import type { Tab, Org } from "@/app/results/_lib/types";
 
 export default function GetHelpTab({
   orgs,
@@ -42,9 +43,7 @@ export default function GetHelpTab({
 
       {/* Org cards */}
       {orgs === null ? (
-        <p className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
-          Loading...
-        </p>
+        <Spinner className="py-8" />
       ) : orgs.length === 0 ? (
         <p className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
           No organizations found for this area.

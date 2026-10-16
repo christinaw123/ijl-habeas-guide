@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { SetStateAction } from "react";
 import { FLOW_STORAGE_KEY } from "./storageKeys";
 import { defaultFlowState } from "./defaults";
 import type { FlowState } from "./types";
@@ -30,8 +31,11 @@ const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export function useFlowState() {
-  const [flow, setFlow] = useState<FlowState>(defaultFlowState);
+  const [flow, setFlowState] = useState<FlowState>(defaultFlowState);
   const [hydrated, setHydrated] = useState(false);
+  // Latest flow + hydration status, readable synchronously inside setFlow.
+  const flowRef = useRef<FlowState>(defaultFlowState);
+  const hydratedRef = useRef(false);
 
   // Read localStorage synchronously before the first paint so pages never
   // render their `if (!hydrated) return null` blank state visibly.
@@ -41,7 +45,8 @@ export function useFlowState() {
       if (raw) {
         const parsed: unknown = JSON.parse(raw);
         if (isValidFlowState(parsed)) {
-          setFlow((prev) => ({ ...prev, ...parsed }));
+          flowRef.current = { ...defaultFlowState, ...parsed };
+          setFlowState(flowRef.current);
         } else {
           localStorage.removeItem(FLOW_STORAGE_KEY);
         }
@@ -49,11 +54,27 @@ export function useFlowState() {
     } catch {
       // ignore parse errors
     } finally {
+      hydratedRef.current = true;
       setHydrated(true);
     }
   }, []);
 
-  // Write back whenever flow changes (after hydration to avoid clobbering).
+  // Persist synchronously, so a page can call setFlow and then navigate
+  // immediately: the next page reads localStorage on mount and must see it.
+  const setFlow = useCallback((action: SetStateAction<FlowState>) => {
+    const next = typeof action === "function" ? action(flowRef.current) : action;
+    flowRef.current = next;
+    if (hydratedRef.current) {
+      try {
+        localStorage.setItem(FLOW_STORAGE_KEY, JSON.stringify(next));
+      } catch {
+        // ignore storage errors
+      }
+    }
+    setFlowState(next);
+  }, []);
+
+  // Fallback write-back whenever flow changes (after hydration to avoid clobbering).
   useEffect(() => {
     if (!hydrated) return;
     try {
@@ -67,7 +88,9 @@ export function useFlowState() {
     try {
       localStorage.removeItem(FLOW_STORAGE_KEY);
     } catch {}
-    setFlow(defaultFlowState);
+    flowRef.current = defaultFlowState;
+    hydratedRef.current = true;
+    setFlowState(defaultFlowState);
     setHydrated(true);
   };
 

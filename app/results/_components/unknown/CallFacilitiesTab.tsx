@@ -2,9 +2,10 @@
 
 import { Phone, Globe, MapPin, ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { sanitizeUrl } from "@/lib/utils";
-import type { Tab, Facility } from "./types";
+import type { Tab, Facility } from "@/app/results/_lib/types";
 
 export default function CallFacilitiesTab({
   facilities,
@@ -89,9 +90,7 @@ export default function CallFacilitiesTab({
 
       {/* Facility cards */}
       {facilities === null ? (
-        <p className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
-          Loading...
-        </p>
+        <Spinner className="py-8" />
       ) : facilities.length === 0 ? (
         <p className="font-[var(--font-proxima)] text-base text-[var(--ijl-muted)]">
           No facilities found for this area.

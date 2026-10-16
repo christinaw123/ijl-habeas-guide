@@ -22,6 +22,7 @@ export const STRINGS: Record<string, string> = {
 
   // Common
   "common.state.search": "Search states…",
+  "common.loading": "Loading",
 
   // Arrest page
   "arrest.back": "Back",
@@ -36,10 +37,6 @@ export const STRINGS: Record<string, string> = {
   "arrest.city.loading": "Loading cities…",
   "arrest.city.noResults": "No cities found.",
   "arrest.continue": "Continue",
-
-  // Loading screen
-  "loading.title": "Retrieving data...",
-  "loading.subtitle": "Please wait while we fetch the information.",
 
   // Detention page (do you know where they are held?)
   "detention.back": "Back",

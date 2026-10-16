@@ -1,25 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { AlertCircle, Edit2 } from "lucide-react";
-import BackButton from "@/components/layout/BackButton";
+import { AlertCircle } from "lucide-react";
 import Modal from "@/components/Modal";
-import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import type { FlowState } from "@/lib/flow/types";
 import type { UnknownResultsData } from "@/server/types";
 import { ROUTES } from "@/lib/routes";
-import type { Facility, Org, Tab } from "./_components/types";
-import { toFacility, toOrg } from "./_components/mappers";
-import SearchIceTab from "./_components/SearchIceTab";
-import OtherSearchesTab from "./_components/OtherSearchesTab";
-import CallFacilitiesTab from "./_components/CallFacilitiesTab";
-import IfFoundTab from "./_components/IfFoundTab";
-import GetHelpTab from "./_components/GetHelpTab";
+import type { Facility, Org, Tab } from "@/app/results/_lib/types";
+import { toFacility, toOrg } from "@/app/results/_lib/mappers";
+import SearchIceTab from "./SearchIceTab";
+import OtherSearchesTab from "./OtherSearchesTab";
+import CallFacilitiesTab from "./CallFacilitiesTab";
+import IfFoundTab from "./IfFoundTab";
+import GetHelpTab from "./GetHelpTab";
+import ResultsLayout from "../ResultsLayout";
 
-export default function UnknownResults() {
-  const router = useRouter();
-  const { flow, hydrated } = useFlowState();
+// Results when the user doesn't know where the person is held.
+export default function UnknownResults({ flow }: { flow: FlowState }) {
   const { t } = useLanguage();
 
   const [activeTab, setActiveTab] = useState<Tab>("search-ice");
@@ -31,14 +29,7 @@ export default function UnknownResults() {
   const [orgs, setOrgs] = useState<Org[] | null>(null);
 
   useEffect(() => {
-    if (!hydrated) return;
-    if (flow.detention.knowsWhereHeld !== false) {
-      router.replace(ROUTES.detention);
-    }
-  }, [hydrated, flow.detention.knowsWhereHeld, router]);
-
-  useEffect(() => {
-    if (!hydrated || !flow.arrest.state) return;
+    if (!flow.arrest.state) return;
     const params = new URLSearchParams({ state: flow.arrest.state });
     if (flow.arrest.county_codes?.length) {
       params.set("countyCodes", flow.arrest.county_codes.join(","));
@@ -56,9 +47,7 @@ export default function UnknownResults() {
         setFacilities([]);
         setOrgs([]);
       });
-  }, [hydrated, flow.arrest.state, flow.arrest.county_codes, flow.arrest.city]);
-
-  if (!hydrated || flow.detention.knowsWhereHeld !== false) return null;
+  }, [flow.arrest.state, flow.arrest.county_codes, flow.arrest.city]);
 
   const arrestLocation = flow.arrest.city
     ? `${flow.arrest.city}, ${flow.arrest.state}`
@@ -73,38 +62,21 @@ export default function UnknownResults() {
   ];
 
   return (
-    <div className="bg-white min-h-screen">
-      <BackButton href={ROUTES.detention} label={t("resultsUnknown.back")} />
-
-      {/* Main content */}
-      <div className="px-4 py-8 sm:py-12">
-        <div className="max-w-2xl mx-auto space-y-6">
-          {/* Title */}
-          <h1 className="oswald font-medium text-[36px] leading-[1.2] ijl-title-color">
-            {t("resultsUnknown.title")}
-          </h1>
-
-          {/* Arrested in badge — clicking edits location */}
-          <button
-            onClick={() => router.push(ROUTES.arrest)}
-            aria-label={t("resultsUnknown.editLocation")}
-            className="flex items-center gap-2 px-4 py-[6px] rounded-full w-fit bg-[#efefef] hover:bg-[#e5e5e5] transition-colors cursor-pointer group"
-          >
-            <span className="font-[var(--font-proxima)] text-[14px] text-[var(--foreground)]">
-              {t("resultsUnknown.arrestedIn")}
-            </span>
-            <span className="font-[var(--font-proxima)] text-[14px] font-medium text-[var(--foreground)] group-hover:text-[var(--ijl-accent)] transition-colors">
-              {arrestLocation}
-            </span>
-            <Edit2 className="w-4 h-4 text-[var(--ijl-muted)] group-hover:text-[var(--foreground)] transition-colors ml-1" />
-          </button>
-
-          {/* Intro */}
-          <p className="font-[var(--font-proxima)] text-[18px] text-[var(--foreground)]">
-            {t("resultsUnknown.intro")}
-          </p>
-
-          {/* Timing alert */}
+    <>
+      <ResultsLayout
+        backHref={ROUTES.detention}
+        backLabel={t("resultsUnknown.back")}
+        title={t("resultsUnknown.title")}
+        badges={[
+          {
+            label: t("resultsUnknown.arrestedIn"),
+            value: arrestLocation,
+            ariaLabel: t("resultsUnknown.editLocation"),
+            href: ROUTES.arrest,
+          },
+        ]}
+        intro={t("resultsUnknown.intro")}
+        notice={
           <div className="flex gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
             <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
             <div className="space-y-1">
@@ -122,60 +94,45 @@ export default function UnknownResults() {
               </button>
             </div>
           </div>
+        }
+        tabs={TABS}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      >
+        {/* ── Tab: Search ICE ────────────────────────────────────────── */}
+        {activeTab === "search-ice" && (
+          <SearchIceTab
+            onANumberClick={() => setANumberOpen(true)}
+            onNavigate={setActiveTab}
+          />
+        )}
 
-          {/* Tab navigation */}
-          <div className="border-b border-[var(--ijl-border)] flex overflow-x-auto">
-            {TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={[
-                  "whitespace-nowrap font-[var(--font-proxima)] text-[14px] px-4 py-2 border-b-2 transition-all flex-shrink-0",
-                  activeTab === tab.id
-                    ? "border-[var(--ijl-accent)] font-semibold text-[var(--foreground)]"
-                    : "border-transparent text-[var(--ijl-muted)] hover:text-[var(--foreground)]",
-                ].join(" ")}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        {/* ── Tab: Other Searches ────────────────────────────────────── */}
+        {activeTab === "other-searches" && <OtherSearchesTab onNavigate={setActiveTab} />}
 
-          {/* ── Tab: Search ICE ────────────────────────────────────────── */}
-          {activeTab === "search-ice" && (
-            <SearchIceTab
-              onANumberClick={() => setANumberOpen(true)}
-              onNavigate={setActiveTab}
-            />
-          )}
+        {/* ── Tab: Call Facilities ───────────────────────────────────── */}
+        {activeTab === "call-facilities" && (
+          <CallFacilitiesTab
+            facilities={facilities}
+            arrestLocation={arrestLocation}
+            accordionOpen={accordionOpen}
+            onToggleAccordion={() => setAccordionOpen((v) => !v)}
+            onNavigate={setActiveTab}
+          />
+        )}
 
-          {/* ── Tab: Other Searches ────────────────────────────────────── */}
-          {activeTab === "other-searches" && <OtherSearchesTab onNavigate={setActiveTab} />}
+        {/* ── Tab: If You Find Them ─────────────────────────────────── */}
+        {activeTab === "if-found" && <IfFoundTab onNavigate={setActiveTab} />}
 
-          {/* ── Tab: Call Facilities ───────────────────────────────────── */}
-          {activeTab === "call-facilities" && (
-            <CallFacilitiesTab
-              facilities={facilities}
-              arrestLocation={arrestLocation}
-              accordionOpen={accordionOpen}
-              onToggleAccordion={() => setAccordionOpen((v) => !v)}
-              onNavigate={setActiveTab}
-            />
-          )}
-
-          {/* ── Tab: If You Find Them ─────────────────────────────────── */}
-          {activeTab === "if-found" && <IfFoundTab onNavigate={setActiveTab} />}
-
-          {/* ── Tab: Get Help ─────────────────────────────────────────── */}
-          {activeTab === "get-help" && (
-            <GetHelpTab
-              orgs={orgs}
-              onWhatToExpectClick={() => setWhatToExpectOpen(true)}
-              onNavigate={setActiveTab}
-            />
-          )}
-        </div>
-      </div>
+        {/* ── Tab: Get Help ─────────────────────────────────────────── */}
+        {activeTab === "get-help" && (
+          <GetHelpTab
+            orgs={orgs}
+            onWhatToExpectClick={() => setWhatToExpectOpen(true)}
+            onNavigate={setActiveTab}
+          />
+        )}
+      </ResultsLayout>
 
       {/* ── Modal: What happens after an arrest ─────────────────────── */}
       <Modal
@@ -270,6 +227,6 @@ export default function UnknownResults() {
           </p>
         </div>
       </Modal>
-    </div>
+    </>
   );
 }

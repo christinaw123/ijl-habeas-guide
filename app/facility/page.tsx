@@ -7,8 +7,6 @@ import { useFlowState } from "@/lib/flow/useFlowState";
 import type { Facility } from "@/server/types";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { MapPin } from "lucide-react";
-import { LOADING_NEXT_KEY } from "@/lib/flow/storageKeys";
-import { FLOW_STORAGE_KEY } from "@/lib/flow/storageKeys";
 import {
   Select,
   SelectContent,
@@ -17,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { StateCombobox } from "@/components/ui/state-combobox";
+import { Spinner } from "@/components/ui/spinner";
 import { ROUTES } from "@/lib/routes";
 
 export default function FacilityPage() {
@@ -31,9 +30,9 @@ export default function FacilityPage() {
   useEffect(() => {
     if (!hydrated) return;
     if (!flow.arrest.state) router.replace(ROUTES.arrest);
+    // knowsWhereHeld === false is allowed: users on the "where is the person?"
+    // results can come back here once they find the facility.
     if (flow.detention.knowsWhereHeld === null) router.replace(ROUTES.detention);
-    if (flow.detention.knowsWhereHeld === false)
-      router.replace(ROUTES.resultsUnknown);
   }, [hydrated, flow, router]);
 
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -76,29 +75,19 @@ export default function FacilityPage() {
     setTouched(true);
     if (!valid) return;
 
-    // For manual entry, write facilityId synchronously to localStorage so the
-    // loading page can read it (useFlowState's write is async via useEffect).
-    if (showManualEntry && manualFacilityName.trim()) {
-      const name = manualFacilityName.trim();
-      setFlow((prev) => ({
-        ...prev,
-        detention: { ...prev.detention, facilityId: name },
-      }));
-      try {
-        const raw = localStorage.getItem(FLOW_STORAGE_KEY);
-        const current = raw ? JSON.parse(raw) : {};
-        localStorage.setItem(
-          FLOW_STORAGE_KEY,
-          JSON.stringify({
-            ...current,
-            detention: { ...current.detention, facilityId: name },
-          })
-        );
-      } catch {}
-    }
+    // Submitting a facility means the user now knows where the person is held,
+    // including users who came back from the "where is the person?" results.
+    const manualName = showManualEntry ? manualFacilityName.trim() : "";
+    setFlow((prev) => ({
+      ...prev,
+      detention: {
+        ...prev.detention,
+        knowsWhereHeld: true,
+        facilityId: manualName || prev.detention.facilityId,
+      },
+    }));
 
-    localStorage.setItem(LOADING_NEXT_KEY, "results");
-    router.push(ROUTES.loading);
+    router.push(ROUTES.results);
   };
 
   const handleNoFacility = () => {
@@ -192,9 +181,7 @@ export default function FacilityPage() {
                     </SelectTrigger>
                     <SelectContent>
                       {loadingFacilities ? (
-                        <div className="px-3 py-2 text-sm text-[var(--ijl-muted)] font-[var(--font-proxima)]">
-                          Loading…
-                        </div>
+                        <Spinner size="sm" className="py-3" />
                       ) : facilities.length === 0 ? (
                         <div className="px-3 py-2 text-sm text-[var(--ijl-muted)] font-[var(--font-proxima)]">
                           No facilities found for this state

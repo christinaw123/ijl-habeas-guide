@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { ROUTES } from "@/lib/routes";
-import type { Tab } from "./types";
+import type { Tab } from "@/app/results/_lib/types";
 
 export default function IfFoundTab({
   onNavigate,

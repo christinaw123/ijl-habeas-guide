@@ -4,9 +4,7 @@ export const ROUTES = {
   arrest: "/arrest",
   detention: "/detention",
   facility: "/facility",
-  loading: "/loading",
-  resultsKnown: "/results/known",
-  resultsUnknown: "/results/unknown",
+  results: "/results",
   learnMoreBonds: "/learn-more/bonds",
   learnMoreHabeas: "/learn-more/habeas",
 } as const;

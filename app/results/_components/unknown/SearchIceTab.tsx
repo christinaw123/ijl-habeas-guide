@@ -3,7 +3,7 @@
 import { ExternalLink, ArrowRight, AlertCircle, CircleCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import type { Tab } from "./types";
+import type { Tab } from "@/app/results/_lib/types";
 
 export default function SearchIceTab({
   onANumberClick,

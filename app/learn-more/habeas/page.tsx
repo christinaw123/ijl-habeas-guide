@@ -10,7 +10,7 @@ export default function HabeasCorpusPage() {
 
   return (
     <div className="bg-white">
-      <BackButton href={ROUTES.resultsKnown} label={t("learn.back")} />
+      <BackButton href={ROUTES.results} label={t("learn.back")} />
 
       <div className="px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl flex flex-col gap-6">
@@ -28,7 +28,7 @@ export default function HabeasCorpusPage() {
             <p>
               {t("learn.habeas.findHelp.prefix")}{" "}
               <Link
-                href={ROUTES.resultsKnown}
+                href={ROUTES.results}
                 className="font-bold underline text-[var(--ijl-accent)] hover:opacity-80"
               >
                 {t("learn.habeas.findHelp.link")}

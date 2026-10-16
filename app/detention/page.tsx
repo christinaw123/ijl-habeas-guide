@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { HelpCircle } from "lucide-react";
-import { LOADING_NEXT_KEY } from "@/lib/flow/storageKeys";
 import { ROUTES } from "@/lib/routes";
 
 export default function DetentionPage() {
@@ -28,12 +27,9 @@ export default function DetentionPage() {
     setTouched(true);
     if (!valid) return;
 
-    if (flow.detention.knowsWhereHeld === false) {
-      router.push(ROUTES.resultsUnknown);
-      return;
-    }
-    localStorage.setItem(LOADING_NEXT_KEY, "step3");
-    router.push(ROUTES.loading);
+    router.push(
+      flow.detention.knowsWhereHeld ? ROUTES.facility : ROUTES.results
+    );
   };
 
   const options = [
