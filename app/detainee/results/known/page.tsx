@@ -104,9 +104,9 @@ function OrgCard({ org }: { org: LocalOrg }) {
         {org.organization}
       </h3>
 
-      {org.action_text_1 && (
+      {org.action_text && (
         <p className="font-[var(--font-proxima)] text-[16px] text-[var(--foreground)]">
-          {org.action_text_1}
+          {org.action_text}
         </p>
       )}
 
@@ -146,11 +146,14 @@ function OrgCard({ org }: { org: LocalOrg }) {
             </a>
           </div>
         )}
-        {org.action_text_2 && (
+        {/* This slot previously read action_text_2, a column that never existed in
+            local_orgs. The Sheet of Record now carries a real `response time`, which is
+            what the clock was always for. */}
+        {org.response_time && (
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" />
             <span className="font-[var(--font-proxima)] text-[16px] text-[var(--muted-foreground)]">
-              {org.action_text_2}
+              {org.response_time}
             </span>
           </div>
         )}

@@ -47,15 +47,23 @@ export type DistrictCourt = {
   website_url: string | null;
 };
 
+// Mirrors the `local_orgs` table as loaded from the Sheet of Record's local_orgs tab.
+// `id` is a uuid. `org_type` carries combined values straight from the sheet (e.g.
+// "legal, social", plus "bond" / "social"), so test it with care — an exact === "legal"
+// comparison misses the combined ones.
 export type LocalOrg = {
-  id: number;
+  id: string;
   organization: string;
   org_type: string | null;
   email: string | null;
   phone: string | null;
   url: string | null;
-  action_text_1: string | null;
-  action_text_2: string | null;
+  description: string | null;
+  action_text: string | null;
+  form_url: string | null;
+  response_time: string | null;
+  languages: string | null;
+  address: string | null;
 };
 
 export type ResultsData = {
@@ -136,11 +144,15 @@ async function lookupByCountyCode(countyCode: string) {
         .eq("county_code", stateWideCoverageCode)
         .limit(1),
 
+      // !inner + validated=true: the Sheet of Record's `render` column lands in
+      // `validated`, and an org that is researched but not yet cleared must never
+      // surface. !inner drops the coverage row outright rather than embedding a null.
       supabase
         .from("org_county_coverage")
         .select(
-          "local_orgs(id, organization, org_type, email, phone, url, action_text_1, action_text_2)"
+          "local_orgs!inner(id, organization, org_type, email, phone, url, description, action_text, form_url, response_time, languages, address)"
         )
+        .eq("local_orgs.validated", true)
         .in("county_code", [countyCode, stateWideCoverageCode]),
     ]);
 
@@ -168,7 +180,7 @@ async function lookupByCountyCode(countyCode: string) {
   }
 
   const orgs: LocalOrg[] = [];
-  const seenOrgIds = new Set<number>();
+  const seenOrgIds = new Set<string>();
   for (const row of orgsResult.data ?? []) {
     if (!row.local_orgs) continue;
     const org = row.local_orgs as unknown as LocalOrg;
@@ -250,7 +262,9 @@ export async function getUnknownResultsData(
     orgCodes.length > 0
       ? supabase
           .from("org_county_coverage")
-          .select("local_orgs(id, organization, org_type, email, phone, url, action_text_1, action_text_2)")
+          // see the known-facility query above: validated gates unvetted orgs off the site
+          .select("local_orgs!inner(id, organization, org_type, email, phone, url, description, action_text, form_url, response_time, languages, address)")
+          .eq("local_orgs.validated", true)
           .in("county_code", orgCodes)
       : Promise.resolve({ data: [], error: null }),
   ]);
@@ -308,7 +322,7 @@ export async function getUnknownResultsData(
   if (facResult.error) console.error("getUnknownResultsData facilities error:", facResult.error);
 
   const orgs: LocalOrg[] = [];
-  const seenIds = new Set<number>();
+  const seenIds = new Set<string>();
   for (const row of (orgResult as { data: Array<{ local_orgs: unknown }> | null }).data ?? []) {
     if (!row.local_orgs) continue;
     const org = row.local_orgs as LocalOrg;

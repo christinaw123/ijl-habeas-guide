@@ -42,7 +42,7 @@ type Facility = {
 };
 
 type Org = {
-  id: number;
+  id: string;
   type: "general" | "legal";
   name: string;
   abbr: string;
@@ -85,7 +85,7 @@ function toOrg(o: LocalOrg): Org {
     type: o.org_type === "legal" ? "legal" : "general",
     name: o.organization,
     abbr,
-    description: o.action_text_1 ?? o.action_text_2 ?? "",
+    description: o.action_text ?? o.description ?? "",
     url: o.url ?? undefined,
     urlDisplay: o.url?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? undefined,
     phone: o.phone?.replace(/\D/g, "") || undefined,
