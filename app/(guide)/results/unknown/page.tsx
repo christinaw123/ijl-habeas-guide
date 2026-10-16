@@ -7,7 +7,7 @@ import BackButton from "@/components/layout/BackButton";
 import Modal from "@/components/Modal";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import type { UnknownResultsData } from "@/lib/supabase/queries";
+import type { UnknownResultsData } from "@/server/types";
 import { ROUTES } from "@/lib/routes";
 import type { Facility, Org, Tab } from "./_components/types";
 import { toFacility, toOrg } from "./_components/mappers";

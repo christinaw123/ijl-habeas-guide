@@ -4,7 +4,7 @@ import BackButton from "@/components/layout/BackButton";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
-import type { Facility } from "@/lib/supabase/queries";
+import type { Facility } from "@/server/types";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { MapPin } from "lucide-react";
 import { LOADING_NEXT_KEY } from "@/lib/flow/storageKeys";

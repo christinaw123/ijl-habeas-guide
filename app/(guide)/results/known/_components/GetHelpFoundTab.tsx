@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import type { LocalOrg } from "@/lib/supabase/queries";
+import type { LocalOrg } from "@/server/types";
 import OrgCard from "./OrgCard";
 
 export default function GetHelpFoundTab({

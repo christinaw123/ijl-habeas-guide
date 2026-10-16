@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import type { PlaceResult } from "@/app/api/places/route";
+import type { PlaceResult } from "@/server/types";
 
 interface CityComboboxProps {
   value: string | null;

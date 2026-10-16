@@ -3,7 +3,7 @@
 import { Phone, Globe, MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { sanitizeUrl, primaryFacilityUrl } from "@/lib/utils";
-import type { FacilityDetails } from "@/lib/supabase/queries";
+import type { FacilityDetails } from "@/server/types";
 
 export default function ContactTab({
   facility,

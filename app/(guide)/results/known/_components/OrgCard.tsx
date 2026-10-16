@@ -3,7 +3,7 @@
 import { Phone, Mail, Scale, Users, Clock, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { sanitizeUrl } from "@/lib/utils";
-import type { LocalOrg } from "@/lib/supabase/queries";
+import type { LocalOrg } from "@/server/types";
 
 export default function OrgCard({ org }: { org: LocalOrg }) {
   const { t } = useLanguage();

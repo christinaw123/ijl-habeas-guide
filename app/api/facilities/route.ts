@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getFacilitiesByState } from "@/lib/supabase/queries";
+import { getFacilitiesByState } from "@/server/queries";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

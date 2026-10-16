@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase/client";
-
-export type PlaceResult = {
-  place_display: string;
-  county_codes: string[];
-};
+import { supabase } from "@/server/supabase";
+import type { PlaceResult } from "@/server/types";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

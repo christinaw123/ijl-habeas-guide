@@ -5,7 +5,7 @@ import { Phone, Globe, MapPin, Scale, Landmark, ExternalLink } from "lucide-reac
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { sanitizeUrl } from "@/lib/utils";
 import { ROUTES } from "@/lib/routes";
-import type { FieldOffice, DistrictCourt } from "@/lib/supabase/queries";
+import type { FieldOffice, DistrictCourt } from "@/server/types";
 
 export default function LegalOptionsTab({
   fieldOffice,

@@ -1,5 +1,5 @@
 // Map Supabase rows to the view-model types the tabs render.
-import type { FacilityDetails, LocalOrg } from "@/lib/supabase/queries";
+import type { FacilityDetails, LocalOrg } from "@/server/types";
 import { primaryFacilityUrl } from "@/lib/utils";
 import type { Facility, Org } from "./types";
 

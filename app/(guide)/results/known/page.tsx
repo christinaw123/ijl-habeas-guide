@@ -7,7 +7,7 @@ import BackButton from "@/components/layout/BackButton";
 import Modal from "@/components/Modal";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import type { ResultsData } from "@/lib/supabase/queries";
+import type { ResultsData } from "@/server/types";
 import { ROUTES } from "@/lib/routes";
 import ContactTab from "./_components/ContactTab";
 import GetHelpFoundTab from "./_components/GetHelpFoundTab";
