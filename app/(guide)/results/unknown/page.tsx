@@ -18,7 +18,7 @@ import {
   ChevronDown,
   X,
 } from "lucide-react";
-import BackButton from "@/components/BackButton";
+import BackButton from "@/components/layout/BackButton";
 import Link from "next/link";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";

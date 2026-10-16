@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import LanguageToggle from "@/components/LanguageToggle";
+import LanguageToggle from "@/components/layout/LanguageToggle";
 
 export default function Header() {
   return (

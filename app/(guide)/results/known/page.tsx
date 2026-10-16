@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import BackButton from "@/components/BackButton";
+import BackButton from "@/components/layout/BackButton";
 import Link from "next/link";
 import {
   Phone, Globe, Mail, MapPin, Pencil, Scale, Landmark,

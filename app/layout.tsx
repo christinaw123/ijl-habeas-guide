@@ -7,10 +7,10 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 import { Oswald } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import LanguageProvider from "@/components/LanguageProvider";
-import { SelectScrollFix } from "@/components/SelectScrollFix";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import LanguageProvider from "@/lib/i18n/LanguageProvider";
+import { SelectScrollFix } from "@/components/ui/select-scroll-fix";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 

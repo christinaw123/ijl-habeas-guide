@@ -1,6 +1,6 @@
 "use client";
 
-import BackButton from "@/components/BackButton";
+import BackButton from "@/components/layout/BackButton";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
