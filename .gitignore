@@ -44,3 +44,13 @@ next-env.d.ts
 CLAUDE.md
 # logs
 logs/
+
+# python
+__pycache__/
+
+# local analysis data and spreadsheets (scripts/)
+scripts/parquets/
+scripts/update_xlsx/
+
+# claude code local state
+.claude/scheduled_tasks.lock
