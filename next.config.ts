@@ -25,19 +25,23 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
   // Old URLs → current ones, so links and bookmarks keep working.
+  // Each source points straight at its final page (no redirect chains).
   async redirects() {
     return [
+      // Original /detainee/* flow
       ["/detainee/step-1", "/arrest"],
-      ["/detainee/step-2", "/knows-location"],
+      ["/detainee/step-2", "/detention"],
       ["/detainee/step-3", "/facility"],
-      ["/detainee/loading", "/loading"],
-      ["/detainee/results/known", "/results/known"],
-      ["/detainee/results/unknown", "/results/unknown"],
-      ["/detainee/learn/bonds", "/learn-more/bonds"],
-      ["/detainee/learn/habeas", "/learn-more/habeas"],
-      // The explainers were briefly at /learn/* before moving to /learn-more/*.
-      ["/learn/bonds", "/learn-more/bonds"],
-      ["/learn/habeas", "/learn-more/habeas"],
+      ["/detainee/loading", "/results"],
+      ["/detainee/results/known", "/results"],
+      ["/detainee/results/unknown", "/results"],
+      ["/detainee/learn/:page", "/learn-more/:page"],
+      // Short-lived names from the October 2026 restructure
+      ["/knows-location", "/detention"],
+      ["/loading", "/results"],
+      ["/results/known", "/results"],
+      ["/results/unknown", "/results"],
+      ["/learn/:page", "/learn-more/:page"],
     ].map(([source, destination]) => ({ source, destination, permanent: true }));
   },
   async headers() {
