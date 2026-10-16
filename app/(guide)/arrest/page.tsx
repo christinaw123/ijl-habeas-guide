@@ -9,6 +9,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { STATE_ABBREVIATIONS } from "@/lib/data/stateAbbreviations";
 import { CityCombobox } from "@/components/ui/city-combobox";
 import { StateCombobox } from "@/components/ui/state-combobox";
+import { ROUTES } from "@/lib/routes";
 
 export default function Step1ArrestLocationPage() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function Step1ArrestLocationPage() {
   const onContinue = () => {
     setTouched(true);
     if (!stateValid) return;
-    router.push("/detainee/step-2");
+    router.push(ROUTES.knowsLocation);
   };
 
   return (

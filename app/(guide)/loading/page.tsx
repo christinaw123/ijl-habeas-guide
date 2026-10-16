@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { useFlowState } from "@/lib/flow/useFlowState";
+import { LOADING_NEXT_KEY } from "@/lib/flow/storageKeys";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-
-export const LOADING_NEXT_KEY = "ijl_loading_next";
+import { ROUTES } from "@/lib/routes";
 
 export default function LoadingPage() {
   const router = useRouter();
@@ -18,11 +18,11 @@ export default function LoadingPage() {
 
     // Guards
     if (!flow.arrest.state) {
-      router.replace("/detainee/step-1");
+      router.replace(ROUTES.arrest);
       return;
     }
     if (flow.detention.knowsWhereHeld !== true) {
-      router.replace("/detainee/step-2");
+      router.replace(ROUTES.knowsLocation);
       return;
     }
 
@@ -31,7 +31,7 @@ export default function LoadingPage() {
     localStorage.removeItem(LOADING_NEXT_KEY);
 
     const destination =
-      next === "results" ? "/detainee/results/known" : "/detainee/step-3";
+      next === "results" ? ROUTES.resultsKnown : ROUTES.facility;
 
     const timer = setTimeout(() => {
       router.replace(destination);

@@ -25,6 +25,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import type { FacilityDetails, LocalOrg, UnknownResultsData } from "@/lib/supabase/queries";
 import { sanitizeUrl, primaryFacilityUrl } from "@/lib/utils";
+import { ROUTES } from "@/lib/routes";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -169,7 +170,7 @@ export default function UnknownResults() {
   useEffect(() => {
     if (!hydrated) return;
     if (flow.detention.knowsWhereHeld !== false) {
-      router.replace("/detainee/step-2");
+      router.replace(ROUTES.knowsLocation);
     }
   }, [hydrated, flow.detention.knowsWhereHeld, router]);
 
@@ -210,7 +211,7 @@ export default function UnknownResults() {
 
   return (
     <div className="bg-white min-h-screen">
-      <BackButton href="/detainee/step-2" label={t("resultsUnknown.back")} />
+      <BackButton href={ROUTES.knowsLocation} label={t("resultsUnknown.back")} />
 
       {/* Main content */}
       <div className="px-4 py-8 sm:py-12">
@@ -222,7 +223,7 @@ export default function UnknownResults() {
 
           {/* Arrested in badge — clicking edits location */}
           <button
-            onClick={() => router.push("/detainee/step-1")}
+            onClick={() => router.push(ROUTES.arrest)}
             aria-label={t("resultsUnknown.editLocation")}
             className="flex items-center gap-2 px-4 py-[6px] rounded-full w-fit bg-[#efefef] hover:bg-[#e5e5e5] transition-colors cursor-pointer group"
           >
@@ -687,7 +688,7 @@ export default function UnknownResults() {
                   </div>
                   <p className="font-[var(--font-proxima)] text-base text-[var(--foreground)] pt-1">
                     <Link
-                      href="/detainee/step-3"
+                      href={ROUTES.facility}
                       className="text-[var(--ijl-accent)] underline font-medium"
                     >
                       {t("resultsUnknown.ifFound.step3.link")}

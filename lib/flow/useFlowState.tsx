@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useState } from "react";
-import { FLOW_STORAGE_KEY } from "./types";
+import { FLOW_STORAGE_KEY } from "./storageKeys";
 import { defaultFlowState } from "./defaults";
-import type { DetaineeFlowState } from "./types";
+import type { FlowState } from "./types";
 
-export function isValidFlowState(v: unknown): v is DetaineeFlowState {
+export function isValidFlowState(v: unknown): v is FlowState {
   if (typeof v !== "object" || v === null || Array.isArray(v)) return false;
   const obj = v as Record<string, unknown>;
   if (typeof obj.arrest !== "object" || obj.arrest === null || Array.isArray(obj.arrest)) return false;
@@ -30,7 +30,7 @@ const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export function useFlowState() {
-  const [flow, setFlow] = useState<DetaineeFlowState>(defaultFlowState);
+  const [flow, setFlow] = useState<FlowState>(defaultFlowState);
   const [hydrated, setHydrated] = useState(false);
 
   // Read localStorage synchronously before the first paint so pages never

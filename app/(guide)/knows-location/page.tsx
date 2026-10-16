@@ -1,4 +1,3 @@
-// app/detainee/step-2/page.tsx
 "use client";
 
 import BackButton from "@/components/BackButton";
@@ -7,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { HelpCircle } from "lucide-react";
-import { LOADING_NEXT_KEY } from "@/app/detainee/loading/page";
+import { LOADING_NEXT_KEY } from "@/lib/flow/storageKeys";
+import { ROUTES } from "@/lib/routes";
 
 export default function Step2KnowsWhereHeldPage() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function Step2KnowsWhereHeldPage() {
 
   useEffect(() => {
     if (!hydrated) return;
-    if (!flow.arrest.state) router.replace("/detainee/step-1");
+    if (!flow.arrest.state) router.replace(ROUTES.arrest);
   }, [hydrated, flow.arrest.state, router]);
 
   if (!hydrated) return null;
@@ -29,11 +29,11 @@ export default function Step2KnowsWhereHeldPage() {
     if (!valid) return;
 
     if (flow.detention.knowsWhereHeld === false) {
-      router.push("/detainee/results/unknown");
+      router.push(ROUTES.resultsUnknown);
       return;
     }
     localStorage.setItem(LOADING_NEXT_KEY, "step3");
-    router.push("/detainee/loading");
+    router.push(ROUTES.loading);
   };
 
   const options = [
@@ -43,7 +43,7 @@ export default function Step2KnowsWhereHeldPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <BackButton href="/detainee/step-1" label={t("step2.back")} />
+      <BackButton href={ROUTES.arrest} label={t("step2.back")} />
 
       {/* Main content */}
       <div className="flex-1 px-4 py-8 sm:py-12">

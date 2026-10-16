@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useFlowState } from "@/lib/flow/useFlowState";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
+import { ROUTES } from "@/lib/routes";
 
 export default function HomePage() {
   const { reset } = useFlowState();
@@ -37,7 +38,7 @@ export default function HomePage() {
               </h2>
 
               <Button asChild className="w-full max-w-[274px]">
-                <Link href="/detainee/step-1">{t("home.card.cta")}</Link>
+                <Link href={ROUTES.arrest}>{t("home.card.cta")}</Link>
               </Button>
 
               <p className="font-[var(--font-proxima)] text-[12px] text-center text-[#45556C] mt-2">

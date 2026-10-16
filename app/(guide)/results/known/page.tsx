@@ -18,6 +18,7 @@ import type {
   DistrictCourt,
 } from "@/lib/supabase/queries";
 import { sanitizeUrl, primaryFacilityUrl } from "@/lib/utils";
+import { ROUTES } from "@/lib/routes";
 
 // ---------------------------------------------------------------------------
 // Modal
@@ -418,12 +419,12 @@ function LegalOptionsTab({
     {
       titleKey: "resultsKnown.options.bonds.title",
       bodyKey: "resultsKnown.options.bonds.description",
-      href: "/detainee/learn/bonds",
+      href: ROUTES.learnBonds,
     },
     {
       titleKey: "resultsKnown.options.habeas.title",
       bodyKey: "resultsKnown.options.habeas.description",
-      href: "/detainee/learn/habeas",
+      href: ROUTES.learnHabeas,
     },
   ];
 
@@ -623,7 +624,7 @@ export default function KnownResults() {
 
   return (
     <div className="bg-white">
-      <BackButton href="/detainee/step-3" label={t("resultsKnown.back")} />
+      <BackButton href={ROUTES.facility} label={t("resultsKnown.back")} />
       <div className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl space-y-6">
 
@@ -635,7 +636,7 @@ export default function KnownResults() {
           {/* Location badges */}
           <div className="space-y-2">
             <button
-              onClick={() => router.push("/detainee/step-1")}
+              onClick={() => router.push(ROUTES.arrest)}
               className={badgeBase}
               aria-label={t("resultsKnown.arrestedIn")}
             >
@@ -647,7 +648,7 @@ export default function KnownResults() {
             </button>
 
             <button
-              onClick={() => router.push("/detainee/step-3")}
+              onClick={() => router.push(ROUTES.facility)}
               className={badgeBase}
               aria-label={t("resultsKnown.detainedIn")}
             >

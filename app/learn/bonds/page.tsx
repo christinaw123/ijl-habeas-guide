@@ -3,13 +3,14 @@
 import BackButton from "@/components/BackButton";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { ROUTES } from "@/lib/routes";
 
 export default function ImmigrationBondsPage() {
   const { t } = useLanguage();
 
   return (
     <div className="bg-white">
-      <BackButton href="/detainee/results/known" label={t("learn.back")} />
+      <BackButton href={ROUTES.resultsKnown} label={t("learn.back")} />
 
       <div className="px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl flex flex-col gap-6">
@@ -25,7 +26,7 @@ export default function ImmigrationBondsPage() {
             <p>
               {t("learn.bonds.findHelp.prefix")}{" "}
               <Link
-                href="/detainee/results/known"
+                href={ROUTES.resultsKnown}
                 className="font-bold underline text-[var(--ijl-accent)] hover:opacity-80"
               >
                 {t("learn.bonds.findHelp.link")}

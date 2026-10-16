@@ -1,4 +1,3 @@
-// app/detainee/step-3/page.tsx
 "use client";
 
 import BackButton from "@/components/BackButton";
@@ -8,8 +7,8 @@ import { useFlowState } from "@/lib/flow/useFlowState";
 import type { Facility } from "@/lib/supabase/queries";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { MapPin } from "lucide-react";
-import { LOADING_NEXT_KEY } from "@/app/detainee/loading/page";
-import { FLOW_STORAGE_KEY } from "@/lib/flow/types";
+import { LOADING_NEXT_KEY } from "@/lib/flow/storageKeys";
+import { FLOW_STORAGE_KEY } from "@/lib/flow/storageKeys";
 import {
   Select,
   SelectContent,
@@ -18,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { StateCombobox } from "@/components/ui/state-combobox";
+import { ROUTES } from "@/lib/routes";
 
 export default function Step3DetainedLocationPage() {
   const router = useRouter();
@@ -30,10 +30,10 @@ export default function Step3DetainedLocationPage() {
 
   useEffect(() => {
     if (!hydrated) return;
-    if (!flow.arrest.state) router.replace("/detainee/step-1");
-    if (flow.detention.knowsWhereHeld === null) router.replace("/detainee/step-2");
+    if (!flow.arrest.state) router.replace(ROUTES.arrest);
+    if (flow.detention.knowsWhereHeld === null) router.replace(ROUTES.knowsLocation);
     if (flow.detention.knowsWhereHeld === false)
-      router.replace("/detainee/results/unknown");
+      router.replace(ROUTES.resultsUnknown);
   }, [hydrated, flow, router]);
 
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -98,7 +98,7 @@ export default function Step3DetainedLocationPage() {
     }
 
     localStorage.setItem(LOADING_NEXT_KEY, "results");
-    router.push("/detainee/loading");
+    router.push(ROUTES.loading);
   };
 
   const handleNoFacility = () => {
@@ -117,7 +117,7 @@ export default function Step3DetainedLocationPage() {
 
   return (
     <div className="bg-white">
-      <BackButton href="/detainee/step-2" label={t("step3.back")} />
+      <BackButton href={ROUTES.knowsLocation} label={t("step3.back")} />
 
       <div className="flex-1 px-4 py-8 sm:py-12">
         <div className="mx-auto max-w-2xl">
