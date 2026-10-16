@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
-  // The flow used to live under /detainee/*. Keep old links and bookmarks working.
+  // Old URLs → current ones, so links and bookmarks keep working.
   async redirects() {
     return [
       ["/detainee/step-1", "/arrest"],
@@ -33,8 +33,11 @@ const nextConfig: NextConfig = {
       ["/detainee/loading", "/loading"],
       ["/detainee/results/known", "/results/known"],
       ["/detainee/results/unknown", "/results/unknown"],
-      ["/detainee/learn/bonds", "/learn/bonds"],
-      ["/detainee/learn/habeas", "/learn/habeas"],
+      ["/detainee/learn/bonds", "/learn-more/bonds"],
+      ["/detainee/learn/habeas", "/learn-more/habeas"],
+      // The explainers were briefly at /learn/* before moving to /learn-more/*.
+      ["/learn/bonds", "/learn-more/bonds"],
+      ["/learn/habeas", "/learn-more/habeas"],
     ].map(([source, destination]) => ({ source, destination, permanent: true }));
   },
   async headers() {

@@ -7,6 +7,6 @@ export const ROUTES = {
   loading: "/loading",
   resultsKnown: "/results/known",
   resultsUnknown: "/results/unknown",
-  learnBonds: "/learn/bonds",
-  learnHabeas: "/learn/habeas",
+  learnMoreBonds: "/learn-more/bonds",
+  learnMoreHabeas: "/learn-more/habeas",
 } as const;

@@ -25,12 +25,12 @@ export default function LegalOptionsTab({
     {
       titleKey: "resultsKnown.options.bonds.title",
       bodyKey: "resultsKnown.options.bonds.description",
-      href: ROUTES.learnBonds,
+      href: ROUTES.learnMoreBonds,
     },
     {
       titleKey: "resultsKnown.options.habeas.title",
       bodyKey: "resultsKnown.options.habeas.description",
-      href: ROUTES.learnHabeas,
+      href: ROUTES.learnMoreHabeas,
     },
   ];
 
