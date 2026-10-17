@@ -240,5 +240,6 @@
   "footer.copyright": "© 2026 Phòng thí nghiệm Tư pháp Nhập cư tại Đại học Michigan + Trung tâm Quyền Nhập cư Michigan (MIRC)",
   "common.state.search": "Tìm Tiểu Bang",
   "arrest.city.loading": "Đang tải thành phố…",
-  "arrest.city.noResults": "Không tìm thấy thành phố nào."
+  "arrest.city.noResults": "Không tìm thấy thành phố nào.",
+  "common.loading": "Đang tải"
 }

@@ -240,5 +240,6 @@
   "footer.copyright": "© 2026 Laboratwa Jistis Imigran nan University of Michigan + Michigan Imigran Dwa Sant (MIRC)",
   "common.state.search": "Rechèch eta yo...",
   "arrest.city.loading": "Chaje vil yo...",
-  "arrest.city.noResults": "Pa gen okenn vil yo te jwenn."
+  "arrest.city.noResults": "Pa gen okenn vil yo te jwenn.",
+  "common.loading": "Ap chaje"
 }

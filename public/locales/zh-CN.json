@@ -240,5 +240,6 @@
   "footer.copyright": "© 2026密歇根大学移民正义实验室+密歇根移民权利中心（ MIRC ）",
   "common.state.search": "搜索州",
   "arrest.city.loading": "正在加载城市…",
-  "arrest.city.noResults": "沒有該城市"
+  "arrest.city.noResults": "沒有該城市",
+  "common.loading": "正在載入"
 }

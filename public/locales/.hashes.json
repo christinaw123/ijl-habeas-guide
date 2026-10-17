@@ -241,7 +241,8 @@
     "learn.habeas.p5": "ece95a6d",
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
-    "arrest.city.noResults": "85ece61e"
+    "arrest.city.noResults": "85ece61e",
+    "common.loading": "16bfbf9c"
   },
   "ar": {
     "toggle.label": "4994a8ff",
@@ -485,7 +486,8 @@
     "learn.habeas.p5": "ece95a6d",
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
-    "arrest.city.noResults": "85ece61e"
+    "arrest.city.noResults": "85ece61e",
+    "common.loading": "16bfbf9c"
   },
   "ht": {
     "toggle.label": "4994a8ff",
@@ -729,7 +731,8 @@
     "footer.copyright": "a1c05189",
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
-    "arrest.city.noResults": "85ece61e"
+    "arrest.city.noResults": "85ece61e",
+    "common.loading": "16bfbf9c"
   },
   "vi": {
     "toggle.label": "4994a8ff",
@@ -973,7 +976,8 @@
     "footer.copyright": "a1c05189",
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
-    "arrest.city.noResults": "85ece61e"
+    "arrest.city.noResults": "85ece61e",
+    "common.loading": "16bfbf9c"
   },
   "pt": {
     "toggle.label": "4994a8ff",
@@ -1217,7 +1221,8 @@
     "footer.copyright": "a1c05189",
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
-    "arrest.city.noResults": "85ece61e"
+    "arrest.city.noResults": "85ece61e",
+    "common.loading": "16bfbf9c"
   },
   "zh-CN": {
     "toggle.label": "4994a8ff",
@@ -1461,6 +1466,7 @@
     "footer.copyright": "a1c05189",
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
-    "arrest.city.noResults": "85ece61e"
+    "arrest.city.noResults": "85ece61e",
+    "common.loading": "16bfbf9c"
   }
 }

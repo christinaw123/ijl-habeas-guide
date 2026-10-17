@@ -240,5 +240,6 @@
   "footer.copyright": "© 2026 Laboratório de Justiça para Imigrantes da Universidade de Michigan + Michigan Immigrant Rights Center (MIRC)",
   "common.state.search": "Pesquisar Estados",
   "arrest.city.loading": "Carregando metrópoles...",
-  "arrest.city.noResults": "Não foram encontradas cidades."
+  "arrest.city.noResults": "Não foram encontradas cidades.",
+  "common.loading": "A carregar"
 }
