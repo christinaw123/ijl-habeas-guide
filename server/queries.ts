@@ -70,15 +70,13 @@ async function lookupByCountyCode(countyCode: string) {
         .eq("county_code", stateWideCoverageCode)
         .limit(1),
 
-      // !inner + validated=true: the Sheet of Record's `render` column lands in
-      // `validated`, and an org that is researched but not yet cleared must never
-      // surface. !inner drops the coverage row outright rather than embedding a null.
+      // No vetting filter here: the loader only writes orgs whose Sheet of Record
+      // `render` is TRUE, so every row in local_orgs is cleared for the site.
       supabase
         .from("org_county_coverage")
         .select(
-          "local_orgs!inner(id, organization, org_type, email, phone, url, description, action_text, form_url, response_time, languages, address)"
+          "local_orgs(id, organization, org_type, email, phone, url, description, action_text, form_url, response_time, languages, address)"
         )
-        .eq("local_orgs.validated", true)
         .in("county_code", [countyCode, stateWideCoverageCode]),
     ]);
 
@@ -182,9 +180,7 @@ export async function getUnknownResultsData(
     orgCodes.length > 0
       ? supabase
           .from("org_county_coverage")
-          // see the known-facility query above: validated gates unvetted orgs off the site
-          .select("local_orgs!inner(id, organization, org_type, email, phone, url, description, action_text, form_url, response_time, languages, address)")
-          .eq("local_orgs.validated", true)
+          .select("local_orgs(id, organization, org_type, email, phone, url, description, action_text, form_url, response_time, languages, address)")
           .in("county_code", orgCodes)
       : Promise.resolve({ data: [], error: null }),
   ]);
