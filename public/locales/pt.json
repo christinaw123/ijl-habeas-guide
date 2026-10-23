@@ -16,7 +16,6 @@
   "arrest.state.placeholder": "Selecione um estado",
   "arrest.state.error": "Selecione um estado para continuar.",
   "arrest.city.label": "City",
-  "arrest.city.optional": "(opcional)",
   "arrest.city.placeholder": "Introduza um nome de cidade...",
   "arrest.continue": "Continuar",
   "detention.back": "Traseira",
@@ -241,5 +240,12 @@
   "common.state.search": "Pesquisar Estados",
   "arrest.city.loading": "Carregando metrópoles...",
   "arrest.city.noResults": "Não foram encontradas cidades.",
-  "common.loading": "A carregar"
+  "common.loading": "A carregar",
+  "common.state.noResults": "Nenhum estado encontrado.",
+  "common.close": "Fechar",
+  "arrest.city.notListed": "A minha cidade não está listada",
+  "arrest.city.error": "Selecione uma cidade ou escolha \"A minha cidade não está listada\".",
+  "facility.facility.noResults": "Nenhuma instalação encontrada para este estado",
+  "resultsUnknown.callFacilities.noResults": "Nenhuma instalação encontrada para esta área.",
+  "resultsUnknown.getHelp.noResults": "Nenhuma organização encontrada para esta área."
 }

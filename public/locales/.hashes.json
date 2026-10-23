@@ -17,7 +17,6 @@
     "arrest.state.placeholder": "002fd633",
     "arrest.state.error": "2bfe0ef9",
     "arrest.city.label": "57d056ed",
-    "arrest.city.optional": "d9e6f344",
     "arrest.city.placeholder": "b850efe8",
     "arrest.continue": "a0bfb8e5",
     "detention.back": "0557fa92",
@@ -242,7 +241,14 @@
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
     "arrest.city.noResults": "85ece61e",
-    "common.loading": "16bfbf9c"
+    "common.loading": "16bfbf9c",
+    "common.state.noResults": "d83fc2a5",
+    "common.close": "d3d2e617",
+    "arrest.city.notListed": "6cd1554b",
+    "arrest.city.error": "8e7404c1",
+    "facility.facility.noResults": "13cd660c",
+    "resultsUnknown.callFacilities.noResults": "1f2afede",
+    "resultsUnknown.getHelp.noResults": "c2dbd002"
   },
   "ar": {
     "toggle.label": "4994a8ff",
@@ -262,7 +268,6 @@
     "arrest.state.placeholder": "002fd633",
     "arrest.state.error": "2bfe0ef9",
     "arrest.city.label": "57d056ed",
-    "arrest.city.optional": "d9e6f344",
     "arrest.city.placeholder": "b850efe8",
     "arrest.continue": "a0bfb8e5",
     "detention.back": "0557fa92",
@@ -487,7 +492,14 @@
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
     "arrest.city.noResults": "85ece61e",
-    "common.loading": "16bfbf9c"
+    "common.loading": "16bfbf9c",
+    "common.state.noResults": "d83fc2a5",
+    "common.close": "d3d2e617",
+    "arrest.city.notListed": "6cd1554b",
+    "arrest.city.error": "8e7404c1",
+    "facility.facility.noResults": "13cd660c",
+    "resultsUnknown.callFacilities.noResults": "1f2afede",
+    "resultsUnknown.getHelp.noResults": "c2dbd002"
   },
   "ht": {
     "toggle.label": "4994a8ff",
@@ -507,7 +519,6 @@
     "arrest.state.placeholder": "002fd633",
     "arrest.state.error": "2bfe0ef9",
     "arrest.city.label": "57d056ed",
-    "arrest.city.optional": "d9e6f344",
     "arrest.city.placeholder": "b850efe8",
     "arrest.continue": "a0bfb8e5",
     "detention.back": "0557fa92",
@@ -732,7 +743,14 @@
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
     "arrest.city.noResults": "85ece61e",
-    "common.loading": "16bfbf9c"
+    "common.loading": "16bfbf9c",
+    "common.state.noResults": "d83fc2a5",
+    "common.close": "d3d2e617",
+    "arrest.city.notListed": "6cd1554b",
+    "arrest.city.error": "8e7404c1",
+    "facility.facility.noResults": "13cd660c",
+    "resultsUnknown.callFacilities.noResults": "1f2afede",
+    "resultsUnknown.getHelp.noResults": "c2dbd002"
   },
   "vi": {
     "toggle.label": "4994a8ff",
@@ -752,7 +770,6 @@
     "arrest.state.placeholder": "002fd633",
     "arrest.state.error": "2bfe0ef9",
     "arrest.city.label": "57d056ed",
-    "arrest.city.optional": "d9e6f344",
     "arrest.city.placeholder": "b850efe8",
     "arrest.continue": "a0bfb8e5",
     "detention.back": "0557fa92",
@@ -977,7 +994,14 @@
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
     "arrest.city.noResults": "85ece61e",
-    "common.loading": "16bfbf9c"
+    "common.loading": "16bfbf9c",
+    "common.state.noResults": "d83fc2a5",
+    "common.close": "d3d2e617",
+    "arrest.city.notListed": "6cd1554b",
+    "arrest.city.error": "8e7404c1",
+    "facility.facility.noResults": "13cd660c",
+    "resultsUnknown.callFacilities.noResults": "1f2afede",
+    "resultsUnknown.getHelp.noResults": "c2dbd002"
   },
   "pt": {
     "toggle.label": "4994a8ff",
@@ -997,7 +1021,6 @@
     "arrest.state.placeholder": "002fd633",
     "arrest.state.error": "2bfe0ef9",
     "arrest.city.label": "57d056ed",
-    "arrest.city.optional": "d9e6f344",
     "arrest.city.placeholder": "b850efe8",
     "arrest.continue": "a0bfb8e5",
     "detention.back": "0557fa92",
@@ -1222,7 +1245,14 @@
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
     "arrest.city.noResults": "85ece61e",
-    "common.loading": "16bfbf9c"
+    "common.loading": "16bfbf9c",
+    "common.state.noResults": "d83fc2a5",
+    "common.close": "d3d2e617",
+    "arrest.city.notListed": "6cd1554b",
+    "arrest.city.error": "8e7404c1",
+    "facility.facility.noResults": "13cd660c",
+    "resultsUnknown.callFacilities.noResults": "1f2afede",
+    "resultsUnknown.getHelp.noResults": "c2dbd002"
   },
   "zh-CN": {
     "toggle.label": "4994a8ff",
@@ -1242,7 +1272,6 @@
     "arrest.state.placeholder": "002fd633",
     "arrest.state.error": "2bfe0ef9",
     "arrest.city.label": "57d056ed",
-    "arrest.city.optional": "d9e6f344",
     "arrest.city.placeholder": "b850efe8",
     "arrest.continue": "a0bfb8e5",
     "detention.back": "0557fa92",
@@ -1467,6 +1496,13 @@
     "common.state.search": "09fe5af0",
     "arrest.city.loading": "2a7d0a1e",
     "arrest.city.noResults": "85ece61e",
-    "common.loading": "16bfbf9c"
+    "common.loading": "16bfbf9c",
+    "common.state.noResults": "d83fc2a5",
+    "common.close": "d3d2e617",
+    "arrest.city.notListed": "6cd1554b",
+    "arrest.city.error": "8e7404c1",
+    "facility.facility.noResults": "13cd660c",
+    "resultsUnknown.callFacilities.noResults": "1f2afede",
+    "resultsUnknown.getHelp.noResults": "c2dbd002"
   }
 }

@@ -76,7 +76,7 @@ export const SelectItem = React.forwardRef<
     className={cn(
         "relative flex w-full cursor-pointer select-none items-center px-4 py-3",
         "font-proxima text-[16px] leading-5.5 text-foreground",
-        "focus:bg-[#1E63F0] focus:text-white focus:outline-none",
+        "focus:bg-(--ijl-highlight) focus:text-white focus:outline-none",
         "data-disabled:pointer-events-none data-disabled:opacity-50",
         className
     )}

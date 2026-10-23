@@ -11,6 +11,8 @@ interface CityComboboxProps {
   stateAbbr: string;
   placeholder: string;
   onValueChange: (city: string, countyCodes: string[]) => void;
+  // Called when the user picks "My city isn't listed" (always the last option).
+  onNotListed: () => void;
   onClear: () => void;
 }
 
@@ -19,6 +21,7 @@ export function CityCombobox({
   stateAbbr,
   placeholder,
   onValueChange,
+  onNotListed,
   onClear,
 }: CityComboboxProps) {
   const { t } = useLanguage();
@@ -39,6 +42,10 @@ export function CityCombobox({
     setResults([]);
     setIsLoading(false);
   }
+
+  // "My city isn't listed" sits after the results, so its index is results.length
+  // (0 while loading or when nothing matches).
+  const notListedIndex = isLoading ? 0 : results.length;
 
   // When open, show what the user is typing; when closed, show selected city or empty
   const displayValue = open ? query : (value ?? "");
@@ -94,6 +101,11 @@ export function CityCombobox({
     closeDropdown();
   }
 
+  function handleNotListed() {
+    onNotListed();
+    closeDropdown();
+  }
+
   function handleBlur() {
     // Small delay so onMouseDown on list items fires first
     setTimeout(closeDropdown, 100);
@@ -111,13 +123,16 @@ export function CityCombobox({
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setHighlightedIndex((i) => Math.min(i + 1, results.length - 1));
+      setHighlightedIndex((i) => Math.min(i + 1, notListedIndex));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setHighlightedIndex((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter") {
       e.preventDefault();
-      if (highlightedIndex >= 0 && results[highlightedIndex]) {
+      if (highlightedIndex === notListedIndex) {
+        handleNotListed();
+        inputRef.current?.blur();
+      } else if (highlightedIndex >= 0 && results[highlightedIndex]) {
         handleSelect(results[highlightedIndex]);
         inputRef.current?.blur();
       }
@@ -204,6 +219,7 @@ export function CityCombobox({
                 id={`${listboxId}-option-${i}`}
                 role="option"
                 aria-selected={value === place.place_display}
+                onMouseEnter={() => setHighlightedIndex(i)}
                 onMouseDown={(e) => {
                   // Prevent blur from firing before click
                   e.preventDefault();
@@ -211,7 +227,7 @@ export function CityCombobox({
                 }}
                 className={cn(
                   "cursor-pointer px-4 py-3 font-proxima text-[16px] text-foreground",
-                  i === highlightedIndex && "bg-(--ijl-cta-bg)",
+                  i === highlightedIndex && "bg-(--ijl-highlight) text-white",
                   value === place.place_display && i !== highlightedIndex && "font-semibold"
                 )}
               >
@@ -219,6 +235,24 @@ export function CityCombobox({
               </li>
             ))
           )}
+          <li
+            id={`${listboxId}-option-${notListedIndex}`}
+            role="option"
+            aria-selected={false}
+            onMouseEnter={() => setHighlightedIndex(notListedIndex)}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              handleNotListed();
+            }}
+            className={cn(
+              "cursor-pointer border-t border-(--ijl-border) px-4 py-3 font-proxima text-[16px]",
+              highlightedIndex === notListedIndex
+                ? "bg-(--ijl-highlight) text-white"
+                : "text-(--ijl-accent)"
+            )}
+          >
+            {t("arrest.city.notListed")}
+          </li>
         </ul>
       )}
     </div>

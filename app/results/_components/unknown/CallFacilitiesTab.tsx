@@ -93,7 +93,7 @@ export default function CallFacilitiesTab({
         <Spinner className="py-8" />
       ) : facilities.length === 0 ? (
         <p className="font-proxima text-base text-(--ijl-muted)">
-          No facilities found for this area.
+          {t("resultsUnknown.callFacilities.noResults")}
         </p>
       ) : (
       <div className="space-y-4">

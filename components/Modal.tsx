@@ -2,6 +2,7 @@
 
 import { useEffect, useId } from "react";
 import { X } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function Modal({
   open,
@@ -17,6 +18,7 @@ export default function Modal({
   children: React.ReactNode;
 }) {
   const titleId = useId();
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!open) return;
@@ -47,7 +49,7 @@ export default function Modal({
       >
         <button
           onClick={onClose}
-          aria-label="Close"
+          aria-label={t("common.close")}
           className="absolute top-4 right-4 p-1 rounded text-(--ijl-muted) hover:text-foreground transition-colors"
         >
           <X className="w-5 h-5" />

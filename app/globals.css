@@ -61,6 +61,7 @@
   --ijl-muted: #9292B1;
   --ijl-border: #E6E7E8;
   --ijl-cta-bg: #F2F4FA;
+  --ijl-highlight: #1E63F0; /* hovered/keyboard-highlighted dropdown option */
 
   --font-proxima: "Proxima Nova", ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";

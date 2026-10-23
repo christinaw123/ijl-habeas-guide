@@ -23,6 +23,8 @@ export const STRINGS: Record<string, string> = {
   // Common
   "common.state.search": "Search states…",
   "common.loading": "Loading",
+  "common.state.noResults": "No states found.",
+  "common.close": "Close",
 
   // Arrest page
   "arrest.back": "Back",
@@ -32,10 +34,11 @@ export const STRINGS: Record<string, string> = {
   "arrest.state.placeholder": "Select a state",
   "arrest.state.error": "Please select a state to continue.",
   "arrest.city.label": "City",
-  "arrest.city.optional": "(Optional)",
   "arrest.city.placeholder": "Type a city name...",
   "arrest.city.loading": "Loading cities…",
   "arrest.city.noResults": "No cities found.",
+  "arrest.city.notListed": "My city isn't listed",
+  "arrest.city.error": "Please select a city, or choose \"My city isn't listed\".",
   "arrest.continue": "Continue",
 
   // Detention page (do you know where they are held?)
@@ -55,6 +58,7 @@ export const STRINGS: Record<string, string> = {
   "facility.state.placeholder": "Select a state",
   "facility.facility.label": "Detention Facility",
   "facility.facility.placeholder": "Select a facility",
+  "facility.facility.noResults": "No facilities found for this state",
   "facility.facility.manual.label": "Other Detention Facility",
   "facility.facility.manual.placeholder": "Enter facility name",
   "facility.error": "Please select the required fields to continue.",
@@ -291,6 +295,7 @@ export const STRINGS: Record<string, string> = {
     "Facility staff cannot ask for your immigration status.",
   "resultsUnknown.callFacilities.facilitiesIntro":
     "These facilities often hold people arrested in",
+  "resultsUnknown.callFacilities.noResults": "No facilities found for this area.",
   "resultsUnknown.callFacilities.next": "If You Find Them",
 
   // If Found tab
@@ -311,6 +316,7 @@ export const STRINGS: Record<string, string> = {
     "If you weren't able to find your person using the tools above, these local organizations may be able to assist you.",
   "resultsUnknown.getHelp.badge": "Verified organizations · Free or low-cost services",
   "resultsUnknown.getHelp.callLink": "What to expect when you call",
+  "resultsUnknown.getHelp.noResults": "No organizations found for this area.",
   "resultsUnknown.getHelp.org.generalSupport": "GENERAL SUPPORT",
   "resultsUnknown.getHelp.org.legalSupport": "LEGAL SUPPORT",
 

@@ -16,7 +16,6 @@
   "arrest.state.placeholder": "选择一个省",
   "arrest.state.error": "请选择一个州以继续。",
   "arrest.city.label": "城市",
-  "arrest.city.optional": "（可选）",
   "arrest.city.placeholder": "请输入城市名称...",
   "arrest.continue": "继续",
   "detention.back": "回到",
@@ -241,5 +240,12 @@
   "common.state.search": "搜索州",
   "arrest.city.loading": "正在加载城市…",
   "arrest.city.noResults": "沒有該城市",
-  "common.loading": "正在載入"
+  "common.loading": "正在載入",
+  "common.state.noResults": "未找到状态",
+  "common.close": "关闭",
+  "arrest.city.notListed": "我的城市未列出",
+  "arrest.city.error": "请选择一个城市，或选择“我的城市未列出”。",
+  "facility.facility.noResults": "未找到此状态的设施",
+  "resultsUnknown.callFacilities.noResults": "未找到此区域的设施。",
+  "resultsUnknown.getHelp.noResults": "未找到此区域的组织。"
 }

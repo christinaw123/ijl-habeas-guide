@@ -16,7 +16,6 @@
   "arrest.state.placeholder": "Chọn tỉnh thành",
   "arrest.state.error": "Vui lòng chọn một tiểu bang để tiếp tục.",
   "arrest.city.label": "Thành phố",
-  "arrest.city.optional": "(Không bắt buộc)",
   "arrest.city.placeholder": "Nhập tên thành phố...",
   "arrest.continue": "Tiếp tục",
   "detention.back": "Quay lại",
@@ -241,5 +240,12 @@
   "common.state.search": "Tìm Tiểu Bang",
   "arrest.city.loading": "Đang tải thành phố…",
   "arrest.city.noResults": "Không tìm thấy thành phố nào.",
-  "common.loading": "Đang tải"
+  "common.loading": "Đang tải",
+  "common.state.noResults": "No states were found.",
+  "common.close": "Đóng",
+  "arrest.city.notListed": "Thành phố của tôi không có trong danh sách",
+  "arrest.city.error": "Vui lòng chọn một thành phố hoặc chọn \"Thành phố của tôi không được liệt kê\".",
+  "facility.facility.noResults": "Không tìm thấy cơ sở nào cho tiểu bang này",
+  "resultsUnknown.callFacilities.noResults": "Không tìm thấy cơ sở nào cho khu vực này.",
+  "resultsUnknown.getHelp.noResults": "Không tìm thấy tổ chức nào cho khu vực này."
 }

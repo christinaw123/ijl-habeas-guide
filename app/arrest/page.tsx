@@ -20,11 +20,13 @@ export default function ArrestPage() {
   if (!hydrated) return null;
 
   const stateValid = (flow.arrest.state ?? "").trim().length > 0;
+  const cityValid = !!flow.arrest.city || !!flow.arrest.cityNotListed;
+  const canContinue = stateValid && cityValid;
   const stateAbbr = STATE_ABBREVIATIONS[flow.arrest.state ?? ""] ?? "";
 
   const onContinue = () => {
     setTouched(true);
-    if (!stateValid) return;
+    if (!canContinue) return;
     router.push(ROUTES.detention);
   };
 
@@ -60,13 +62,13 @@ export default function ArrestPage() {
                   onValueChange={(value) =>
                     setFlow((prev) => ({
                       ...prev,
-                      arrest: { state: value, city: null, county_codes: null },
+                      arrest: { state: value, city: null, county_codes: null, cityNotListed: false },
                     }))
                   }
                   onClear={() =>
                     setFlow((prev) => ({
                       ...prev,
-                      arrest: { state: "", city: null, county_codes: null },
+                      arrest: { state: "", city: null, county_codes: null, cityNotListed: false },
                     }))
                   }
                 />
@@ -82,29 +84,40 @@ export default function ArrestPage() {
               {stateAbbr && (
                 <div className="space-y-2">
                   <label className="font-proxima text-[14px] text-foreground">
-                    {t("arrest.city.label")}{" "}
-                    <span className="ml-1 font-normal text-(--ijl-muted)">
-                      {t("arrest.city.optional")}
-                    </span>
+                    {t("arrest.city.label")}
                   </label>
 
                   <CityCombobox
-                    value={flow.arrest.city}
+                    value={
+                      flow.arrest.cityNotListed ? t("arrest.city.notListed") : flow.arrest.city
+                    }
                     stateAbbr={stateAbbr}
                     placeholder={t("arrest.city.placeholder")}
                     onValueChange={(city, countyCodes) =>
                       setFlow((prev) => ({
                         ...prev,
-                        arrest: { ...prev.arrest, city, county_codes: countyCodes },
+                        arrest: { ...prev.arrest, city, county_codes: countyCodes, cityNotListed: false },
+                      }))
+                    }
+                    onNotListed={() =>
+                      setFlow((prev) => ({
+                        ...prev,
+                        arrest: { ...prev.arrest, city: null, county_codes: null, cityNotListed: true },
                       }))
                     }
                     onClear={() =>
                       setFlow((prev) => ({
                         ...prev,
-                        arrest: { ...prev.arrest, city: null, county_codes: null },
+                        arrest: { ...prev.arrest, city: null, county_codes: null, cityNotListed: false },
                       }))
                     }
                   />
+
+                  {touched && !cityValid && (
+                    <div className="text-sm font-proxima text-red-600">
+                      {t("arrest.city.error")}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -112,10 +125,10 @@ export default function ArrestPage() {
               <button
                 type="button"
                 onClick={onContinue}
-                disabled={!stateValid}
+                aria-disabled={!canContinue}
                 className={[
                   "h-12 w-full rounded-[10px] font-proxima font-semibold text-white",
-                  stateValid
+                  canContinue
                     ? "bg-(--ijl-accent) hover:opacity-95"
                     : "bg-[#B9B9C9] cursor-not-allowed",
                 ].join(" ")}

@@ -16,7 +16,6 @@
   "arrest.state.placeholder": "برجاء إختيار الحالة",
   "arrest.state.error": "يرجى تحديد ولاية للمتابعة.",
   "arrest.city.label": "المدينة",
-  "arrest.city.optional": "(اختياري)",
   "arrest.city.placeholder": "اكتب اسم المدينة...",
   "arrest.continue": "متابعة",
   "detention.back": "[ترجمة المصطلح: Back]",
@@ -241,5 +240,12 @@
   "common.state.search": "بحث في الدول",
   "arrest.city.loading": "مدينه التحميل ",
   "arrest.city.noResults": "لم يتم العثور على أي مدن",
-  "common.loading": "إنزال"
+  "common.loading": "إنزال",
+  "common.state.noResults": "تم العثور على أي حالة.",
+  "common.close": "خاتمة",
+  "arrest.city.notListed": "مدينتي غير مسجلة",
+  "arrest.city.error": "يرجى تحديد مدينة، أو اختيار \"مدينتي غير مدرجة\".",
+  "facility.facility.noResults": "لم يتم العثور على مرافق لهذه الولاية",
+  "resultsUnknown.callFacilities.noResults": "لم يتم العثور على مرافق لهذه المنطقة.",
+  "resultsUnknown.getHelp.noResults": "لم يتم العثور على منظمات لهذه المنطقة."
 }

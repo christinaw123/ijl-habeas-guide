@@ -16,7 +16,6 @@
   "arrest.state.placeholder": "Chwazi yon eta",
   "arrest.state.error": "Tanpri chwazi yon eta pou kontinye.",
   "arrest.city.label": "Vil",
-  "arrest.city.optional": "(Si w vle)",
   "arrest.city.placeholder": "Tape yon non vil...",
   "arrest.continue": "Kontinye",
   "detention.back": "Do ",
@@ -241,5 +240,12 @@
   "common.state.search": "Rechèch eta yo...",
   "arrest.city.loading": "Chaje vil yo...",
   "arrest.city.noResults": "Pa gen okenn vil yo te jwenn.",
-  "common.loading": "Ap chaje"
+  "common.loading": "Ap chaje",
+  "common.state.noResults": "Pa gen eta yo te jwenn.",
+  "common.close": "Fèmen",
+  "arrest.city.notListed": "Vil mwen an pa nan lis/Ma ville n 'est",
+  "arrest.city.error": "Tanpri chwazi yon vil, oswa chwazi \"Vil mwen an pa nan lis la\".",
+  "facility.facility.noResults": "Pa gen enstalasyon yo te jwenn pou eta sa a",
+  "resultsUnknown.callFacilities.noResults": "Pa gen enstalasyon yo te jwenn pou zòn sa a.",
+  "resultsUnknown.getHelp.noResults": "Pa gen okenn òganizasyon yo te jwenn pou zòn sa a."
 }

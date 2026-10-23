@@ -46,7 +46,7 @@ export default function GetHelpTab({
         <Spinner className="py-8" />
       ) : orgs.length === 0 ? (
         <p className="font-proxima text-base text-(--ijl-muted)">
-          No organizations found for this area.
+          {t("resultsUnknown.getHelp.noResults")}
         </p>
       ) : (
       <div className="space-y-4">

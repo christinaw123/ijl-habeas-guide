@@ -142,7 +142,7 @@ export function StateCombobox({ value, placeholder, onValueChange, onClear }: St
         >
           {filtered.length === 0 ? (
             <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
-              No states found.
+              {t("common.state.noResults")}
             </li>
           ) : (
             filtered.map((state, i) => (
@@ -151,6 +151,7 @@ export function StateCombobox({ value, placeholder, onValueChange, onClear }: St
                 id={`${listboxId}-option-${i}`}
                 role="option"
                 aria-selected={value === state}
+                onMouseEnter={() => setHighlightedIndex(i)}
                 onMouseDown={(e) => {
                   // Prevent blur from firing before click
                   e.preventDefault();
@@ -158,7 +159,7 @@ export function StateCombobox({ value, placeholder, onValueChange, onClear }: St
                 }}
                 className={cn(
                   "cursor-pointer px-4 py-3 font-proxima text-[16px] text-foreground",
-                  i === highlightedIndex && "bg-(--ijl-cta-bg)",
+                  i === highlightedIndex && "bg-(--ijl-highlight) text-white",
                   value === state && i !== highlightedIndex && "font-semibold"
                 )}
               >

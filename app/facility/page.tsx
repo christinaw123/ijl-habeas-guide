@@ -184,7 +184,7 @@ export default function FacilityPage() {
                         <Spinner size="sm" className="py-3" />
                       ) : facilities.length === 0 ? (
                         <div className="px-3 py-2 text-sm text-(--ijl-muted) font-proxima">
-                          No facilities found for this state
+                          {t("facility.facility.noResults")}
                         </div>
                       ) : (
                         facilities.map((f) => (

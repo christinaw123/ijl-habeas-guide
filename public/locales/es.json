@@ -16,7 +16,6 @@
   "arrest.state.placeholder": "Selecciona Provincia",
   "arrest.state.error": "Selecciona un estado para continuar.",
   "arrest.city.label": "Ciudad",
-  "arrest.city.optional": "(Opcional)",
   "arrest.city.placeholder": "Escriba un nombre de ciudad...",
   "arrest.continue": "Continuar",
   "detention.back": "Atrás",
@@ -241,5 +240,12 @@
   "common.state.search": "Buscar estado/provincia",
   "arrest.city.loading": "Cargando ciudades...",
   "arrest.city.noResults": "No se encontraron ciudades.",
-  "common.loading": "Cargando"
+  "common.loading": "Cargando",
+  "common.state.noResults": "Estados no encontrados",
+  "common.close": "Cerrar",
+  "arrest.city.notListed": "Mi ciudad no aparece en la lista",
+  "arrest.city.error": "Selecciona una ciudad o selecciona \"Mi ciudad no está en la lista\".",
+  "facility.facility.noResults": "No se han encontrado instalaciones para este estado",
+  "resultsUnknown.callFacilities.noResults": "No se han encontrado instalaciones para esta zona.",
+  "resultsUnknown.getHelp.noResults": "No se han encontrado organizaciones para esta área."
 }
