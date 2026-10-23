@@ -103,6 +103,12 @@ export default function LanguageProvider({
     }
   }, [applyLang]);
 
+  // Keep <html lang> in sync with the displayed language so screen readers
+  // pronounce the content with the right voice.
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const t = useCallback(
     (key: string): string => translations[key] ?? STRINGS[key] ?? key,
     [translations]

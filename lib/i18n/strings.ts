@@ -5,26 +5,25 @@ export const STRINGS: Record<string, string> = {
   "toggle.label": "Language",
 
   // Homepage
+  "home.badge": "Free Resource",
   "home.title":
     "Have you or someone you know been detained by immigration officials?",
   "home.description":
-    "Use this free tool to help locate a detained person, understand their legal options, and find community and legal support organizations near you.",
-  "home.card.title": "Detainee Justice Tool",
-  "home.card.cta": "Get Started",
-  "home.card.disclaimer":
-    "This tool does not collect or share any information about you. We are not affiliated with ICE or any government agency.",
-  "home.about.title": "About This Tool",
+    "Use this free site to help locate and contact people in immigration detention, understand their legal options, and find local community and legal support.",
+  "home.cta": "Get Started",
+  "home.about.title": "About This Site",
   "home.about.p1":
-    "This tool was created by the Immigrant Justice Lab at the University of Michigan, in partnership with the Michigan Immigrant Rights Center (MIRC).",
-  "home.about.p2":
-    "The Immigrant Justice Lab and MIRC work together to help immigrant communities get the information and support they need. MIRC offers free legal help to immigrants across Michigan, including people who have been detained.",
-  "home.about.cta": "Learn More",
+    "This site was created by the Immigrant Justice Lab, a network of attorneys, researchers, and students at the University of Michigan and Harvard University.",
+  "home.privacy":
+    "This site does not collect or share any information about you. We are not affiliated with ICE or any government agency.",
 
   // Common
   "common.state.search": "Search states…",
   "common.loading": "Loading",
   "common.state.noResults": "No states found.",
   "common.close": "Close",
+  "common.state.clear": "Clear state",
+  "common.city.clear": "Clear city",
 
   // Arrest page
   "arrest.back": "Back",

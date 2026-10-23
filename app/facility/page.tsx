@@ -112,7 +112,7 @@ export default function FacilityPage() {
         <div className="mx-auto max-w-2xl">
           {/* Hero */}
           <div className="text-center mb-8">
-            <MapPin className="mx-auto mb-4 h-12 w-12 text-(--ijl-accent)" />
+            <MapPin className="mx-auto mb-4 h-12 w-12 text-(--ijl-light-gold-200)" />
             <h1 className="oswald text-[32px] font-medium text-(--ijl-title) mb-3">
               {t("facility.title")}
             </h1>
@@ -230,9 +230,10 @@ export default function FacilityPage() {
                 type="button"
                 onClick={onContinue}
                 className={[
-                  "w-full rounded-[10px] py-3 font-proxima font-semibold text-white transition-opacity",
-                  "bg-(--ijl-accent)",
-                  !valid ? "opacity-50 cursor-not-allowed" : "hover:opacity-90",
+                  "w-full rounded-[10px] py-3 font-proxima font-semibold transition-colors",
+                  valid
+                    ? "bg-(--ijl-light-gold-200) text-(--ijl-light-blue-800) hover:bg-(--ijl-gold-hover) active:bg-(--ijl-gold-pressed)"
+                    : "bg-(--ijl-disabled-bg) text-(--ijl-disabled-text) cursor-not-allowed",
                 ].join(" ")}
               >
                 {t("facility.continue")}

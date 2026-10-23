@@ -1,14 +1,9 @@
 {
   "toggle.label": "Lenguaje",
   "home.title": "¿Usted o alguien que conoce ha sido detenido por funcionarios de inmigración?",
-  "home.description": "Utilice esta herramienta gratuita para ayudar a localizar a una persona detenida, comprender sus opciones legales y encontrar organizaciones comunitarias y de apoyo legal cerca de usted.",
-  "home.card.title": "Herramienta de justicia para detenidos",
-  "home.card.cta": "Comencemos",
-  "home.card.disclaimer": "Esta herramienta no recopila ni comparte ninguna información sobre usted. No estamos afiliados a ICE ni a ninguna agencia gubernamental.",
-  "home.about.title": "Acerca de esta herramienta ",
-  "home.about.p1": "Esta herramienta fue creada por el Immigrant Justice Lab de la Universidad de Michigan, en colaboración con el Michigan Immigrant Rights Center (MIRC).",
-  "home.about.p2": "El Immigrant Justice Lab y MIRC trabajan juntos para ayudar a las comunidades de inmigrantes a obtener la información y el apoyo que necesitan. MIRC ofrece ayuda legal gratuita a los inmigrantes en todo Michigan, incluidas las personas que han sido detenidas.",
-  "home.about.cta": "Descubre más",
+  "home.description": "Utilice este sitio gratuito para ayudar a localizar y contactar a las personas en detención migratoria, comprender sus opciones legales y encontrar apoyo legal y de la comunidad local.",
+  "home.about.title": "Acerca de esta página",
+  "home.about.p1": "Este sitio fue creado por el Immigrant Justice Lab, una red de abogados, investigadores y estudiantes de la Universidad de Michigan y la Universidad de Harvard.",
   "arrest.back": "Atrás",
   "arrest.title": "¿Dónde fue arrestada la persona?",
   "arrest.subtitle": "Seleccione el estado y la ciudad donde ocurrió el arresto",
@@ -247,5 +242,10 @@
   "arrest.city.error": "Selecciona una ciudad o selecciona \"Mi ciudad no está en la lista\".",
   "facility.facility.noResults": "No se han encontrado instalaciones para este estado",
   "resultsUnknown.callFacilities.noResults": "No se han encontrado instalaciones para esta zona.",
-  "resultsUnknown.getHelp.noResults": "No se han encontrado organizaciones para esta área."
+  "resultsUnknown.getHelp.noResults": "No se han encontrado organizaciones para esta área.",
+  "home.badge": "Recurso gratuito",
+  "home.cta": "Comencemos",
+  "home.privacy": "Este sitio no recopila ni comparte ninguna información sobre usted. No estamos afiliados a ICE ni a ninguna agencia gubernamental.",
+  "common.state.clear": "Borrar estado",
+  "common.city.clear": "Borrar ciudad"
 }

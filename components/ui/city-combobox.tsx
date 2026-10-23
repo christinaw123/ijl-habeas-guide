@@ -167,7 +167,7 @@ export function CityCombobox({
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           className={cn(
-            "h-12 w-full rounded-[10px] border border-(--ijl-border) bg-white px-4 py-3 pr-12",
+            "h-12 w-full rounded-[10px] border border-(--ijl-input-border) bg-white px-4 py-3 pr-12",
             "font-proxima text-[16px] leading-[22.4px]",
             open || value ? "text-foreground" : "text-(--ijl-muted)",
             "focus:outline-none focus:ring-2 focus:ring-(--ijl-accent) focus:ring-offset-2 focus:ring-offset-white"
@@ -178,7 +178,7 @@ export function CityCombobox({
             <span
               role="button"
               tabIndex={0}
-              aria-label="Clear city"
+              aria-label={t("common.city.clear")}
               onMouseDown={(e) => {
                 e.preventDefault();
                 handleClear(e as unknown as React.MouseEvent);

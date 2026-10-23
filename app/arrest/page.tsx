@@ -38,7 +38,7 @@ export default function ArrestPage() {
         <div className="mx-auto max-w-2xl">
           {/* Hero */}
           <div className="text-center mb-8">
-            <MapPin className="mx-auto mb-4 h-12 w-12 text-(--ijl-accent)" />
+            <MapPin className="mx-auto mb-4 h-12 w-12 text-(--ijl-light-gold-200)" />
             <h1 className="oswald text-[32px] font-medium text-(--ijl-title) mb-3">
               {t("arrest.title")}
             </h1>
@@ -127,10 +127,10 @@ export default function ArrestPage() {
                 onClick={onContinue}
                 aria-disabled={!canContinue}
                 className={[
-                  "h-12 w-full rounded-[10px] font-proxima font-semibold text-white",
+                  "h-12 w-full rounded-[10px] font-proxima font-semibold transition-colors",
                   canContinue
-                    ? "bg-(--ijl-accent) hover:opacity-95"
-                    : "bg-[#B9B9C9] cursor-not-allowed",
+                    ? "bg-(--ijl-light-gold-200) text-(--ijl-light-blue-800) hover:bg-(--ijl-gold-hover) active:bg-(--ijl-gold-pressed)"
+                    : "bg-(--ijl-disabled-bg) text-(--ijl-disabled-text) cursor-not-allowed",
                 ].join(" ")}
               >
                 {t("arrest.continue")}

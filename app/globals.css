@@ -56,12 +56,24 @@
 
   /* brand tokens kept for legacy usage */
   --ijl-navy: #002E5D;
-  --ijl-title: #001F3C;
+  --ijl-title: var(--ijl-light-blue-800);
   --ijl-accent: #5A5A8A;
   --ijl-muted: #9292B1;
-  --ijl-border: #E6E7E8;
+  --ijl-border: #DADBFF;
+  --ijl-input-border: #8B8BC0; /* form field outlines, landing badge outline */
   --ijl-cta-bg: #F2F4FA;
   --ijl-highlight: #1E63F0; /* hovered/keyboard-highlighted dropdown option */
+  --ijl-light-purple-200: #BEBFF7; /* footer text */
+  --ijl-muted-on-dark: #A4A5DB; /* secondary text on dark backgrounds (footer copyright, landing hero) */
+  --ijl-light-gold-200: #F4BF57; /* footer link, primary gold button, form page icons */
+  --ijl-gold-hover: #EBB854; /* primary gold button, hovered */
+  --ijl-gold-pressed: #E6B452; /* primary gold button, pressed */
+  --ijl-disabled-bg: #DFDFDF; /* primary gold button, locked */
+  --ijl-disabled-text: #8E8E8E; /* primary gold button, locked */
+  --ijl-light-blue-800: #1A2E5A; /* titles, nav text, footer background */
+  --ijl-callout-bg: #E8E7F5; /* landing page privacy note */
+  --ijl-swirl: #626193; /* landing hero decorative swirl */
+  --ijl-hero-gradient: linear-gradient(148.89deg, #5B5A8B 7.95%, #444271 41.58%, #1A2E5A 92.03%);
 
   --font-proxima: "Proxima Nova", ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";

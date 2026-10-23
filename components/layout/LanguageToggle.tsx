@@ -1,7 +1,15 @@
 "use client";
 
-import { Globe } from "lucide-react";
+import { ChevronDown, Globe } from "lucide-react";
 import { useLanguage, type Lang } from "@/lib/i18n/LanguageContext";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 const LANGS: { label: string; value: Lang }[] = [
   { label: "English",        value: "en"    },
@@ -17,27 +25,37 @@ export default function LanguageToggle() {
   const { lang, setLang, loading, t } = useLanguage();
 
   return (
-    <div className="flex items-center gap-2">
-      <Globe className="h-4 w-4 text-[#6B6B6B]" />
-      <label className="sr-only" htmlFor="lang">
-        {t("toggle.label")}
-      </label>
-      <select
-        id="lang"
-        value={lang}
-        onChange={(e) => setLang(e.target.value as Lang)}
-        disabled={loading}
-        className={[
-          "cursor-pointer rounded-md border border-(--ijl-border) bg-white px-2 py-1 font-proxima text-[16px] text-foreground focus:outline-none focus:ring-2 focus:ring-(--ijl-accent) transition-opacity",
-          loading ? "opacity-50 cursor-not-allowed animate-pulse" : "",
-        ].join(" ")}
+    <Select
+      value={lang}
+      onValueChange={(v) => setLang(v as Lang)}
+      disabled={loading}
+    >
+      <SelectTrigger
+        aria-label={t("toggle.label")}
+        // The 24px icon box has 6px of empty space around the chevron on each
+        // side; negative margins trim it so the padding matches the design.
+        icon={<ChevronDown className="-mx-1.5 -my-2.25 h-6 w-6 text-(--ijl-accent)" strokeWidth={1.5} />}
+        className={cn(
+          "h-auto w-auto gap-2.75 rounded-full border-0 py-1.5 pl-2 pr-4 hover:bg-(--ijl-cta-bg)",
+          "text-[14px] leading-5.5 text-(--ijl-light-blue-800)",
+          "focus:ring-offset-0 data-[state=open]:bg-(--ijl-cta-bg)",
+          loading && "animate-pulse",
+        )}
       >
+        <span className="flex items-center gap-2.25">
+          <Globe className="h-4 w-4 text-(--ijl-accent)" />
+          <SelectValue />
+        </span>
+      </SelectTrigger>
+
+      <SelectContent align="end" className="w-auto min-w-(--radix-select-trigger-width)">
         {LANGS.map((l) => (
-          <option key={l.value} value={l.value}>
+          // lang lets screen readers pronounce each name in its own language
+          <SelectItem key={l.value} value={l.value} lang={l.value} className="py-2 text-[14px] leading-5">
             {l.label}
-          </option>
+          </SelectItem>
         ))}
-      </select>
-    </div>
+      </SelectContent>
+    </Select>
   );
 }

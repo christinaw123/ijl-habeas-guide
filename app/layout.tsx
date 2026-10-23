@@ -16,7 +16,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const oswald = Oswald({
   subsets: ["latin"],
-  weight: ["300","400","500"],   // light, regular, medium
+  weight: ["300","400","500","600"],   // light, regular, medium, semibold
   variable: "--font-oswald",
   display: "swap",
 });
