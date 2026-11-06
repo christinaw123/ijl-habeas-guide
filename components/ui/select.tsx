@@ -4,8 +4,14 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import {ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-export const Select = SelectPrimitive.Root;
+// Radix doesn't read <html dir>; without an explicit dir it renders the menu
+// as LTR even when the page is Arabic.
+export function Select(props: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>) {
+  const { dir } = useLanguage();
+  return <SelectPrimitive.Root dir={dir} {...props} />;
+}
 export const SelectValue = SelectPrimitive.Value;
 
 export const SelectTrigger = React.forwardRef<

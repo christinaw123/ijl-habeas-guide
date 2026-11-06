@@ -96,10 +96,10 @@ export default function LegalOptionsTab({
                 <div className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 text-(--muted-foreground) mt-0.5 shrink-0" />
                   <div className="font-proxima text-[16px] text-(--muted-foreground)">
-                    <div>{fieldOffice.street_address}</div>
-                    {fieldOffice.suite_floor && <div>{fieldOffice.suite_floor}</div>}
+                    <div><bdi dir="ltr">{fieldOffice.street_address}</bdi></div>
+                    {fieldOffice.suite_floor && <div><bdi dir="ltr">{fieldOffice.suite_floor}</bdi></div>}
                     <div>
-                      {fieldOffice.city}, {fieldOffice.state} {fieldOffice.zip}
+                      <bdi dir="ltr">{fieldOffice.city}, {fieldOffice.state} {fieldOffice.zip}</bdi>
                     </div>
                   </div>
                 </div>
@@ -109,7 +109,7 @@ export default function LegalOptionsTab({
                     href={`tel:${fieldOffice.phone.replace(/\D/g, "")}`}
                     className="font-proxima text-[16px] text-(--muted-foreground) hover:text-foreground"
                   >
-                    {fieldOffice.phone}
+                    <bdi dir="ltr">{fieldOffice.phone}</bdi>
                   </a>
                 </div>
               </div>
@@ -132,7 +132,7 @@ export default function LegalOptionsTab({
                   <div className="flex items-start gap-2">
                     <MapPin className="w-4 h-4 text-(--muted-foreground) mt-0.5 shrink-0" />
                     <span className="font-proxima text-[16px] text-(--muted-foreground)">
-                      {districtCourt.display_address}
+                      <bdi dir="ltr">{districtCourt.display_address}</bdi>
                     </span>
                   </div>
                 )}
@@ -143,7 +143,7 @@ export default function LegalOptionsTab({
                       href={`tel:${districtCourt.telephone_number.replace(/\D/g, "")}`}
                       className="font-proxima text-[16px] text-(--muted-foreground) hover:text-foreground"
                     >
-                      {districtCourt.telephone_number}
+                      <bdi dir="ltr">{districtCourt.telephone_number}</bdi>
                     </a>
                   </div>
                 )}

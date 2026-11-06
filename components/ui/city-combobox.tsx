@@ -167,13 +167,13 @@ export function CityCombobox({
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           className={cn(
-            "h-12 w-full rounded-[10px] border border-(--ijl-input-border) bg-white px-4 py-3 pr-12",
+            "h-12 w-full rounded-[10px] border border-(--ijl-input-border) bg-white px-4 py-3 pe-12",
             "font-proxima text-[16px] leading-[22.4px]",
             open || value ? "text-foreground" : "text-(--ijl-muted)",
             "focus:outline-none focus:ring-2 focus:ring-(--ijl-accent) focus:ring-offset-2 focus:ring-offset-white"
           )}
         />
-        <span className="pointer-events-none absolute right-3 flex items-center gap-1">
+        <span className="pointer-events-none absolute end-3 flex items-center gap-1">
           {value && !open && (
             <span
               role="button"
@@ -202,7 +202,7 @@ export function CityCombobox({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded-md border border-(--ijl-border) bg-white shadow-md"
+          className="absolute inset-x-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded-md border border-(--ijl-border) bg-white shadow-md"
         >
           {isLoading ? (
             <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">

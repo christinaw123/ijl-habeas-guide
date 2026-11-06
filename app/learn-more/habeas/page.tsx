@@ -38,8 +38,8 @@ export default function HabeasCorpusPage() {
 
             <div className="space-y-4">
               <p>{t("learn.habeas.selfRep.intro")}</p>
-              <ul className="list-disc pl-5 space-y-2">
-                <li className="pl-2">
+              <ul className="list-disc ps-5 space-y-2">
+                <li className="ps-2">
                   <span className="font-bold text-foreground">
                     {t("learn.habeas.guide.title")}
                   </span>{" "}

@@ -23,7 +23,7 @@ const oswald = Oswald({
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <body
         className={`${oswald.variable} min-h-screen flex flex-col bg-white`}
       >

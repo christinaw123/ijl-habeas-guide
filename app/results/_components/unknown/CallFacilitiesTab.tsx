@@ -34,12 +34,12 @@ export default function CallFacilitiesTab({
       <div className="border border-(--ijl-border) rounded-[10px] bg-white shadow-sm overflow-hidden">
         <button
           onClick={onToggleAccordion}
-          className="w-full flex items-center justify-between px-6 py-4 font-proxima text-[18px] font-bold text-foreground hover:bg-(--ijl-cta-bg) transition-colors text-left"
+          className="w-full flex items-center justify-between px-6 py-4 font-proxima text-[18px] font-bold text-foreground hover:bg-(--ijl-cta-bg) transition-colors text-start"
           aria-expanded={accordionOpen}
         >
           {t("resultsUnknown.callFacilities.accordion.title")}
           <ChevronDown
-            className={`w-5 h-5 text-(--ijl-muted) transition-transform shrink-0 ml-2 ${
+            className={`w-5 h-5 text-(--ijl-muted) transition-transform shrink-0 ms-2 ${
               accordionOpen ? "rotate-180" : ""
             }`}
           />
@@ -63,7 +63,7 @@ export default function CallFacilitiesTab({
               <h4 className="font-proxima font-bold text-base text-foreground">
                 {t("resultsUnknown.callFacilities.accordion.tips.label")}
               </h4>
-              <ul className="list-disc pl-5 space-y-2 font-proxima text-base text-foreground">
+              <ul className="list-disc ps-5 space-y-2 font-proxima text-base text-foreground">
                 <li>{t("resultsUnknown.callFacilities.accordion.tips.1")}</li>
                 <li>{t("resultsUnknown.callFacilities.accordion.tips.2")}</li>
                 <li>{t("resultsUnknown.callFacilities.accordion.tips.3")}</li>
@@ -74,7 +74,7 @@ export default function CallFacilitiesTab({
               <h4 className="font-proxima font-bold text-base text-foreground">
                 {t("resultsUnknown.callFacilities.accordion.rights.title")}
               </h4>
-              <ul className="list-disc pl-5 space-y-2 font-proxima text-base text-foreground">
+              <ul className="list-disc ps-5 space-y-2 font-proxima text-base text-foreground">
                 <li>{t("resultsUnknown.callFacilities.accordion.rights.1")}</li>
                 <li>{t("resultsUnknown.callFacilities.accordion.rights.2")}</li>
               </ul>
@@ -109,7 +109,7 @@ export default function CallFacilitiesTab({
               <MapPin className="w-4 h-4 text-(--ijl-muted) mt-1 shrink-0" />
               <div className="font-proxima text-base text-(--ijl-muted)">
                 {facility.address.map((line) => (
-                  <div key={line}>{line}</div>
+                  <div key={line}><bdi dir="ltr">{line}</bdi></div>
                 ))}
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function CallFacilitiesTab({
                   href={`tel:${facility.phone}`}
                   className="font-proxima text-base text-(--ijl-muted) hover:text-foreground"
                 >
-                  {facility.phoneDisplay}
+                  <bdi dir="ltr">{facility.phoneDisplay}</bdi>
                 </a>
               </div>
             )}
@@ -145,12 +145,12 @@ export default function CallFacilitiesTab({
       {/* Bottom nav */}
       <div className="flex justify-between items-center pt-2">
         <Button variant="ghost" onClick={() => onNavigate("other-searches")}>
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 rtl:-scale-x-100" />
           {t("resultsUnknown.nav.back")}
         </Button>
         <Button onClick={() => onNavigate("if-found")}>
           {t("resultsUnknown.callFacilities.next")}
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 rtl:-scale-x-100" />
         </Button>
       </div>
     </div>

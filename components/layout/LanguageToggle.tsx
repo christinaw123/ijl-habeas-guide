@@ -36,7 +36,7 @@ export default function LanguageToggle() {
         // side; negative margins trim it so the padding matches the design.
         icon={<ChevronDown className="-mx-1.5 -my-2.25 h-6 w-6 text-(--ijl-accent)" strokeWidth={1.5} />}
         className={cn(
-          "h-auto w-auto gap-2.75 rounded-full border-0 py-1.5 pl-2 pr-4 hover:bg-(--ijl-cta-bg)",
+          "h-auto w-auto gap-2.75 rounded-full border-0 py-1.5 ps-2 pe-4 hover:bg-(--ijl-cta-bg)",
           "text-[14px] leading-5.5 text-(--ijl-light-blue-800)",
           "focus:ring-offset-0 data-[state=open]:bg-(--ijl-cta-bg)",
           loading && "animate-pulse",

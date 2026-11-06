@@ -273,7 +273,7 @@ export default function FacilityPage() {
               </h3>
               <div className="space-y-3 font-proxima text-sm text-foreground">
                 <p>{t("facility.guidance.intro")}</p>
-                <ul className="list-disc pl-5 space-y-2">
+                <ul className="list-disc ps-5 space-y-2">
                   <li>{t("facility.guidance.tip1")}</li>
                   <li>{t("facility.guidance.tip2")}</li>
                   <li>{t("facility.guidance.tip3")}</li>

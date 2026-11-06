@@ -5,7 +5,7 @@ import LanguageToggle from "@/components/layout/LanguageToggle";
 export default function Header() {
   return (
     <header className="w-full bg-white border-b border-(--ijl-border)">
-      {/* Left-aligned wrapper (NOT centered) */}
+      {/* Logo sits at the reading start (left in LTR, right in RTL) */}
       <div className="w-full px-4">
         <div className="mx-auto max-w-2xl h-18 flex items-center justify-between">
           {/* Logo */}
@@ -14,13 +14,13 @@ export default function Header() {
               src="/IJLlogo.png"
               alt="Immigrant Justice Lab"
               fill
-              className="object-contain object-left"
+              className="object-contain object-left rtl:object-right"
               priority
             />
           </Link>
 
           {/* Toggle */}
-          <div className="ml-auto flex items-center">
+          <div className="ms-auto flex items-center">
             <LanguageToggle />
           </div>
         </div>

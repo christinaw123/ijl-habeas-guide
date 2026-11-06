@@ -17,7 +17,7 @@ export default function BackButton({ href, label }: BackButtonProps) {
             href={href}
             className="inline-flex items-center gap-2 rounded-md px-2 py-2 font-proxima text-[16px] text-(--ijl-light-blue-800) hover:bg-(--ijl-cta-bg)"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4 rtl:-scale-x-100" />
             {label}
           </Link>
         </div>

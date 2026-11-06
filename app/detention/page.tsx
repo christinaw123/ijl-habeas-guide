@@ -81,7 +81,7 @@ export default function DetentionPage() {
                       }))
                     }
                     className={[
-                      "w-full p-4 text-left rounded-lg border-2 transition-all font-proxima text-base",
+                      "w-full p-4 text-start rounded-lg border-2 transition-all font-proxima text-base",
                       selected
                         ? "border-(--ijl-accent) bg-[#5A5A8A]/10"
                         : "border-(--ijl-border) hover:border-(--ijl-muted) bg-white",

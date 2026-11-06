@@ -50,13 +50,13 @@ export default function Modal({
         <button
           onClick={onClose}
           aria-label={t("common.close")}
-          className="absolute top-4 right-4 p-1 rounded text-(--ijl-muted) hover:text-foreground transition-colors"
+          className="absolute top-4 end-4 p-1 rounded text-(--ijl-muted) hover:text-foreground transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
         <h2
           id={titleId}
-          className="oswald text-[24px] font-medium text-(--ijl-title) mb-4 pr-8"
+          className="oswald text-[24px] font-medium text-(--ijl-title) mb-4 pe-8"
         >
           {title}
         </h2>

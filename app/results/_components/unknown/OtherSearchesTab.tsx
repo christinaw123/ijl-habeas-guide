@@ -38,21 +38,21 @@ export default function OtherSearchesTab({
           {/* VINELink */}
           <div className="space-y-3">
             <p className="font-proxima text-base text-foreground">
-              <ExternalLink className="inline w-4 h-4 mr-1 -mt-0.5" />
+              <ExternalLink className="inline w-4 h-4 me-1 -mt-0.5" />
               <span className="font-bold">VINELink</span>{" "}
               {t("resultsUnknown.otherSearches.vinelink.desc")}
             </p>
-            <ul className="list-disc pl-5 space-y-1 font-proxima text-base text-foreground">
+            <ul className="list-disc ps-5 space-y-1 font-proxima text-base text-foreground">
               <li>
                 <span className="font-bold">
                   {t("resultsUnknown.otherSearches.vinelink.need1")}
                 </span>
               </li>
             </ul>
-            <p className="font-proxima text-base text-(--ijl-muted) pl-5">
+            <p className="font-proxima text-base text-(--ijl-muted) ps-5">
               {t("resultsUnknown.searchIce.gather.or")}
             </p>
-            <ul className="list-disc pl-5 space-y-1 font-proxima text-base text-foreground">
+            <ul className="list-disc ps-5 space-y-1 font-proxima text-base text-foreground">
               <li>{t("resultsUnknown.otherSearches.vinelink.need2")}</li>
             </ul>
             <Button size="lg" asChild>
@@ -70,21 +70,21 @@ export default function OtherSearchesTab({
           {/* DHS VINELink */}
           <div className="space-y-3">
             <p className="font-proxima text-base text-foreground">
-              <ExternalLink className="inline w-4 h-4 mr-1 -mt-0.5" />
+              <ExternalLink className="inline w-4 h-4 me-1 -mt-0.5" />
               <span className="font-bold">DHS VINELink</span>{" "}
               {t("resultsUnknown.otherSearches.dhsVinelink.desc")}
             </p>
-            <ul className="list-disc pl-5 space-y-1 font-proxima text-base text-foreground">
+            <ul className="list-disc ps-5 space-y-1 font-proxima text-base text-foreground">
               <li>
                 <span className="font-bold">
                   {t("resultsUnknown.otherSearches.dhsVinelink.need1")}
                 </span>
               </li>
             </ul>
-            <p className="font-proxima text-base text-(--ijl-muted) pl-5">
+            <p className="font-proxima text-base text-(--ijl-muted) ps-5">
               {t("resultsUnknown.searchIce.gather.or")}
             </p>
-            <ul className="list-disc pl-5 space-y-1 font-proxima text-base text-foreground">
+            <ul className="list-disc ps-5 space-y-1 font-proxima text-base text-foreground">
               <li>{t("resultsUnknown.otherSearches.dhsVinelink.need2a")}</li>
               <li>{t("resultsUnknown.otherSearches.dhsVinelink.need2b")}</li>
               <li>{t("resultsUnknown.otherSearches.dhsVinelink.need2c")}</li>
@@ -116,7 +116,7 @@ export default function OtherSearchesTab({
         <p className="font-proxima text-base text-foreground">
           {t("resultsUnknown.otherSearches.eoir.intro")}
         </p>
-        <ul className="list-disc pl-5 font-proxima text-base text-foreground">
+        <ul className="list-disc ps-5 font-proxima text-base text-foreground">
           <li>
             <span className="font-bold">
               {t("resultsUnknown.otherSearches.eoir.need1")}
@@ -138,12 +138,12 @@ export default function OtherSearchesTab({
       {/* Bottom nav */}
       <div className="flex justify-between items-center pt-2">
         <Button variant="ghost" onClick={() => onNavigate("search-ice")}>
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 rtl:-scale-x-100" />
           {t("resultsUnknown.nav.back")}
         </Button>
         <Button onClick={() => onNavigate("call-facilities")}>
           {t("resultsUnknown.tabs.callFacilities")}
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 rtl:-scale-x-100" />
         </Button>
       </div>
     </div>

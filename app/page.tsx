@@ -22,7 +22,7 @@ export default function HomePage() {
             Figma: 34% group opacity × 75% path opacity. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute opacity-[0.255] bg-(--ijl-swirl) mask-[url(/thread-swirl.svg)] mask-no-repeat mask-size-[100%_100%] left-[calc(50%-344.5px)] top-44.75 w-139 h-83.75 md:left-[calc(50%-766px)] md:top-20.75 md:w-326 md:h-196.75"
+          className="pointer-events-none absolute opacity-[0.255] bg-(--ijl-swirl) mask-[url(/thread-swirl.svg)] mask-no-repeat mask-size-[100%_100%] start-[calc(50%-344.5px)] rtl:-scale-x-100 top-44.75 w-139 h-83.75 md:start-[calc(50%-766px)] md:top-20.75 md:w-326 md:h-196.75"
         />
 
         <div className="relative mx-auto max-w-224">

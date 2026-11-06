@@ -68,12 +68,12 @@ export default function IfFoundTab({
       {/* Bottom nav */}
       <div className="flex justify-between items-center pt-2">
         <Button variant="ghost" onClick={() => onNavigate("call-facilities")}>
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 rtl:-scale-x-100" />
           {t("resultsUnknown.nav.back")}
         </Button>
         <Button onClick={() => onNavigate("get-help")}>
           {t("resultsUnknown.ifFound.next")}
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 rtl:-scale-x-100" />
         </Button>
       </div>
     </div>

@@ -99,7 +99,7 @@ export default function GetHelpTab({
                     href={`tel:${org.phone}`}
                     className="font-proxima text-base text-(--ijl-muted) hover:text-foreground"
                   >
-                    {org.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
+                    <bdi dir="ltr">{org.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}</bdi>
                   </a>
                 </div>
               )}
@@ -120,7 +120,7 @@ export default function GetHelpTab({
       {/* Bottom nav */}
       <div className="pt-2">
         <Button variant="ghost" onClick={() => onNavigate("if-found")}>
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 rtl:-scale-x-100" />
           {t("resultsUnknown.nav.back")}
         </Button>
       </div>
