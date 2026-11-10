@@ -16,14 +16,14 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const oswald = Oswald({
   subsets: ["latin"],
-  weight: ["300","400","500"],   // light, regular, medium
+  weight: ["300","400","500","600"],   // light, regular, medium, semibold
   variable: "--font-oswald",
   display: "swap",
 });
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <body
         className={`${oswald.variable} min-h-screen flex flex-col bg-white`}
       >

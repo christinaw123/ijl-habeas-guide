@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { LanguageContext, type Lang } from "@/lib/i18n/LanguageContext";
+import { LanguageContext, dirFor, type Lang } from "@/lib/i18n/LanguageContext";
 import { STRINGS } from "@/lib/i18n/strings";
 
 type Translations = Record<string, string>;
@@ -103,13 +103,24 @@ export default function LanguageProvider({
     }
   }, [applyLang]);
 
+  const dir = dirFor(lang);
+
+  // Keep <html lang> in sync with the displayed language so screen readers
+  // pronounce the content with the right voice, and <html dir> so right-to-left
+  // languages (Arabic) mirror the whole layout. Components use logical classes
+  // (ms-/me-/ps-/pe-/start-/end-/text-start) so they flip automatically.
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = dir;
+  }, [lang, dir]);
+
   const t = useCallback(
     (key: string): string => translations[key] ?? STRINGS[key] ?? key,
     [translations]
   );
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang: applyLang, t, loading }}>
+    <LanguageContext.Provider value={{ lang, dir, setLang: applyLang, t, loading }}>
       {children}
     </LanguageContext.Provider>
   );

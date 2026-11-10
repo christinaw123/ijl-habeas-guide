@@ -11,6 +11,8 @@ interface CityComboboxProps {
   stateAbbr: string;
   placeholder: string;
   onValueChange: (city: string, countyCodes: string[]) => void;
+  // Called when the user picks "My city isn't listed" (always the last option).
+  onNotListed: () => void;
   onClear: () => void;
 }
 
@@ -19,6 +21,7 @@ export function CityCombobox({
   stateAbbr,
   placeholder,
   onValueChange,
+  onNotListed,
   onClear,
 }: CityComboboxProps) {
   const { t } = useLanguage();
@@ -39,6 +42,11 @@ export function CityCombobox({
     setResults([]);
     setIsLoading(false);
   }
+
+  // "My city isn't listed" is pinned first (index 0); city i is index i + 1.
+  // Hidden while loading, so there's nothing to highlight then (-1).
+  const NOT_LISTED_INDEX = 0;
+  const lastIndex = isLoading ? -1 : results.length;
 
   // When open, show what the user is typing; when closed, show selected city or empty
   const displayValue = open ? query : (value ?? "");
@@ -94,6 +102,11 @@ export function CityCombobox({
     closeDropdown();
   }
 
+  function handleNotListed() {
+    onNotListed();
+    closeDropdown();
+  }
+
   function handleBlur() {
     // Small delay so onMouseDown on list items fires first
     setTimeout(closeDropdown, 100);
@@ -111,14 +124,18 @@ export function CityCombobox({
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setHighlightedIndex((i) => Math.min(i + 1, results.length - 1));
+      setHighlightedIndex((i) => Math.min(i + 1, lastIndex));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setHighlightedIndex((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter") {
       e.preventDefault();
-      if (highlightedIndex >= 0 && results[highlightedIndex]) {
-        handleSelect(results[highlightedIndex]);
+      if (isLoading) return;
+      if (highlightedIndex === NOT_LISTED_INDEX) {
+        handleNotListed();
+        inputRef.current?.blur();
+      } else if (results[highlightedIndex - 1]) {
+        handleSelect(results[highlightedIndex - 1]);
         inputRef.current?.blur();
       }
     }
@@ -152,18 +169,18 @@ export function CityCombobox({
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           className={cn(
-            "h-12 w-full rounded-[10px] border border-(--ijl-border) bg-white px-4 py-3 pr-12",
+            "h-12 w-full rounded-[10px] border border-(--ijl-input-border) bg-white px-4 py-3 pe-12",
             "font-proxima text-[16px] leading-[22.4px]",
             open || value ? "text-foreground" : "text-(--ijl-muted)",
             "focus:outline-none focus:ring-2 focus:ring-(--ijl-accent) focus:ring-offset-2 focus:ring-offset-white"
           )}
         />
-        <span className="pointer-events-none absolute right-3 flex items-center gap-1">
+        <span className="pointer-events-none absolute end-3 flex items-center gap-1">
           {value && !open && (
             <span
               role="button"
               tabIndex={0}
-              aria-label="Clear city"
+              aria-label={t("common.city.clear")}
               onMouseDown={(e) => {
                 e.preventDefault();
                 handleClear(e as unknown as React.MouseEvent);
@@ -187,37 +204,61 @@ export function CityCombobox({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded-md border border-(--ijl-border) bg-white shadow-md"
+          className="absolute inset-x-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded-md border border-(--ijl-border) bg-white shadow-md"
         >
           {isLoading ? (
             <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
               {t("arrest.city.loading")}
             </li>
-          ) : results.length === 0 ? (
-            <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
-              {t("arrest.city.noResults")}
-            </li>
           ) : (
-            results.map((place, i) => (
+            <>
+              {/* Pinned: sticks to the top of the box while the cities scroll under it */}
               <li
-                key={`${place.county_codes.join(",")}__${place.place_display}`}
-                id={`${listboxId}-option-${i}`}
+                id={`${listboxId}-option-${NOT_LISTED_INDEX}`}
                 role="option"
-                aria-selected={value === place.place_display}
+                aria-selected={false}
+                onMouseEnter={() => setHighlightedIndex(NOT_LISTED_INDEX)}
                 onMouseDown={(e) => {
-                  // Prevent blur from firing before click
                   e.preventDefault();
-                  handleSelect(place);
+                  handleNotListed();
                 }}
                 className={cn(
-                  "cursor-pointer px-4 py-3 font-proxima text-[16px] text-foreground",
-                  i === highlightedIndex && "bg-(--ijl-cta-bg)",
-                  value === place.place_display && i !== highlightedIndex && "font-semibold"
+                  "sticky top-0 z-10 cursor-pointer border-b border-(--ijl-border) px-4 py-3 font-proxima text-[16px]",
+                  highlightedIndex === NOT_LISTED_INDEX
+                    ? "bg-(--ijl-highlight) text-white"
+                    : "bg-white text-(--ijl-accent)"
                 )}
               >
-                {place.place_display}
+                {t("arrest.city.notListed")}
               </li>
-            ))
+              {results.length === 0 ? (
+                <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
+                  {t("arrest.city.noResults")}
+                </li>
+              ) : (
+                results.map((place, i) => (
+                  <li
+                    key={`${place.county_codes.join(",")}__${place.place_display}`}
+                    id={`${listboxId}-option-${i + 1}`}
+                    role="option"
+                    aria-selected={value === place.place_display}
+                    onMouseEnter={() => setHighlightedIndex(i + 1)}
+                    onMouseDown={(e) => {
+                      // Prevent blur from firing before click
+                      e.preventDefault();
+                      handleSelect(place);
+                    }}
+                    className={cn(
+                      "cursor-pointer px-4 py-3 font-proxima text-[16px] text-foreground",
+                      i + 1 === highlightedIndex && "bg-(--ijl-highlight) text-white",
+                      value === place.place_display && i + 1 !== highlightedIndex && "font-semibold"
+                    )}
+                  >
+                    {place.place_display}
+                  </li>
+                ))
+              )}
+            </>
           )}
         </ul>
       )}

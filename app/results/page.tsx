@@ -16,7 +16,7 @@ export default function ResultsPage() {
   // Send the user back to the first step they haven't answered yet.
   const redirectTo = !hydrated
     ? null
-    : !flow.arrest.state
+    : !flow.arrest.state || (!flow.arrest.city && !flow.arrest.cityNotListed)
       ? ROUTES.arrest
       : flow.detention.knowsWhereHeld === null
         ? ROUTES.detention

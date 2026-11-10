@@ -54,7 +54,7 @@ export default function OrgCard({ org }: { org: LocalOrg }) {
               href={`tel:${org.phone.replace(/\D/g, "")}`}
               className="font-proxima text-[16px] text-(--muted-foreground) hover:text-foreground"
             >
-              {org.phone}
+              <bdi dir="ltr">{org.phone}</bdi>
             </a>
           </div>
         )}

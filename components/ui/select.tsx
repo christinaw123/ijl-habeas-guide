@@ -4,18 +4,27 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import {ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-export const Select = SelectPrimitive.Root;
+// Radix doesn't read <html dir>; without an explicit dir it renders the menu
+// as LTR even when the page is Arabic.
+export function Select(props: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>) {
+  const { dir } = useLanguage();
+  return <SelectPrimitive.Root dir={dir} {...props} />;
+}
 export const SelectValue = SelectPrimitive.Value;
 
 export const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
+    /** Replaces the default chevron. */
+    icon?: React.ReactNode;
+  }
+>(({ className, children, icon, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-12 w-full items-center justify-between rounded-[10px] border border-(--ijl-border) bg-white px-4 py-3",
+      "flex h-12 w-full items-center justify-between rounded-[10px] border border-(--ijl-input-border) bg-white px-4 py-3",
       "font-proxima text-[16px] leading-[22.4px] text-foreground",
       "focus:outline-none focus:ring-2 focus:ring-(--ijl-accent) focus:ring-offset-2 focus:ring-offset-white",
       "disabled:cursor-not-allowed disabled:opacity-50",
@@ -25,7 +34,7 @@ export const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 text-[#2F2E2E]" />
+      {icon ?? <ChevronDown className="h-4 w-4 text-[#2F2E2E]" />}
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -76,7 +85,7 @@ export const SelectItem = React.forwardRef<
     className={cn(
         "relative flex w-full cursor-pointer select-none items-center px-4 py-3",
         "font-proxima text-[16px] leading-5.5 text-foreground",
-        "focus:bg-[#1E63F0] focus:text-white focus:outline-none",
+        "focus:bg-(--ijl-highlight) focus:text-white focus:outline-none",
         "data-disabled:pointer-events-none data-disabled:opacity-50",
         className
     )}

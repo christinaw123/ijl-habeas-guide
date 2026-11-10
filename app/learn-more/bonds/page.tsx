@@ -36,8 +36,8 @@ export default function ImmigrationBondsPage() {
 
             <div className="space-y-4">
               <p>{t("learn.bonds.selfRep.intro")}</p>
-              <ul className="list-disc pl-5 space-y-2">
-                <li className="pl-2">
+              <ul className="list-disc ps-5 space-y-2">
+                <li className="ps-2">
                   <a
                     href="https://www.immigrantjusticelab.org/guides/a-immigration-bonds"
                     target="_blank"
@@ -48,7 +48,7 @@ export default function ImmigrationBondsPage() {
                   </a>{" "}
                   {t("learn.bonds.guide.desc")}
                 </li>
-                <li className="pl-2">
+                <li className="ps-2">
                   <a
                     href="https://www.immigrantjusticelab.org/guides/faq"
                     target="_blank"
@@ -64,8 +64,8 @@ export default function ImmigrationBondsPage() {
 
             <div className="space-y-4">
               <p>{t("learn.bonds.bailFund.intro")}</p>
-              <ul className="list-disc pl-5 space-y-2">
-                <li className="pl-2">
+              <ul className="list-disc ps-5 space-y-2">
+                <li className="ps-2">
                   <a
                     href="https://bit.ly/localbailfunds"
                     target="_blank"

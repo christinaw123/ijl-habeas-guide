@@ -40,7 +40,7 @@ export default function SearchIceTab({
               </button>
             </span>
           </div>
-          <p className="font-proxima text-[14px] text-(--ijl-muted) pl-8">
+          <p className="font-proxima text-[14px] text-(--ijl-muted) ps-8">
             {t("resultsUnknown.searchIce.gather.or")}
           </p>
           <div className="flex items-start gap-3">
@@ -74,7 +74,7 @@ export default function SearchIceTab({
             <AlertCircle className="w-4 h-4 text-(--ijl-accent)" />
             {t("resultsUnknown.searchIce.tips.label")}
           </h4>
-          <ul className="list-disc pl-5 space-y-2 font-proxima text-base text-foreground">
+          <ul className="list-disc ps-5 space-y-2 font-proxima text-base text-foreground">
             <li>{t("resultsUnknown.searchIce.tips.1")}</li>
             <li>{t("resultsUnknown.searchIce.tips.2")}</li>
             <li>{t("resultsUnknown.searchIce.tips.3")}</li>
@@ -96,7 +96,7 @@ export default function SearchIceTab({
       <div className="flex justify-end pt-2">
         <Button variant="outline" onClick={() => onNavigate("other-searches")}>
           {t("resultsUnknown.searchIce.next")}
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 rtl:-scale-x-100" />
         </Button>
       </div>
     </div>

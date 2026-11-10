@@ -29,10 +29,10 @@ export default function ContactTab({
             <div className="flex items-start gap-2">
               <MapPin className="w-4 h-4 text-(--muted-foreground) mt-1 shrink-0" />
               <div className="font-proxima text-[16px] text-(--muted-foreground)">
-                {facility?.address_standardized && <div>{facility.address_standardized}</div>}
+                {facility?.address_standardized && <div><bdi dir="ltr">{facility.address_standardized}</bdi></div>}
                 {facility?.city && (
                   <div>
-                    {facility.city}, {facility.state} {facility.zip}
+                    <bdi dir="ltr">{facility.city}, {facility.state} {facility.zip}</bdi>
                   </div>
                 )}
               </div>
@@ -42,7 +42,7 @@ export default function ContactTab({
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-(--muted-foreground) shrink-0" />
               <span className="font-proxima text-[16px] text-(--muted-foreground) hover:text-foreground">
-                {facility.display_telephone_number}
+                <bdi dir="ltr">{facility.display_telephone_number}</bdi>
               </span>
             </div>
           )}
@@ -103,7 +103,7 @@ export default function ContactTab({
           <h4 className="font-proxima font-bold text-[16px] text-foreground">
             {t("resultsKnown.contact.tips.label")}
           </h4>
-          <ul className="list-disc pl-5 space-y-2 font-proxima text-[16px] text-foreground">
+          <ul className="list-disc ps-5 space-y-2 font-proxima text-[16px] text-foreground">
             <li>{t("resultsKnown.contact.tips.1")}</li>
             <li>{t("resultsKnown.contact.tips.2")}</li>
             <li>{t("resultsKnown.contact.tips.3")}</li>
@@ -114,7 +114,7 @@ export default function ContactTab({
           <h4 className="font-proxima font-bold text-[16px] text-foreground">
             {t("resultsKnown.contact.toDetainee.label")}
           </h4>
-          <ul className="list-disc pl-5 space-y-2 font-proxima text-[16px] text-foreground">
+          <ul className="list-disc ps-5 space-y-2 font-proxima text-[16px] text-foreground">
             <li>{t("resultsKnown.contact.toDetainee.1")}</li>
             <li>{t("resultsKnown.contact.toDetainee.2")}</li>
             <li>{t("resultsKnown.contact.toDetainee.3")}</li>
