@@ -43,9 +43,10 @@ export function CityCombobox({
     setIsLoading(false);
   }
 
-  // "My city isn't listed" sits after the results, so its index is results.length
-  // (0 while loading or when nothing matches).
-  const notListedIndex = isLoading ? 0 : results.length;
+  // "My city isn't listed" is pinned first (index 0); city i is index i + 1.
+  // Hidden while loading, so there's nothing to highlight then (-1).
+  const NOT_LISTED_INDEX = 0;
+  const lastIndex = isLoading ? -1 : results.length;
 
   // When open, show what the user is typing; when closed, show selected city or empty
   const displayValue = open ? query : (value ?? "");
@@ -123,17 +124,18 @@ export function CityCombobox({
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setHighlightedIndex((i) => Math.min(i + 1, notListedIndex));
+      setHighlightedIndex((i) => Math.min(i + 1, lastIndex));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setHighlightedIndex((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter") {
       e.preventDefault();
-      if (highlightedIndex === notListedIndex) {
+      if (isLoading) return;
+      if (highlightedIndex === NOT_LISTED_INDEX) {
         handleNotListed();
         inputRef.current?.blur();
-      } else if (highlightedIndex >= 0 && results[highlightedIndex]) {
-        handleSelect(results[highlightedIndex]);
+      } else if (results[highlightedIndex - 1]) {
+        handleSelect(results[highlightedIndex - 1]);
         inputRef.current?.blur();
       }
     }
@@ -208,51 +210,56 @@ export function CityCombobox({
             <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
               {t("arrest.city.loading")}
             </li>
-          ) : results.length === 0 ? (
-            <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
-              {t("arrest.city.noResults")}
-            </li>
           ) : (
-            results.map((place, i) => (
+            <>
+              {/* Pinned: sticks to the top of the box while the cities scroll under it */}
               <li
-                key={`${place.county_codes.join(",")}__${place.place_display}`}
-                id={`${listboxId}-option-${i}`}
+                id={`${listboxId}-option-${NOT_LISTED_INDEX}`}
                 role="option"
-                aria-selected={value === place.place_display}
-                onMouseEnter={() => setHighlightedIndex(i)}
+                aria-selected={false}
+                onMouseEnter={() => setHighlightedIndex(NOT_LISTED_INDEX)}
                 onMouseDown={(e) => {
-                  // Prevent blur from firing before click
                   e.preventDefault();
-                  handleSelect(place);
+                  handleNotListed();
                 }}
                 className={cn(
-                  "cursor-pointer px-4 py-3 font-proxima text-[16px] text-foreground",
-                  i === highlightedIndex && "bg-(--ijl-highlight) text-white",
-                  value === place.place_display && i !== highlightedIndex && "font-semibold"
+                  "sticky top-0 z-10 cursor-pointer border-b border-(--ijl-border) px-4 py-3 font-proxima text-[16px]",
+                  highlightedIndex === NOT_LISTED_INDEX
+                    ? "bg-(--ijl-highlight) text-white"
+                    : "bg-white text-(--ijl-accent)"
                 )}
               >
-                {place.place_display}
+                {t("arrest.city.notListed")}
               </li>
-            ))
+              {results.length === 0 ? (
+                <li className="px-4 py-3 font-proxima text-[14px] text-(--ijl-muted)">
+                  {t("arrest.city.noResults")}
+                </li>
+              ) : (
+                results.map((place, i) => (
+                  <li
+                    key={`${place.county_codes.join(",")}__${place.place_display}`}
+                    id={`${listboxId}-option-${i + 1}`}
+                    role="option"
+                    aria-selected={value === place.place_display}
+                    onMouseEnter={() => setHighlightedIndex(i + 1)}
+                    onMouseDown={(e) => {
+                      // Prevent blur from firing before click
+                      e.preventDefault();
+                      handleSelect(place);
+                    }}
+                    className={cn(
+                      "cursor-pointer px-4 py-3 font-proxima text-[16px] text-foreground",
+                      i + 1 === highlightedIndex && "bg-(--ijl-highlight) text-white",
+                      value === place.place_display && i + 1 !== highlightedIndex && "font-semibold"
+                    )}
+                  >
+                    {place.place_display}
+                  </li>
+                ))
+              )}
+            </>
           )}
-          <li
-            id={`${listboxId}-option-${notListedIndex}`}
-            role="option"
-            aria-selected={false}
-            onMouseEnter={() => setHighlightedIndex(notListedIndex)}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              handleNotListed();
-            }}
-            className={cn(
-              "cursor-pointer border-t border-(--ijl-border) px-4 py-3 font-proxima text-[16px]",
-              highlightedIndex === notListedIndex
-                ? "bg-(--ijl-highlight) text-white"
-                : "text-(--ijl-accent)"
-            )}
-          >
-            {t("arrest.city.notListed")}
-          </li>
         </ul>
       )}
     </div>
